@@ -1,0 +1,10 @@
+#JSGF V1.0;
+
+/**
+ * JSGF Grammar for STT Leonie
+ */
+
+grammar hello;
+
+public <greet> = Good morning | Hi;
+public <answer> = Yes | No;public <end>= Take care | See you later;
