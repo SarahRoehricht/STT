@@ -56,9 +56,9 @@ public class HelloWorld {
 
 					if(microphone.startRecording()){
 
-						System.out.println ("Say: (Good morning | Hi) ");
+						System.out.println ("Say: (Good morning | Hi) (Leonie) ");
 						System.out.println ("Say: (Yes | No) ");
-						System.out.println ("Say: (Take Care | See you) ");
+						System.out.println ("Say: (Okay)(Take Care | See you) ");
 
 						while(true){
 							System.out.println
@@ -69,7 +69,7 @@ public class HelloWorld {
 							if ("#STT#0".equals(Receiver.received)){
 
 								microphone.stopRecording();
-
+								
 								/*
 								 * This method will return when the end of speech
 								 * is reached. Note that the endpointer will determine
@@ -82,7 +82,9 @@ public class HelloWorld {
 									String resultText = result.getBestFinalResultNoFiller();
 									resultText = "#STT#" + resultText;
 									System.out.println("You said: " + resultText + "\n");
-
+									
+									microphone.clear();
+									
 									/*über UDP senden*/
 									DatagramSocket socket;
 									try {

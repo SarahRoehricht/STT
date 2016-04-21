@@ -6,5 +6,5 @@
 
 grammar hello;
 
-public <greet> = Good morning | Hi;
-public <answer> = Yes | No;public <end>= Take care | See you later;
+public <greet> = (Good morning | Hi) (Leonie);
+public <answer> = Yes | No;public <end>= (Okay) (Take care | See you);
