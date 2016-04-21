@@ -16,8 +16,7 @@ public class Receiver {
         DatagramSocket serverSocket = new DatagramSocket(port);
         byte[] receiveData = new byte[1024];
 
-        System.out.printf("Listening on udp:%s:%d%n",
-                InetAddress.getLocalHost().getHostAddress(), port);     
+        System.out.printf("Listening on udp:%s:%d%n","localhost", port);     //InetAddress.getLocalHost().getHostAddress()
         DatagramPacket receivePacket = new DatagramPacket(receiveData,
                            receiveData.length);
 
