@@ -29,7 +29,7 @@ public class readFile
 			parts = strLine.split("-");
 			part1 = parts[0]; 
 			part2 = parts[1]; 
-			datalogger.counter = Integer.parseInt(part2);
+			Datalogger.counter = Integer.parseInt(part2);
 			//System.out.println(cnt);
 			//System.out.println("split..." + part2);
 		}
