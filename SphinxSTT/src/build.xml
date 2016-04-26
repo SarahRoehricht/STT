@@ -61,7 +61,7 @@ NOTE:  Before running the tests, you must have already built
     <target name="run"
 	    description="Runs the hello world demo."
 	    depends="all">
-	    <java classname="demo.sphinx.helloworld.HelloWorld"
+	    <java classname="demo.sphinx.helloworld.SPHX_STT"
 	          fork="true"
 		  maxmemory="128m">
                   <sysproperty key="frontend" value="epFrontEnd"/>
