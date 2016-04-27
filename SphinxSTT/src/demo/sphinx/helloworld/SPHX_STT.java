@@ -67,23 +67,23 @@ public class SPHX_STT {
 
 				
 				while(true){
-
-					System.out.println("Listening...");
 					
 					/* receive via UDP*/
 					stt.udpCom.receiveSocket(stt.myIP, stt.myPort,false);
 					message = stt.udpCom.getMessage();
 					System.out.println(message);
 					
+					System.out.println("Recording...");
+					
 					//new Receiver().run(port);
 
-					if ("#STT#1".equals(message)){
+					if ("#STT#1#".equals(message)){
 
 						if(microphone.startRecording()){
 
-							System.out.println ("Say: (Good morning | Hi) (Leonie) ");
-							System.out.println ("Say: (Yes | No) ");
-							System.out.println ("Say: (Okay)(Take Care | See you) ");
+							//System.out.println ("Say: (Good morning | Hi) (Leonie) ");
+							//System.out.println ("Say: (Yes | No) ");
+							//System.out.println ("Say: (Okay)(Take Care | See you) ");
 
 							while(true){
 								System.out.println
@@ -94,7 +94,7 @@ public class SPHX_STT {
 								message = stt.udpCom.getMessage();
 								System.out.println(message);
 								
-								if ("#STT#0".equals(message)){
+								if ("#STT#0#".equals(message)){
 
 									microphone.stopRecording();
 
@@ -108,7 +108,7 @@ public class SPHX_STT {
 									if (result != null) {
 
 										String resultText = result.getBestFinalResultNoFiller();
-										resultText = "#STT#" + resultText;
+										resultText = "#STT#" + resultText + "#";
 										System.out.println("You said: " + resultText + "\n");
 
 										microphone.clear();

@@ -25,7 +25,7 @@ public class Datalogger
 
 	Datalogger()
 	{
-		countLogger = new File("counterLog.log");
+		countLogger = new File("c:/Workspace/STT/counterLog.log");
 		try
 		{
 			counter = readCounter();
