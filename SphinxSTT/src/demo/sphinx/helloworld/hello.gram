@@ -1,6 +1,8 @@
 #JSGF V1.0;
 
-/* JSGF Grammar for STT Leonie */
+/**
+ * JSGF Grammar for STT Leonie
+ */
 
 grammar hello;
 

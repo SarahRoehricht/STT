@@ -106,7 +106,7 @@ public class SPHX_STT {
 									if (result != null) {
 
 										String resultText = result.getBestFinalResultNoFiller();
-										resultText = "#STT#" + resultText + "#";
+										resultText = "#STT#" + resultText;
 										System.out.println("You said: " + resultText + "\n");
 
 										microphone.clear();
