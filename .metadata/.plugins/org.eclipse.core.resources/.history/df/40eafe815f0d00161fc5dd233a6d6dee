@@ -40,7 +40,7 @@ public class SPHX_STT {
 			url = SPHX_STT.class.getResource("helloworld.config.xml");
 			//}
 
-			System.out.println("Waiting for a signal...");
+			System.out.println("Loading...");
 
 
 			//int port = 8884;

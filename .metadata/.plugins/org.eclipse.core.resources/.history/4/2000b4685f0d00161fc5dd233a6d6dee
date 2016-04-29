@@ -40,7 +40,7 @@ public class SPHX_STT {
 			url = SPHX_STT.class.getResource("helloworld.config.xml");
 			//}
 
-			System.out.println("Waiting for a signal...");
+			System.out.println("Loading...");
 
 
 			//int port = 8884;
@@ -141,8 +141,6 @@ public class SPHX_STT {
 									}
 									else {
 										System.out.println("I can't hear what you said.\n");
-										String notHeard = "#STT##";
-										stt.udpCom.sendSocket(notHeard, stt.targetIP, stt.targetPort);
 									}
 								}
 								else{
