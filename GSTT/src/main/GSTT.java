@@ -18,7 +18,7 @@ import javaFlacEncoder.FLACFileWriter;
 public class GSTT
 {
 
-	static String question;
+	static String question = "";
 	static int stage = 0;
 	static int findName = 0;
 	static String toBeSent = "";
@@ -90,7 +90,7 @@ public class GSTT
 						GSpeechDuplex dup = null;
 						
 						if (Datalogger.counter < 50)
-							dup = new GSpeechDuplex("AIzaSyAtphCcVON9OU-URwD6jjqStwYtBNxK4oY");// Instantiate the APIKEY
+							dup = new GSpeechDuplex("AIzaSyB6yR8DR6onz9YEBKkHmrLAOQZth5Vv2gs");// Instantiate the APIKEY
 						else 
 							dup = new GSpeechDuplex("AIzaSyAtphCcVON9OU-URwD6jjqStwYtBNxK4oY");
 						
@@ -110,7 +110,7 @@ public class GSTT
 								if(findName == 1)
 								{
 									Boolean found;
-									String[] names = {"Robert", "Mark", "Mac", "Felix", "Matthias", "Leonie", "Onur", "Tobi", "Michelle"};
+									String[] names = {"Robert", "Mark", "Mac", "Felix", "Matthias", "Leonie", "leonie", "Onur", "Tobi", "Michelle"};
 			
 									System.out.println(question);
 										for(int i = 0 ; i < names.length; i++)
@@ -127,7 +127,12 @@ public class GSTT
 													}
 										}
 								}
-								else 
+								else if(gr.getResponse() == null | question == null)
+								{
+									System.out.println("I can't hear what you said.\n");
+									toBeSent = "";
+								}
+								else if (gr.getResponse() != null)
 								{
 									beforeFirstComma = question.split("\"")[0];
 									toBeSent = beforeFirstComma;
