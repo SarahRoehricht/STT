@@ -20,6 +20,8 @@ public class GSTT
 
 	static String question;
 	static int stage = 0;
+	static int findName = 0;
+	static String toBeSent = "";
 	static String beforeFirstComma = "";
 
 	private UDPConnection udpCom;
@@ -66,33 +68,37 @@ public class GSTT
 				{
 				case 0:
 				{
-
 					System.out.println("GSTT");
-
+					
 					do
 					{
 						gstt.udpCom.receiveSocket(gstt.myIP, gstt.myPort, false);
 						message = gstt.udpCom.getMessage();
 						System.out.println(message);
-					} while (!"#STT#1#".equals(message));
-
-					if ("#STT#1#".equals(message))
+					} while (!("#STT#1#".equals(message)|"#STT#name#".equals(message)));
+					
+					if("#STT#name#".equals(message))
+					{
+						findName = 1;
+					}
+					
+					if ("#STT#1#".equals(message)| "#STT#name#".equals(message))
 					{
 						/* GSpeechDuplex */
 						System.out.println("started");
-
+						
 						GSpeechDuplex dup = null;
+						
 						if (Datalogger.counter < 50)
 							dup = new GSpeechDuplex("AIzaSyAtphCcVON9OU-URwD6jjqStwYtBNxK4oY");// Instantiate the APIKEY
 						else 
 							dup = new GSpeechDuplex("AIzaSyAtphCcVON9OU-URwD6jjqStwYtBNxK4oY");
-
+						
+						
 						dup.addResponseListener(new GSpeechResponseListener()
 						{ // Adds the listener
-
 							public void onResponse(GoogleResponse gr)
-							{
-
+							{									
 								System.out.println("Google thinks you said: " + gr.getResponse());
 
 								System.out.println(
@@ -100,21 +106,42 @@ public class GSTT
 								System.out.println("Google also thinks that you might have said:" + gr.getOtherPossibleResponses());
 
 								question = gr.getResponse();
-								beforeFirstComma = question.split("\"")[0];
 								
-								if (beforeFirstComma != null)
+								if(findName == 1)
 								{
-									beforeFirstComma = "#STT#" + beforeFirstComma + "#";
-									System.out.println("You said: " + beforeFirstComma + "\n");
-									gstt.udpCom.sendSocket(beforeFirstComma, gstt.targetIP, gstt.targetPort);
-									//System.out.println("Packet versendet an:  " + gstt.targetIP + ":" + gstt.targetPort + " -> " + beforeFirstComma);
-									System.out.println("String sent.");
+									Boolean found;
+									String[] names = {"Robert", "Mark", "Mac", "Felix", "Matthias", "Leonie", "Onur", "Tobi", "Michelle"};
 			
-								} else
-								{
-									System.out.println("I can't hear what you said.\n");
-									stage = 0;
+									System.out.println(question);
+										for(int i = 0 ; i < names.length; i++)
+										{
+											found = question.contains(names[i]);
+												if(found)
+													{
+														toBeSent = names[i];
+														break;
+													}
+												else
+													{
+														toBeSent = "";
+													}
+										}
 								}
+								else 
+								{
+									beforeFirstComma = question.split("\"")[0];
+									toBeSent = beforeFirstComma;
+								}
+								
+								
+								if (toBeSent != null)
+								{
+									toBeSent = "#STT#" + toBeSent + "#";
+									System.out.println("You said: " + toBeSent + "\n");
+									gstt.udpCom.sendSocket(toBeSent, gstt.targetIP, gstt.targetPort);
+									System.out.println("String sent.");
+								} 
+								
 								try
 								{
 									gstt.log.writeData();
@@ -123,8 +150,7 @@ public class GSTT
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
-							}
-
+							}	
 						});
 
 						Microphone mic = new Microphone(FLACFileWriter.FLAC);// Instantiate microphone & record FLAC file.
@@ -138,9 +164,6 @@ public class GSTT
 									System.out.println("Recording...");
 									mic.captureAudioToFile(file); // starts recording
 									//Thread.sleep(10000);// Records for 10s
-									
-
-
 									do
 									{
 										gstt.udpCom.receiveSocket(gstt.myIP, gstt.myPort, false);
@@ -161,8 +184,7 @@ public class GSTT
 								}
 							break;
 						}
-					}
-					
+					}	
 				}
 				}
 			}
