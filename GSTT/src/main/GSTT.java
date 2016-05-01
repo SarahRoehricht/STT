@@ -94,8 +94,10 @@ public class GSTT
 						
 						if (Datalogger.counter < 50)
 							dup = new GSpeechDuplex("AIzaSyAtphCcVON9OU-URwD6jjqStwYtBNxK4oY");// Instantiate the APIKEY
-						else 
+						else if ((Datalogger.counter > 50) && (Datalogger.counter < 100))
 							dup = new GSpeechDuplex("AIzaSyB6yR8DR6onz9YEBKkHmrLAOQZth5Vv2gs");
+						else 
+							dup = new GSpeechDuplex("AIzaSyDe2nR4mdQYL74iwkZx5pOBM_3MVHNZS8c");
 						
 						
 						dup.addResponseListener(new GSpeechResponseListener()
@@ -178,16 +180,18 @@ public class GSTT
 									System.out.println("You said: " + toBeSent + "\n");
 									gstt.udpCom.sendSocket(toBeSent, gstt.targetIP, gstt.targetPort);
 									System.out.println("String sent.");
+									if (!toBeSent.equals("#STT##"))  //CHANGED and in Dataloger add "-"
+									{	
+									try
+									{
+										gstt.log.writeData();
+									} catch (IOException e)
+									{
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									}
 								} 
-								
-								try
-								{
-									gstt.log.writeData();
-								} catch (IOException e)
-								{
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
 							}	
 						});
 

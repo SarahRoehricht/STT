@@ -96,7 +96,7 @@ public class Datalogger
 			{
 				System.out.println(currDate + "Current count..." + counter);
 				writer = new PrintWriter(countLogger, "UTF-8");
-				writer.println(sdf.format(currentTime) + counter);
+				writer.println(sdf.format(currentTime)+ "-" + counter);
 				counter++;
 				writer.close();
 			} else
