@@ -6,7 +6,7 @@
 
 grammar hello;
 
-public <greet> = (Good morning | Hi) (Leonie);
-public <answer> = Yes | No | Yup | Ja | Nein | Nah;
+public <greet> = (Good morning | Hi) (Leonie)| hello;
+public <answer> = Yes| yes | No | no | Yup | Ja | Nein | Nah;
 public <end>= (Okay) (Take care | See you);
-public <names> = Robert | Marc | Marcus | Felix | Leonie | Michelle | Jane | John | Michael | Pedro | Joao | Jack | James | Tobias | Jonathan | Sasha | Phillip | Patrick;
+public <names> = Robert | robot | Marc | Mark | Matthias | Mattias| Emma | Marcus | Felix | Leonie | Michelle | Jane | John | Michael | James | Tobias | Jonathan | Gordon | Phillip | Patrick;

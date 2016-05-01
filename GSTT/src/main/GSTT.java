@@ -75,7 +75,7 @@ public class GSTT
 						gstt.udpCom.receiveSocket(gstt.myIP, gstt.myPort, false);
 						message = gstt.udpCom.getMessage();
 						System.out.println(message);
-					} while (!("#STT#1#".equals(message)|"#STT#name#".equals(message)));
+					} while (!("#STT#1#".equals(message)|"#STT#name#".equals(message)| "#STT#yesno#".equals(message)));
 					
 					if("#STT#name#".equals(message))
 					{
@@ -96,8 +96,11 @@ public class GSTT
 							dup = new GSpeechDuplex("AIzaSyAtphCcVON9OU-URwD6jjqStwYtBNxK4oY");// Instantiate the APIKEY
 						else if ((Datalogger.counter >= 50) && (Datalogger.counter < 100))
 							dup = new GSpeechDuplex("AIzaSyB6yR8DR6onz9YEBKkHmrLAOQZth5Vv2gs");
+						else if ((Datalogger.counter >= 100) && (Datalogger.counter < 150))
+							dup = new GSpeechDuplex("AIzaSyCFhY2ogNV4iFX3Hg3EgGU5y9wGodmfLR8");
 						else 
 							dup = new GSpeechDuplex("AIzaSyDe2nR4mdQYL74iwkZx5pOBM_3MVHNZS8c");
+						
 						
 						
 						dup.addResponseListener(new GSpeechResponseListener()
@@ -140,16 +143,16 @@ public class GSTT
 								else if(filter == "yesno")
 								{
 									Boolean found;
-									String[] names = {"yes", "Yes", "jep", "Jep", "yup", "Yup", "Yep", "yep", "ja", "Ja", "no", "No", "nope", "Nope", "nah", "Nah"};
+									String[] janein = {"yes", "Yes", "jep", "Jep", "yup", "Yup", "Yep", "yep", "ja", "Ja", "no", "No", "nope", "Nope", "nah", "Nah"};
 			
 									System.out.println(question);
 									if(question != null){
-										for(int i = 0 ; i < names.length; i++)
+										for(int i = 0 ; i < janein.length; i++)
 										{
-											found = question.contains(names[i]);
+											found = question.contains(janein[i]);
 												if(found)
 													{
-														toBeSent = names[i];
+														toBeSent = janein[i];
 														break;
 													}
 												else

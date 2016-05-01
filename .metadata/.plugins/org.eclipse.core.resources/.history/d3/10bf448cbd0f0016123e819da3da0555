@@ -1,0 +1,12 @@
+#JSGF V1.0;
+
+/**
+ * JSGF Grammar for STT Leonie
+ */
+
+grammar hello;
+
+public <greet> = (Good morning | Hi) (Leonie);
+public <answer> = Yes | No | Yup | Ja | Nein | Nah;
+public <end>= (Okay) (Take care | See you);
+public <names> = Robert | robot | Marc | Mark | Matthias | Mattias| Emma | Marcus | Felix | Leonie | Michelle | Jane | John | Michael | Pedro | Joao | Jack | James | Tobias | Tobi | Jonathan | Sasha | Phillip | Patrick;

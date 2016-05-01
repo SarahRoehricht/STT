@@ -19,6 +19,8 @@ import edu.cmu.sphinx.util.props.PropertyException;
 public class SPHX_STT {
 
 	static String message;
+	static String filter;
+	static String toBeSent = "";
 
 	private UDPConnection udpCom;
 
@@ -31,20 +33,9 @@ public class SPHX_STT {
 
 		try {
 			URL url;
-
-			/*if (args.length > 0) {
-				url = new File(args[0]).toURI().toURL();
-			} 
-
-			else {*/
 			url = SPHX_STT.class.getResource("helloworld.config.xml");
-			//}
-
-			System.out.println("Waiting for a signal...");
-
-
-			//int port = 8884;
-
+			
+			//System.out.println("Waiting for a signal...");
 
 			ConfigurationManager cm = new ConfigurationManager(url);
 
@@ -69,31 +60,39 @@ public class SPHX_STT {
 				while(true){
 					
 					/* receive via UDP*/
-					stt.udpCom.receiveSocket(stt.myIP, stt.myPort,false);
-					message = stt.udpCom.getMessage();
-					System.out.println(message);
+					System.out.println("Listening for start cmd...");
 					
-					System.out.println("Listening...");
-
-					if ("#STT#1#".equals(message)){
-
+					do
+					{
+						stt.udpCom.receiveSocket(stt.myIP, stt.myPort, false);
+						message = stt.udpCom.getMessage();
+						System.out.println(message);
+					} while (!("#STT#1#".equals(message)|"#STT#name#".equals(message)| "#STT#yesno#".equals(message)));
+					
+					
+					if("#STT#name#".equals(message))
+					{
+						filter = "name";
+					}else if("#STT#yesno#".equals(message))
+					{
+						filter = "yesno";
+					}
+					
+					if ("#STT#1#".equals(message)| "#STT#name#".equals(message) | "#STT#yesno#".equals(message))
+					{
 						if(microphone.startRecording()){
 
-//							System.out.println ("Say: (Good morning | Hi) (Leonie) ");
-//							System.out.println ("Say: (Yes | No) ");
-//							System.out.println ("Say: (Okay)(Take Care | See you) ");
-
 							while(true){
+								
 							System.out.println
-								("Start speaking. Press Ctrl-C to quit.\n");
-
-								//new Receiver().run(port);
-								stt.udpCom.receiveSocket(stt.myIP, stt.myPort,false);
+								("Start speaking.");
+							do
+							{
+								stt.udpCom.receiveSocket(stt.myIP, stt.myPort, false);
 								message = stt.udpCom.getMessage();
 								System.out.println(message);
+							} while (!"#STT#0#".equals(message));
 								
-								if ("#STT#0#".equals(message)){
-
 									microphone.stopRecording();
 
 									/*
@@ -102,58 +101,83 @@ public class SPHX_STT {
 									 * the end of speech.
 									 */ 
 									Result result = recognizer.recognize();
-
+																		
 									if (result != null) {
-
+										
 										String resultText = result.getBestFinalResultNoFiller();
-										resultText = "#STT#" + resultText + "#";
-										System.out.println("You said: " + resultText + "\n");
+										
+										if(filter == "name")
+										{
+											Boolean found;
+											String[] names = {"Robert", "robot", "Marc", "Mark", "mark", "Felix", "Matthias", "Mathias", "Matias", "Mattias", "Jörn", "Joern", "Philipp", "Phillipp", "Philip", "Fillip", "Filip", "Leonie", "leonie", "Onur", "Tobias", "Michelle", "Leony", "Emma", "emma", "Gordon"};
+					
+											System.out.println(resultText);
+											if(resultText != null){
+												for(int i = 0 ; i < names.length; i++)
+												{
+													found = resultText.contains(names[i]);
+														if(found)
+															{
+																toBeSent = names[i];
+																break;
+															}
+														else
+															{
+																toBeSent = "";
+															}
+												}
+											}else{
+												toBeSent = "";
+											}
+											filter = "";
+										}
+										else if(filter == "yesno")
+										{
+											Boolean found;
+											String[] janein = {"yes", "Yes", "jep", "Jep", "yup", "Yup", "Yep", "yep", "ja", "Ja", "no", "No", "nope", "Nope", "nah", "Nah"};
+					
+											System.out.println(resultText);
+											if(resultText != null){
+												for(int i = 0 ; i < janein.length; i++)
+												{
+													found = resultText.contains(janein[i]);
+														if(found)
+															{
+																toBeSent = janein[i];
+																break;
+															}
+														else
+															{
+																toBeSent = "";
+															}
+												}
+											}
+											filter = "";
+										}
+										else
+										{
+											toBeSent = resultText;
+											filter = "";
+										}
+																			
+										toBeSent = "#STT#" + toBeSent + "#";
+										System.out.println("You said: " + toBeSent + "\n");
 
 										microphone.clear();
 
 										/*send via UDP*/	
-										stt.udpCom.sendSocket(resultText, stt.targetIP, stt.targetPort);
-										/*DatagramSocket socket;
-									try {
-										socket = new DatagramSocket();
-
-										byte[] b = resultText.getBytes();
-
-										InetAddress host = InetAddress.getByName("192.168.188.23");
-										//int port2 = 8884;
-										DatagramPacket request = new DatagramPacket(b, b.length, host, port);
-										socket.send(request);
-										System.out.println("Packet versendet an:  " + request.getAddress() + ":" + request.getPort()
-										+ " -> " + new String(request.getData()));
-									} 
-									catch (SocketException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									} 
-									catch (UnknownHostException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									} 
-									catch (IOException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}*/
+										stt.udpCom.sendSocket(toBeSent, stt.targetIP, stt.targetPort);
 									}
 									else {
 										System.out.println("I can't hear what you said.\n");
 										String notHeard = "#STT##";
 										stt.udpCom.sendSocket(notHeard, stt.targetIP, stt.targetPort);
 									}
-								}
-								else{
-									System.out.println("Speak again");
-								}
 								break;
 							}
 						}
 						else {
 							System.out.println("Microphone doesn't work!");
-							//recognizer.deallocate();
 							System.exit(1);
 						}
 					}
