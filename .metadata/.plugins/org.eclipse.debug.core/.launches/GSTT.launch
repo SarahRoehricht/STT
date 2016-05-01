@@ -7,6 +7,6 @@
 <listEntry value="1"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="main.GSTT"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="192.168.56.1 57 134.103.120.184 57"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="192.168.188.12 50022 192.168.188.23 8888"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="GSTT"/>
 </launchConfiguration>

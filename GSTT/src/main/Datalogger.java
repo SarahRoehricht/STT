@@ -25,7 +25,7 @@ public class Datalogger
 
 	Datalogger()
 	{
-		countLogger = new File("C:/Users/Michelle/Documents/GitHub/STT/GSTT/counterLog.log"); //c:/Workspace/STT/counterLog.log
+		countLogger = new File("counterLog.log");
 		try
 		{
 			counter = readCounter();

@@ -20,7 +20,7 @@ public class GSTT
 
 	static String question = "";
 	static int stage = 0;
-	static int findName = 0;
+	static String filter = "";
 	static String toBeSent = "";
 	static String beforeFirstComma = "";
 
@@ -79,10 +79,13 @@ public class GSTT
 					
 					if("#STT#name#".equals(message))
 					{
-						findName = 1;
+						filter = "name";
+					}else if("#STT#yesno#".equals(message))
+					{
+						filter = "yesno";
 					}
 					
-					if ("#STT#1#".equals(message)| "#STT#name#".equals(message))
+					if ("#STT#1#".equals(message)| "#STT#name#".equals(message) | "#STT#yesno#".equals(message))
 					{
 						/* GSpeechDuplex */
 						System.out.println("started");
@@ -90,9 +93,9 @@ public class GSTT
 						GSpeechDuplex dup = null;
 						
 						if (Datalogger.counter < 50)
-							dup = new GSpeechDuplex("AIzaSyB6yR8DR6onz9YEBKkHmrLAOQZth5Vv2gs");// Instantiate the APIKEY
+							dup = new GSpeechDuplex("AIzaSyAtphCcVON9OU-URwD6jjqStwYtBNxK4oY");// Instantiate the APIKEY
 						else 
-							dup = new GSpeechDuplex("AIzaSyAtphCcVON9OU-URwD6jjqStwYtBNxK4oY");
+							dup = new GSpeechDuplex("AIzaSyB6yR8DR6onz9YEBKkHmrLAOQZth5Vv2gs");
 						
 						
 						dup.addResponseListener(new GSpeechResponseListener()
@@ -107,12 +110,13 @@ public class GSTT
 
 								question = gr.getResponse();
 								
-								if(findName == 1)
+								if(filter == "name")
 								{
 									Boolean found;
-									String[] names = {"Robert", "Mark", "Mac", "Felix", "Matthias", "Leonie", "leonie", "Onur", "Tobi", "Michelle"};
+									String[] names = {"Robert", "robot", "Marc", "Mark", "mark", "Felix", "Matthias", "Mathias", "Matias", "Mattias", "Jörn", "Joern", "Philipp", "Phillipp", "Philip", "Fillip", "Filip", "Leonie", "leonie", "Onur", "Tobi", "Michelle", "Leony", "Emma", "emma"};
 			
 									System.out.println(question);
+									if(question != null){
 										for(int i = 0 ; i < names.length; i++)
 										{
 											found = question.contains(names[i]);
@@ -126,13 +130,42 @@ public class GSTT
 														toBeSent = "";
 													}
 										}
+									}else{
+										toBeSent = "";
+									}
+									filter = "";
+								}
+								else if(filter == "yesno")
+								{
+									Boolean found;
+									String[] names = {"yes", "Yes", "jep", "Jep", "yup", "Yup", "Yep", "yep", "ja", "Ja", "no", "No", "nope", "Nope", "nah", "Nah"};
+			
+									System.out.println(question);
+									if(question != null){
+										for(int i = 0 ; i < names.length; i++)
+										{
+											found = question.contains(names[i]);
+												if(found)
+													{
+														toBeSent = names[i];
+														break;
+													}
+												else
+													{
+														toBeSent = "";
+													}
+										}
+									}else{
+										toBeSent = "";
+									}
+									filter = "yesno";
 								}
 								else if(gr.getResponse() == null | question == null)
 								{
 									System.out.println("I can't hear what you said.\n");
 									toBeSent = "";
 								}
-								else if (gr.getResponse() != null)
+								else
 								{
 									beforeFirstComma = question.split("\"")[0];
 									toBeSent = beforeFirstComma;
