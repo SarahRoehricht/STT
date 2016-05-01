@@ -1,0 +1,153 @@
+Language model created by QuickLM on Sun May  1 17:22:30 EDT 2016
+Copyright (c) 1996-2010 Carnegie Mellon University and Alexander I. Rudnicky
+
+The model is in standard ARPA format, designed by Doug Paul while he was at MITRE.
+
+The code that was used to produce this language model is available in Open Source.
+Please visit http://www.speech.cs.cmu.edu/tools/ for more information
+
+The (fixed) discount mass is 0.5. The backoffs are computed using the ratio method.
+This model based on a corpus of 34 sentences and 34 words
+
+\data\
+ngram 1=34
+ngram 2=64
+ngram 3=32
+
+\1-grams:
+-0.7782 </s> -0.3010
+-0.7782 <s> -0.2218
+-2.0086 EMMA -0.2218
+-2.3096 FELIX -0.2218
+-2.3096 FILLIP -0.2218
+-2.3096 GORDON -0.2218
+-2.3096 HELLO -0.2218
+-2.3096 HEY -0.2218
+-2.3096 HI -0.2218
+-2.3096 JA -0.2218
+-2.3096 JEP -0.2218
+-2.0086 JOHN -0.2218
+-2.3096 LEONIE -0.2218
+-2.3096 MARC -0.2218
+-2.3096 MARK -0.2218
+-2.3096 MATHIAS -0.2218
+-2.3096 MATIAS -0.2218
+-2.3096 MATTHEW -0.2218
+-2.3096 MATTHIAS -0.2218
+-2.3096 MATTIAS -0.2218
+-2.3096 MICHELLE -0.2218
+-2.3096 NAH -0.2218
+-2.3096 NO -0.2218
+-2.3096 NOPE -0.2218
+-2.3096 ONUR -0.2218
+-2.3096 PEDRO -0.2218
+-2.3096 PHILLIP -0.2218
+-2.3096 ROBERT -0.2218
+-2.3096 TOBIAS -0.2218
+-2.3096 YA -0.2218
+-2.3096 YEAH -0.2218
+-2.3096 YEP -0.2218
+-2.3096 YES -0.2218
+-2.3096 YUP -0.2218
+
+\2-grams:
+-1.5315 <s> EMMA 0.0000
+-1.8325 <s> FELIX 0.0000
+-1.8325 <s> FILLIP 0.0000
+-1.8325 <s> GORDON 0.0000
+-1.8325 <s> HELLO 0.0000
+-1.8325 <s> HEY 0.0000
+-1.8325 <s> HI 0.0000
+-1.8325 <s> JA 0.0000
+-1.8325 <s> JEP 0.0000
+-1.5315 <s> JOHN 0.0000
+-1.8325 <s> LEONIE 0.0000
+-1.8325 <s> MARC 0.0000
+-1.8325 <s> MARK 0.0000
+-1.8325 <s> MATHIAS 0.0000
+-1.8325 <s> MATIAS 0.0000
+-1.8325 <s> MATTHEW 0.0000
+-1.8325 <s> MATTHIAS 0.0000
+-1.8325 <s> MATTIAS 0.0000
+-1.8325 <s> MICHELLE 0.0000
+-1.8325 <s> NAH 0.0000
+-1.8325 <s> NO 0.0000
+-1.8325 <s> NOPE 0.0000
+-1.8325 <s> ONUR 0.0000
+-1.8325 <s> PEDRO 0.0000
+-1.8325 <s> PHILLIP 0.0000
+-1.8325 <s> ROBERT 0.0000
+-1.8325 <s> TOBIAS 0.0000
+-1.8325 <s> YA 0.0000
+-1.8325 <s> YEAH 0.0000
+-1.8325 <s> YEP 0.0000
+-1.8325 <s> YES 0.0000
+-1.8325 <s> YUP 0.0000
+-0.3010 EMMA </s> -0.3010
+-0.3010 FELIX </s> -0.3010
+-0.3010 FILLIP </s> -0.3010
+-0.3010 GORDON </s> -0.3010
+-0.3010 HELLO </s> -0.3010
+-0.3010 HEY </s> -0.3010
+-0.3010 HI </s> -0.3010
+-0.3010 JA </s> -0.3010
+-0.3010 JEP </s> -0.3010
+-0.3010 JOHN </s> -0.3010
+-0.3010 LEONIE </s> -0.3010
+-0.3010 MARC </s> -0.3010
+-0.3010 MARK </s> -0.3010
+-0.3010 MATHIAS </s> -0.3010
+-0.3010 MATIAS </s> -0.3010
+-0.3010 MATTHEW </s> -0.3010
+-0.3010 MATTHIAS </s> -0.3010
+-0.3010 MATTIAS </s> -0.3010
+-0.3010 MICHELLE </s> -0.3010
+-0.3010 NAH </s> -0.3010
+-0.3010 NO </s> -0.3010
+-0.3010 NOPE </s> -0.3010
+-0.3010 ONUR </s> -0.3010
+-0.3010 PEDRO </s> -0.3010
+-0.3010 PHILLIP </s> -0.3010
+-0.3010 ROBERT </s> -0.3010
+-0.3010 TOBIAS </s> -0.3010
+-0.3010 YA </s> -0.3010
+-0.3010 YEAH </s> -0.3010
+-0.3010 YEP </s> -0.3010
+-0.3010 YES </s> -0.3010
+-0.3010 YUP </s> -0.3010
+
+\3-grams:
+-0.3010 <s> EMMA </s>
+-0.3010 <s> FELIX </s>
+-0.3010 <s> FILLIP </s>
+-0.3010 <s> GORDON </s>
+-0.3010 <s> HELLO </s>
+-0.3010 <s> HEY </s>
+-0.3010 <s> HI </s>
+-0.3010 <s> JA </s>
+-0.3010 <s> JEP </s>
+-0.3010 <s> JOHN </s>
+-0.3010 <s> LEONIE </s>
+-0.3010 <s> MARC </s>
+-0.3010 <s> MARK </s>
+-0.3010 <s> MATHIAS </s>
+-0.3010 <s> MATIAS </s>
+-0.3010 <s> MATTHEW </s>
+-0.3010 <s> MATTHIAS </s>
+-0.3010 <s> MATTIAS </s>
+-0.3010 <s> MICHELLE </s>
+-0.3010 <s> NAH </s>
+-0.3010 <s> NO </s>
+-0.3010 <s> NOPE </s>
+-0.3010 <s> ONUR </s>
+-0.3010 <s> PEDRO </s>
+-0.3010 <s> PHILLIP </s>
+-0.3010 <s> ROBERT </s>
+-0.3010 <s> TOBIAS </s>
+-0.3010 <s> YA </s>
+-0.3010 <s> YEAH </s>
+-0.3010 <s> YEP </s>
+-0.3010 <s> YES </s>
+-0.3010 <s> YUP </s>
+
+\end\
