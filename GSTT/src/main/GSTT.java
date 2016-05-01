@@ -94,7 +94,7 @@ public class GSTT
 						
 						if (Datalogger.counter < 50)
 							dup = new GSpeechDuplex("AIzaSyAtphCcVON9OU-URwD6jjqStwYtBNxK4oY");// Instantiate the APIKEY
-						else if ((Datalogger.counter > 50) && (Datalogger.counter < 100))
+						else if ((Datalogger.counter >= 50) && (Datalogger.counter < 100))
 							dup = new GSpeechDuplex("AIzaSyB6yR8DR6onz9YEBKkHmrLAOQZth5Vv2gs");
 						else 
 							dup = new GSpeechDuplex("AIzaSyDe2nR4mdQYL74iwkZx5pOBM_3MVHNZS8c");
