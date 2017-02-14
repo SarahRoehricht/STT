@@ -9,7 +9,7 @@ public class DecisionMain {
 
 	public static void main(String[] args) {
 
-		String str = "Bring me the toaster on the table.";
+		String str = "how are you";
 		Parser p = new Parser();
 
 		ArrayList<TaggedWord> parsedString = p.parse(str);

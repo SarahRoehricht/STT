@@ -7,10 +7,11 @@ import edu.stanford.nlp.ling.TaggedWord;
 
 public class Decision {
 	HashSet<String> hs;
-
+	Interact i = new Interact();
+	
 	public Decision() {
 		hs = new HashSet<String>(
-				Arrays.asList("bring", "give", "hello", "greetings", "hi", "howdy", "hey", "bonjour", "hallo"));
+				Arrays.asList("bring", "give", "hello", "greetings", "hi", "howdy", "hey", "bonjour", "hallo", "go", "name", "joke", "how", "are", "you"));
 
 	}
 
@@ -25,10 +26,22 @@ public class Decision {
 				// call the dictionary parser method with the matched Word, and
 				// the parsedString
 				System.out.println("it's in here.");
+	
 				match = true;
+				
+				//looks for "how are you"
+				if(taggedWord.value().toLowerCase().equals("how")){
+					for (int j = 0; j < parsedString.size(); j++)
+					{
+						if (parsedString.get(j).value().equals("how") && parsedString.get(j+1).value().equals("are")&& parsedString.get(j+2).value().equals("you") )
+						{
+							i.interaction(1);
+							break;
+						}
+					}
+				}
 				matchdecide(taggedWord, parsedString);
 				break;
-
 			}
 
 		}
@@ -41,8 +54,8 @@ public class Decision {
 
 	private void matchdecide(TaggedWord match, ArrayList<TaggedWord> parsedString) {
 
-		System.out.println(match);
-		System.out.println(parsedString);
+		//System.out.println(match);
+		//System.out.println(parsedString);
 
 		// simplify match String and bring match into lowercase
 		String simpleMatch = simplifyMatch(match.value());
@@ -78,14 +91,23 @@ public class Decision {
 		}
 
 		case ("hello"): {
-
-			if (parsedString.size() < 5) {
-				System.out.println("I would say hello if i could.");
-				// CallTTS-Module or Return Command ID for saying hello
-			}
+			i.interaction(0);		
+//			if (parsedString.size() < 5) {
+//				System.out.println("I would say hello if i could.");
+//				// CallTTS-Module or Return Command ID for saying hello
+//			}
 			break;
 		}
-
+		
+		case ("name"): {
+			i.retrieveName(parsedString);
+			break;
+		}
+		
+		case ("joke"): {
+			i.interaction(2);
+			break;
+		}
 		}
 
 	}
@@ -97,10 +119,10 @@ public class Decision {
 		if (helloHs.contains(match)) {
 			return "hello";
 		}
-
+		
 		return match.toLowerCase();
 	}
-
+	
 	private void lookforAnswer() {
 
 	}
