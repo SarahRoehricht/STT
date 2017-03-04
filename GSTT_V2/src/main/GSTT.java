@@ -24,6 +24,8 @@ import com.darkprograms.speech.recognizer.GSpeechResponseListener;
 import com.darkprograms.speech.recognizer.GoogleResponse;
 
 import javaFlacEncoder.FLACFileWriter;
+import log.Datalogger;
+import log.logSTT;
 
 /*GSTT with UDP Receiver and Sender #STT(String)*/
 

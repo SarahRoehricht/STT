@@ -1,4 +1,4 @@
-package main;
+package log;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -25,7 +25,7 @@ public class logSTT {
 	private String secondResponse;
 	private File logSTT;
 
-	logSTT() {
+	public logSTT() {
 		
 		if(logSTT == null)
 		logSTT = new File("logSTT.log");

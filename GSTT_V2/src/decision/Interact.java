@@ -142,7 +142,7 @@ public class Interact
 
 		for (int j = 0; j < parsedString.size(); j++)
 		{
-			if (parsedString.get(j).tag().equals("NNP"))
+			if (parsedString.get(j).tag().equals("NNP")|| parsedString.get(j).tag().equals("JJ"))
 			{
 				count++;
 			}
@@ -151,7 +151,7 @@ public class Interact
 		for (int j = 0; j < parsedString.size(); j++)
 		{
 
-			if (parsedString.get(j).tag().equals("NNP"))
+			if (parsedString.get(j).tag().equals("NNP")|| parsedString.get(j).tag().equals("JJ"))
 			{
 				if (count == 1)
 				{

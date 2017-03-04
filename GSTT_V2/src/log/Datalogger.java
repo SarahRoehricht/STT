@@ -1,4 +1,4 @@
-package main;
+package log;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,7 +22,7 @@ public class Datalogger
 
 	private File countLogger;
 
-	Datalogger()
+	public Datalogger()
 	{
 		countLogger = new File("counterLog.log"); 
 		try
@@ -79,10 +79,10 @@ public class Datalogger
 			sdf.setTimeZone(TimeZone.getTimeZone("PT"));
 			String currDate = sdf.format(currentTime);
 
+				counter++;
 				System.out.println(currDate + "\nCurrent count..." + counter);
 				writer = new PrintWriter(countLogger, "UTF-8");
 				writer.println(sdf.format(currentTime) + "-" + counter);
-				counter++;
 				writer.close();
 
 		} catch (FileNotFoundException e)
