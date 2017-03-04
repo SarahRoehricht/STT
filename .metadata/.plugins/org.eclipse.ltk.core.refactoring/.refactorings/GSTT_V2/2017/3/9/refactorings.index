@@ -1,0 +1,8 @@
+1488649098528	Move compilation units
+1488649175253	Delete element
+1488650054109	Encapsulate field 'toTTS'
+1488650338326	Rename field 'reply'
+1488651730824	Encapsulate field 'originalTranscript'
+1488652087163	Copy compilation unit
+1488652149023	Rename type 'logSTT'
+1488652417611	Rename type 'logResponse'
