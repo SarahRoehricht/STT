@@ -86,10 +86,10 @@ public class AnswerAPI {
 			System.out.println(requestPlaintext);
 			//check if parsed request answer is null
 			    if(requestPlaintext==null){
-			    	return "Can't find an answer";
+			    	return "Sorry, I can't find an answer";
 			    }
 			    
-			    return requestPlaintext;
+			    return "I think the answer is " + requestPlaintext;
 			    
 	
 		

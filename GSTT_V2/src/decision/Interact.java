@@ -42,6 +42,8 @@ public class Interact
 	//interactID 0: greetings "hello"
 	//interactID 1: chat "how are you"
 	//interactID 2: tell a joke
+	//retrieve name
+	//answer questions about the team
 	public void interaction(int interactID)
 	{
 		switch (interactID)
@@ -181,6 +183,34 @@ public class Interact
 					break;
 				}
 			}
+		}
+	}
+	
+	public void questionAboutTeam(String originalText)
+	{
+		//name, leader, name of leader, how many members, from where
+		if (originalText.contains("name"))
+		{
+			if(originalText.contains("leader"))
+			{
+				setReplyInteract("Our team leader is");
+			}
+			else 
+			{
+				setReplyInteract("Our team name is RT Lions.");
+			}
+		}
+		else if (originalText.contains("how many")|originalText.contains("number"))
+		{
+			setReplyInteract("There are around 20 people in our team.");
+		}
+		else if (originalText.contains("university")| originalText.contains("where"))
+		{
+			setReplyInteract("We are from Reutlingen University in Germany.");
+		}
+		else
+		{
+			setReplyInteract("Currently I have insufficient knowledge to answer your question. Feel free to ask one of my teammates.");
 		}
 	}
 

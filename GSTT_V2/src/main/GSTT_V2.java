@@ -10,18 +10,19 @@ import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.file.Files;
+import java.text.SimpleDateFormat;
 //import java.nio.file.Path;
 //import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
 
 import com.darkprograms.speech.microphone.Microphone;
 import javaFlacEncoder.FLACFileWriter;
 
-import log.Datalogger;
-import log.logSTT;
-import log.logReply;
+import log.LogCount;
+import log.LogSTT;
+import log.LogReply;
 import tcp.TCPServer;
 
 import decision.Decision;
@@ -34,16 +35,17 @@ public class GSTT_V2
 {
 	static String APIKEY = "";
 	static int stage = 0;
-	
+	static int scenario = 0;
+
 	static String transcript = "";
 	static List<String> logOtherResponse;
 	static String filter = "";
 	static String reply = "";
 
 	private static TCPServer tcpServer;
-	private static Datalogger logCalls; 	//number of GSTT API requests
-	private static logSTT logData;	//log transcript 
-	private static logReply logReplies;	//log replies 
+	private static LogCount logCalls; // number of GSTT API requests
+	private static LogSTT logData; // log transcript
+	private static LogReply logReplies; // log replies
 	private static Parser p;
 	private static Decision d;
 	private static ArrayList<TaggedWord> parsedString;
@@ -55,9 +57,9 @@ public class GSTT_V2
 
 	public GSTT_V2()
 	{
-		logCalls = new Datalogger();
-		logData = new logSTT();
-		logReplies = new logReply();
+		logCalls = new LogCount();
+		logData = new LogSTT();
+		logReplies = new LogReply();
 		p = new Parser();
 		d = new Decision();
 		parsedString = new ArrayList<TaggedWord>();
@@ -99,27 +101,36 @@ public class GSTT_V2
 					{
 						message = gstt.tcpServer.receive();
 						System.out.println(message);
-					} while (!("#STT#1#".equals(message)));
+					} while (!("#STT#1#".equals(message) | "#STT#name#".equals(message) | "#STT#yesno#".equals(message)));
 					// end Connection
 					gstt.tcpServer.endConnection();
 
+					// scenario 0 and 1: with parsing, scenario 2: answer directly
 					if ("#STT#1#".equals(message))
 					{
-
-						System.out.println("started");
-
-						if (gstt.logCalls.counter < 50)
-							APIKEY = "AIzaSyAtphCcVON9OU-URwD6jjqStwYtBNxK4oY";
-						else if ((gstt.logCalls.counter >= 50) && (gstt.logCalls.counter < 100))
-							APIKEY = "AIzaSyB6yR8DR6onz9YEBKkHmrLAOQZth5Vv2gs";
-						else if ((gstt.logCalls.counter >= 100) && (gstt.logCalls.counter < 150))
-							APIKEY = "AIzaSyCFhY2ogNV4iFX3Hg3EgGU5y9wGodmfLR8";
-						else
-							APIKEY = "AIzaSyDe2nR4mdQYL74iwkZx5pOBM_3MVHNZS8c";
+						scenario = 0;
+					} else if ("#STT#name#".equals(message))
+					{
+						scenario = 1;
+					} else if ("#STT#yesno#".equals(message))
+					{
+						scenario = 2;
 					}
 
+					System.out.println("started");
+
+					if (gstt.logCalls.counter < 50)
+						APIKEY = "AIzaSyAtphCcVON9OU-URwD6jjqStwYtBNxK4oY";
+					else if ((gstt.logCalls.counter >= 50) && (gstt.logCalls.counter < 100))
+						APIKEY = "AIzaSyB6yR8DR6onz9YEBKkHmrLAOQZth5Vv2gs";
+					else if ((gstt.logCalls.counter >= 100) && (gstt.logCalls.counter < 150))
+						APIKEY = "AIzaSyCFhY2ogNV4iFX3Hg3EgGU5y9wGodmfLR8";
+					else
+						APIKEY = "AIzaSyDe2nR4mdQYL74iwkZx5pOBM_3MVHNZS8c";
+
 					Microphone mic = new Microphone(FLACFileWriter.FLAC);
-					File file = new File("CRAudioTest.flac");
+					String fileName = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss").format(new Date());
+					File file = new File("/Users/Michelle/Documents/GitHub/STT/GSTT_V2/audio data/" + fileName + ".flac"); //direct path to audio data folder
 
 					while (true)
 					{
@@ -145,8 +156,8 @@ public class GSTT_V2
 							System.out.println("Closed mic...");
 
 							byte[] data = Files.readAllBytes(mic.getAudioFile().toPath());
-				
-//							mic.getAudioFile().delete();
+
+							// mic.getAudioFile().delete();
 
 							String request = "https://www.google.com/speech-api/v2/recognize?client=chromium&lang=en-us&key=" + APIKEY;
 
@@ -168,7 +179,7 @@ public class GSTT_V2
 							connection.disconnect();
 
 							System.out.println("Retrieving results...");
-							
+
 							try
 							{
 								gstt.logCalls.writeData();
@@ -191,6 +202,7 @@ public class GSTT_V2
 
 							try
 							{
+								logData.readData(); //get previous question before being overwritten
 								logData.writeData(ls);
 							} catch (IOException e1)
 							{
@@ -198,16 +210,55 @@ public class GSTT_V2
 								e1.printStackTrace();
 							}
 
-							//Get first response, parse and answer
-							if(logData.getFirstResponse()!= null){
-								transcript = logData.getFirstResponse();
-								d.setOriginalTranscript(transcript);
-								parsedString = p.parse(transcript);
-								d.decide(parsedString);
-								reply = d.getToTTS();
-								logReplies.writeData(reply);
+							// case 0,1: Get first response, parse and answer
+							switch (scenario)
+							{
+							case 0: // default
+							case 1: // name
+								if (logData.getFirstResponse() != null)
+								{
+									transcript = logData.getFirstResponse();
+									if(transcript.contains("previous question") | transcript.contains("last question") | transcript.contains("previous questions")| transcript.contains("last questions"))
+									{
+										reply = logData.getPreviousResponse();
+									}
+									else
+									{	
+									d.setOriginalTranscript(transcript);
+									parsedString = p.parse(transcript);
+									d.decide(parsedString);
+									reply = d.getToTTS();
+									}
+									logReplies.writeData(reply);
+								}
+								break;
+							case 2: // yesno
+							{
+								if (logData.getFirstResponse() != null)
+								{
+									transcript = logData.getFirstResponse();
+									Boolean found;
+									String[] janein =
+									{ "yes", "Yes", "jep", "Jep", "yup", "Yup", "Yep", "yep", "ja", "Ja", "no", "No", "nope", "Nope", "nah", "Nah" };
+									System.out.println(transcript);
+										for (int i = 0; i < janein.length; i++)
+										{
+											found = transcript.contains(janein[i]);
+											if (found)
+											{
+												reply = janein[i];
+												break;
+											} else
+											{
+												reply = null;
+											}
+										}
+									} 
+									logReplies.writeData(reply);
+								}
+								break;
 							}
-
+							
 							if (reply == null)
 							{
 								System.out.println("I can't hear what you said. Please repeat.\n");
@@ -218,7 +269,8 @@ public class GSTT_V2
 								// end Connection
 								gstt.tcpServer.endConnection();
 
-							} else {
+							} else
+							{
 								reply = "#STT#" + reply + "#";
 								System.out.println("Reply sent to TTS: " + reply + "\n");
 
@@ -229,13 +281,12 @@ public class GSTT_V2
 								gstt.tcpServer.endConnection();
 
 								System.out.println("String sent.");
-									
 							}
-							
 						} catch (Exception e)
 						{
 							e.printStackTrace();
 						}
+						reply = "";
 						break;
 					}
 				}

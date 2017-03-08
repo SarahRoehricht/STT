@@ -16,15 +16,15 @@ import java.util.concurrent.TimeUnit;
 
 /*Write to file (Data logger)*/
 
-public class Datalogger
+public class LogCount
 {
 	public static int counter; // set number before start
 
 	private File countLogger;
 
-	public Datalogger()
+	public LogCount()
 	{
-		countLogger = new File("counterLog.log"); 
+		countLogger = new File("logCount.log"); 
 		try
 		{
 			counter = readCounter();
@@ -80,7 +80,7 @@ public class Datalogger
 			String currDate = sdf.format(currentTime);
 
 				counter++;
-				System.out.println(currDate + "\nCurrent count..." + counter);
+				System.out.println("Current count..." + counter);
 				writer = new PrintWriter(countLogger, "UTF-8");
 				writer.println(sdf.format(currentTime) + "-" + counter);
 				writer.close();

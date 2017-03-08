@@ -24,8 +24,8 @@ import com.darkprograms.speech.recognizer.GSpeechResponseListener;
 import com.darkprograms.speech.recognizer.GoogleResponse;
 
 import javaFlacEncoder.FLACFileWriter;
-import log.Datalogger;
-import log.logSTT;
+import log.LogCount;
+import log.LogSTT;
 
 /*GSTT with UDP Receiver and Sender #STT(String)*/
 
@@ -40,8 +40,8 @@ public class GSTT {
 
 	private UDPConnection udpCom;
 
-	private Datalogger log;
-	private static logSTT logData;
+	private LogCount log;
+	private static LogSTT logData;
 
 	private InetAddress myIP;
 	private int myPort;
@@ -50,8 +50,8 @@ public class GSTT {
 
 	public GSTT() {
 		udpCom = new UDPConnection();
-		log = new Datalogger();
-		logData = new logSTT();
+		log = new LogCount();
+		logData = new LogSTT();
 	}
 
 	public static void main(String[] args) {

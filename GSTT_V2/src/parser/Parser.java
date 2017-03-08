@@ -23,8 +23,8 @@ public class Parser {
 	}
 
 	public ArrayList<TaggedWord> parse(String str) {
-		System.out.println(str);
-		System.out.println();
+//		System.out.println(str);
+//		System.out.println();
 
 		// initialize parser
 		String parserModel = "edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz";
@@ -38,28 +38,28 @@ public class Parser {
 
 		// parsing tokenized String
 		Tree parse = lp.parse(StringTokenized);
-		parse.pennPrint();
-		System.out.println();
+//		parse.pennPrint();
+//		System.out.println();
 		GrammaticalStructure gs = gsf.newGrammaticalStructure(parse);
 		List<TypedDependency> tdl = gs.typedDependenciesCCprocessed();
-		System.out.println(tdl);
-		System.out.println();
+//		System.out.println(tdl);
+//		System.out.println();
 
-		System.out.println("The words of the sentence:");
-		for (Label lab : parse.yield()) {
-			if (lab instanceof CoreLabel) {
-				System.out.println(((CoreLabel) lab).toString(CoreLabel.OutputFormat.VALUE_MAP));
-			} else {
-				System.out.println(lab);
-			}
-		}
+//		System.out.println("The words of the sentence:");
+//		for (Label lab : parse.yield()) {
+//			if (lab instanceof CoreLabel) {
+//				System.out.println(((CoreLabel) lab).toString(CoreLabel.OutputFormat.VALUE_MAP));
+//			} else {
+//				System.out.println(lab);
+//			}
+//		}
 
-		System.out.println();
-		System.out.println("tagged words:");
-		 System.out.println(parse.taggedYield());
-		System.out.println();
+//		System.out.println();
+//		System.out.println("tagged words:");
+//		 System.out.println(parse.taggedYield());
+//		System.out.println();
 
-		lp.parse(str).pennPrint();
+//		lp.parse(str).pennPrint();
 
 		// returns ArrayList<TaggedWord> for processing
 		ArrayList<TaggedWord> output = parse.taggedYield();
