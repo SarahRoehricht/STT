@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 
 import answerQ.AnswerAPI;
 import commands.ActionCommand;
@@ -214,13 +215,13 @@ public class Decision
 		//alternative way to get date and time, can get it from Wolfram Alpha 
 		case ("date"):
 		{
-			String date = new SimpleDateFormat("EEEEE, MMMM dd, yyyy").format(new Date());
+			String date = new SimpleDateFormat("EEEEE, MMMM dd, yyyy", Locale.US).format(new Date());
 			return ("Today is " + date);
 		}
 		
 		case ("time"):
 		{
-			String time = new SimpleDateFormat("h:mm a, zzzz").format(new Date());
+			String time = new SimpleDateFormat("h:mm a, zzzz", Locale.US).format(new Date());
 			return ("The current time is " + time);
 		}
 
