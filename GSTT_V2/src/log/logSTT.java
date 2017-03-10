@@ -18,18 +18,20 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.darkprograms.speech.util.StringUtil;
 
-public class logSTT {
+public class LogSTT {
 
 	public static String data; //data from file
 	private String firstResponse;
 	private String secondResponse;
+	private String previousResponse;
 	private File logSTT;
+	private File logPrevQuestion;
 
-	public logSTT() {
+	public LogSTT() {
 		
 		if(logSTT == null)
 		logSTT = new File("logSTT.log");
-
+		logPrevQuestion = new File("logPrevQ.log");
 //		try {
 //			data = readData();
 //		} catch (FileNotFoundException e) {
@@ -44,15 +46,16 @@ public class logSTT {
 	}
 
 	public String readData() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(logSTT));
+		BufferedReader br = new BufferedReader(new FileReader(logPrevQuestion));
 		String line = br.readLine();
-
+		setPreviousResponse(line);
 		return null;
 	}
 
 	public void writeData(List<String> otherResponses) throws IOException {
 		
-		PrintWriter writer;
+		PrintWriter writer; //logSTT
+		PrintWriter writer2; //logPrevQ
 		List<String> parsed;
 		
 		try {
@@ -63,14 +66,19 @@ public class logSTT {
 			sdf.setTimeZone(TimeZone.getTimeZone("PT"));
 			String currDate = sdf.format(currentTime);
 
-			System.out.println(currDate + "\nLogging data... \n");
+//			System.out.println(currDate + "\nLogging data... \n");
 			writer = new PrintWriter(new FileWriter(logSTT, true));
-
+			writer2 = new PrintWriter(new FileWriter(logPrevQuestion), true);
+			
 			parsed = parseData(otherResponses);
 				for (String item : parsed) {
 					writer.println("ResponseID " + sdf.format(currentTime) + ": " + item);
 			}	
 			writer.close();
+		
+			writer2.println(getFirstResponse());
+			writer2.close();
+			
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -85,6 +93,12 @@ public class logSTT {
 		
 		List<String> ls = new ArrayList<String>();
 		
+		if(text.size()<2)
+		{
+			setFirstResponse(null);
+		}
+		else
+		{
 			for (String item : text.subList( 1, text.size() )) { 
 				
 				System.out.println("Parsing... \n");
@@ -103,9 +117,10 @@ public class logSTT {
 				ls.add(txt);
 				setSecondResponse(txt2);
 				ls.add(txt2);
-				
+
 				//System.out.println(ls.toString());
 			}
+		}
 
 	return ls;
 	}
@@ -124,6 +139,16 @@ public class logSTT {
 
 	public void setSecondResponse(String secondResponse) {
 		this.secondResponse = secondResponse;
+	}
+
+	public String getPreviousResponse()
+	{
+		return previousResponse;
+	}
+
+	public void setPreviousResponse(String previousResponse)
+	{
+		this.previousResponse = previousResponse;
 	}
 
 }

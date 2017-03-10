@@ -18,12 +18,12 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.darkprograms.speech.util.StringUtil;
 
-public class logReply {
+public class LogReply {
 
 	public static String data; //data from file
 	private File logResponse;
 
-	public logReply() {
+	public LogReply() {
 		
 		if(logResponse == null)
 		logResponse = new File("logReply.log");
@@ -61,7 +61,7 @@ public class logReply {
 			sdf.setTimeZone(TimeZone.getTimeZone("PT"));
 			String currDate = sdf.format(currentTime);
 
-			System.out.println(currDate + "\nLogging response... \n");
+//			System.out.println("Logging response... \n");
 			writer = new PrintWriter(new FileWriter(logResponse, true));
 	
 			writer.println("ResponseID " + sdf.format(currentTime) + ": " + response);
