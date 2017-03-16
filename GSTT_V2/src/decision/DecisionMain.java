@@ -15,7 +15,7 @@ public class DecisionMain {
 		ArrayList<TaggedWord> parsedString = p.parse(str);
 
 		Decision d = new Decision();
-
+		d.setOriginalTranscript(str);
 		d.decide(parsedString);
 
 	}

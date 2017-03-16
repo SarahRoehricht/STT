@@ -61,6 +61,7 @@ public class Decision
 		{
 			i.interaction(1);
 			setToTTS(i.getReplyInteract());
+			match=true;
 		} 
 //		else if (getOriginalTranscript().contains("last question") | getOriginalTranscript().contains("previous question"))
 //		{
