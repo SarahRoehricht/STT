@@ -43,8 +43,8 @@ public class GSTT_V2
 	static String filter = "";
 	static String reply = "";
 
-//	private static TCPServer tcpServer;
-	private UDPConnection udpCom;
+	private static TCPServer tcpServer;
+//	private UDPConnection udpCom;
 	
 	
 	private static LogCount logCalls; // number of GSTT API requests
@@ -61,7 +61,7 @@ public class GSTT_V2
 
 	public GSTT_V2()
 	{
-		udpCom = new UDPConnection();
+//		udpCom = new UDPConnection();
 		logCalls = new LogCount();
 		logData = new LogSTT();
 		logReplies = new LogReply();
@@ -101,21 +101,21 @@ public class GSTT_V2
 					System.out.println("GSTT");
 
 					// establish new Connection for receiving txt
-//					tcpServer = new TCPServer(gstt.myIP, gstt.myPort, 5, true);
-//					do
-//					{
-//						message = gstt.tcpServer.receive();
-//						System.out.println(message);
-//					} while (!("#STT#1#".equals(message) | "#STT#name#".equals(message) | "#STT#yesno#".equals(message)));
-//					// end Connection
-//					gstt.tcpServer.endConnection();
-					
+					tcpServer = new TCPServer(gstt.myIP, gstt.myPort, 5, true);
 					do
 					{
-						gstt.udpCom.receiveSocket(gstt.myIP, gstt.myPort, false);
-						message = gstt.udpCom.getMessage();
+						message = tcpServer.receive();
 						System.out.println(message);
-					} while (!("#STT#1#".equals(message)|"#STT#name#".equals(message)| "#STT#yesno#".equals(message)));
+					} while (!("#STT#1#".equals(message) | "#STT#name#".equals(message) | "#STT#yesno#".equals(message)));
+					// end Connection
+					tcpServer.endConnection();
+					
+//					do
+//					{
+//						gstt.udpCom.receiveSocket(gstt.myIP, gstt.myPort, false);
+//						message = gstt.udpCom.getMessage();
+//						System.out.println(message);
+//					} while (!("#STT#1#".equals(message)|"#STT#name#".equals(message)| "#STT#yesno#".equals(message)));
 
 					// scenario 0 and 1: with parsing, scenario 2: answer directly
 					if ("#STT#1#".equals(message))
@@ -142,7 +142,7 @@ public class GSTT_V2
 
 					Microphone mic = new Microphone(FLACFileWriter.FLAC);
 					String fileName = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss").format(new Date());
-					File file = new File("/Workspace/STT/STT/audio data/" + fileName + ".flac"); //direct path to audio data folder
+					File file = new File("CRAudio" + fileName + ".flac"); //direct path to audio data folder
 
 					while (true)
 					{
@@ -155,21 +155,21 @@ public class GSTT_V2
 							// Path path = Paths.get("good-morning-google.flac"); //get audio file directly
 							// byte[] data = Files.readAllBytes(path);
 
-							do
-							{
-								gstt.udpCom.receiveSocket(gstt.myIP, gstt.myPort, false);
-								message = gstt.udpCom.getMessage();
-								System.out.println(message);
-							} while (!"#STT#0#".equals(message));
-							
-							// establish new Connection for receiving txt
-//							tcpServer = new TCPServer(gstt.myIP, gstt.myPort, 5, true);
 //							do
 //							{
-//								message = gstt.tcpServer.receive();
+//								gstt.udpCom.receiveSocket(gstt.myIP, gstt.myPort, false);
+//								message = gstt.udpCom.getMessage();
+//								System.out.println(message);
 //							} while (!"#STT#0#".equals(message));
-//							// end Connection
-//							gstt.tcpServer.endConnection();
+							
+//							 establish new Connection for receiving txt
+							tcpServer = new TCPServer(gstt.myIP, gstt.myPort, 5, true);
+							do
+							{
+								message = tcpServer.receive();
+							} while (!"#STT#0#".equals(message));
+							// end Connection
+//							tcpServer.endConnection();
 
 							mic.close();
 							System.out.println("Closed mic...");
@@ -319,26 +319,26 @@ public class GSTT_V2
 								
 								System.out.println("I can't hear what you said. Please repeat.\n");
 
-								gstt.udpCom.sendSocket(randOut, gstt.targetIP, gstt.targetPort);
+//								gstt.udpCom.sendSocket(randOut, gstt.targetIP, gstt.targetPort);
 								
 								// establish new Connection for sending txt
 //								tcpServer = new TCPServer(gstt.myIP, gstt.myPort, 5, true);
-//								gstt.tcpServer.send("#STT##");
-//								// end Connection
-//								gstt.tcpServer.endConnection();
+								tcpServer.send("#STT##");
+								// end Connection
+								tcpServer.endConnection();
 
 							} else
 							{
 								//reply = "#STT#" + reply + "#";
 								System.out.println("Reply sent to TTS: " + reply + "\n");
 
-								gstt.udpCom.sendSocket(reply, gstt.targetIP, gstt.targetPort);
+//								gstt.udpCom.sendSocket(reply, gstt.targetIP, gstt.targetPort);
 								
-								// establish new Connection for sending txt
+								// establish new Connection for sending text
 //								tcpServer = new TCPServer(gstt.myIP, gstt.myPort, 5, true);
-//								gstt.tcpServer.send(reply);
-//								// end Connection
-//								gstt.tcpServer.endConnection();
+								tcpServer.send(reply);
+								// end Connection
+								tcpServer.endConnection();
 
 								System.out.println("String sent.");
 							}
@@ -349,6 +349,7 @@ public class GSTT_V2
 						reply = "";
 						break;
 					}
+					
 				}
 
 				}

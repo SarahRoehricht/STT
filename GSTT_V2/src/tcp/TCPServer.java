@@ -20,6 +20,10 @@ public class TCPServer
 	private ServerSocket welcomeSocket = null;
 	private Socket socket = null;
 
+	public void setSocket(Socket socket) {
+		this.socket = socket;
+	}
+
 	/**
 	 * Opens a socket to incoming connections on specified device and port
 	 * 
@@ -33,6 +37,8 @@ public class TCPServer
 		try
 		{
 			welcomeSocket = new ServerSocket(myPort, backlog, myIP);
+			
+			//this blocks if there is no connection to establish
 			socket = welcomeSocket.accept();
 			socket.setKeepAlive(keepAlive);
 //			socket.setTcpNoDelay(true);
