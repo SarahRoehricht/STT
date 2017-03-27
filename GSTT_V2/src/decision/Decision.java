@@ -27,8 +27,8 @@ public class Decision
 
 	public Decision()
 	{
-		hs = new HashSet<String>(Arrays.asList("team", "team's", "robocup", "at home", "time", "date", "bring", "give", "hello", "greetings", "hi", "howdy", "hey", "bonjour", "hallo", "go", "name",
-				"joke", "how", "are", "you", "follow"));
+		hs = new HashSet<String>(Arrays.asList("team", "robocup", "at home", "time", "date", "bring", "give", "hello", "greetings", "hi", "howdy", "hey", "bonjour", "hallo", "go", "name",
+				"joke", "follow"));
 
 	}
 
@@ -51,7 +51,7 @@ public class Decision
 	{
 		this.originalTranscript = originalTranscript;
 	}
-
+	
 	public void decide(ArrayList<TaggedWord> parsedString)
 	{
 		boolean match = false;
@@ -94,26 +94,22 @@ public class Decision
 					// }
 					// }
 					
-					setToTTS(matchdecide(taggedWord, parsedString));
+					
+							
+							String strReturn=matchdecide(taggedWord, parsedString);
+								if(!strReturn.isEmpty()){
+									setToTTS(strReturn);
+								}else{
+									setToTTS("");
+								}
+									
 					break;
 				}
 			}
 		}
 		if (!match)
 		{
-			// call the look for answer API
-			try
-			{
-				lookforAnswer();
-			} catch (IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (Exception e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			setToTTS("");
 
 		}
 	}
@@ -175,9 +171,19 @@ public class Decision
 
 		case ("name"):
 		{
-			if (getOriginalTranscript().contains("your"))
+			if(getOriginalTranscript().contains("team")){
+				i.questionAboutTeam(getOriginalTranscript());
+				return (i.getReplyInteract());
+			}
+			else if(
+				getOriginalTranscript().contains("teams")){
+				i.questionAboutTeam(getOriginalTranscript());
+				return (i.getReplyInteract());	
+				}
+			
+			else if (getOriginalTranscript().contains("your"))
 			{
-				return ("My name is Leonie.");
+				return ("My name is Leonie.[:-)]");
 			} else
 			{
 				i.retrieveName(parsedString);
@@ -197,7 +203,7 @@ public class Decision
 			return (i.getReplyInteract());
 		}
 
-		case ("team's"):
+		case ("teams"):
 		{
 			i.questionAboutTeam(getOriginalTranscript());
 			return (i.getReplyInteract());
@@ -232,7 +238,7 @@ public class Decision
 			return ("I will follow you.");
 		}
 		}
-		return null;
+		return ("");
 
 	}
 
@@ -248,7 +254,7 @@ public class Decision
 		return match.toLowerCase();
 	}
 
-	private void lookforAnswer() throws IOException, Exception
+	public void lookforAnswer() throws IOException, Exception
 	{
 		AnswerAPI ans = new AnswerAPI();
 		setToTTS(ans.answerQuestion(getOriginalTranscript()));

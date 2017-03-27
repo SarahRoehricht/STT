@@ -92,10 +92,10 @@ public class Interact
 
 	private void tellJokes()
 	{
-		HashSet<String> jokesHS = new HashSet<String>(Arrays.asList("If you do not pay your exorcist you get repossessed.",
-				"I was not originally going to get a brain transplant, but then I changed my mind.",
-				"I would tell you a chemistry joke but I know I wouldn't get a reaction.", "Why don't programmers like nature? It has too many bugs.",
-				"Why don't some couples go to the gym? Because some relationships don't work out."));
+		HashSet<String> jokesHS = new HashSet<String>(Arrays.asList("{Person}If you do not pay your exorcist you get repossessed.3",
+				"{Person}I was not originally going to get a brain transplant, but then I changed my mind.3",
+				"{Person}I would tell you a chemistry joke but I know I wouldn't get a reaction.", "{Person}Why don't programmers like nature? It has too many bugs.3",
+				"{Person}Why don't some couples go to the gym? Because some relationships don't work out.3"));
 
 		int joke;
 		joke = generateRand(jokesHS.size());
@@ -118,7 +118,7 @@ public class Interact
 	public void chat()
 	{
 		HashSet<String> chatHS = new HashSet<String>(
-				Arrays.asList("I am fine thank you.", "great", "fine, thank you", "I am fine, thank you, hope you are too"));
+				Arrays.asList("{Person}I am fine thank you.[:-)]", "{Person}great[:-)]", "{Person}fine, thank you[:-)]", "{Person}I am fine, thank you, hope you are too[:-)]"));
 		
 		int talk;
 		talk = generateRand(chatHS.size());
@@ -197,20 +197,20 @@ public class Interact
 			}
 			else 
 			{
-				setReplyInteract("Our team name is RT Lions.");
+				setReplyInteract("Our team name is RT Lions.[:-)]");
 			}
 		}
 		else if (originalText.contains("how many")|originalText.contains("number"))
 		{
-			setReplyInteract("There are around 20 people in our team.");
+			setReplyInteract("{Person}There are around 20 people in our team.[:-O]");
 		}
 		else if (originalText.contains("university")| originalText.contains("where"))
 		{
-			setReplyInteract("We are from Reutlingen University in Germany.");
+			setReplyInteract("{Person}We are from Reutlingen University in Germany.");
 		}
 		else
 		{
-			setReplyInteract("Currently I have insufficient knowledge to answer your question. Feel free to ask one of my teammates.");
+			setReplyInteract("{Person}Currently I have insufficient knowledge to answer your question[:-(]. Feel free to ask one of my teammates.[:-)]");
 		}
 	}
 
