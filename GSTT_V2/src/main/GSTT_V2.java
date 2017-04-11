@@ -112,11 +112,13 @@ public class GSTT_V2 {
 					// scenario 0 and 1: with parsing, scenario 2: answer
 					// directly
 					if ("#STT#1#".equals(message)) {
-						scenario = 0;
-					} else if ("#STT#name#".equals(message)) {
 						scenario = 1;
-					} else if ("#STT#yesno#".equals(message)) {
+					} else if ("#STT#2#".equals(message)) {
+						//set to yes no scenario
 						scenario = 2;
+						//set to receiving name scenario.
+					} else if ("#STT#3#".equals(message)) {
+						scenario = 3;
 					}
 
 					System.out.println("started");
@@ -227,8 +229,8 @@ public class GSTT_V2 {
 
 							// case 0,1: Get first response, parse and answer
 							switch (scenario) {
-							case 0: // default
-							case 1: // name
+							
+							case 1: // default Smalltalk
 							{
 								if (logData.getFirstResponse() != null) {
 									transcript = logData.getFirstResponse();
@@ -239,6 +241,7 @@ public class GSTT_V2 {
 									} else {
 										d.setOriginalTranscript(transcript);
 										parsedString = p.parse(transcript);
+										d.setScenario(scenario);
 										d.decide(parsedString);
 										reply = d.getToTTS();
 										if (reply.isEmpty()) {
@@ -268,6 +271,7 @@ public class GSTT_V2 {
 								logReplies.writeData(reply);
 							}
 								break;
+							}
 							case 2: // yesno
 							{
 								if (logData.getFirstResponse() != null) {
@@ -291,7 +295,15 @@ public class GSTT_V2 {
 								logReplies.writeData(reply);
 							}
 								break;
-							}
+
+							case 3: // name
+							{
+								d.setOriginalTranscript(transcript);
+								parsedString = p.parse(transcript);
+								d.setScenario(scenario);
+								d.decide(parsedString);
+								reply = d.getToTTS();
+														}
 
 							if (reply.isEmpty()) {
 								/// Just for fun, generate random output
@@ -349,7 +361,7 @@ public class GSTT_V2 {
 								// establish new Connection for sending text
 								// tcpServer = new TCPServer(gstt.myIP,
 								// gstt.myPort, 5, true);
-								tcpServer.send("#BRAIN##TEXT#" + reply);
+								tcpServer.send("#STT#TEXT#" + reply+"#");
 								// end Connection
 								tcpServer.endConnection();
 
@@ -367,5 +379,4 @@ public class GSTT_V2 {
 				}
 			}
 		}
-	}
-}
+}}

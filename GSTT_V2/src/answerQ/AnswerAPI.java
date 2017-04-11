@@ -25,7 +25,7 @@ public class AnswerAPI {
 	}
 	
 	
-	
+	//get's utterance and asks wolframAlphaAPI for answer
 	public String answerQuestion(String question) throws UnsupportedEncodingException, MalformedURLException{
 		//APIKey for Wolfram Alpha API
 		String APIKey="9PAKG9-KP7WHG755P";
@@ -88,6 +88,11 @@ public class AnswerAPI {
 			    if(requestPlaintext==null){
 			    	return "Sorry, I can't find an answer";
 			    }
+			    //replaces {,},[,] with empty char, to ensure emotionparser working correctly.
+			    requestPlaintext.replace("{", "");
+			    requestPlaintext.replace("}", "");
+			    requestPlaintext.replace("[", "");
+			    requestPlaintext.replace("]", "");
 			    
 			    return "I think the answer is " + requestPlaintext;
 			    
@@ -99,7 +104,7 @@ public class AnswerAPI {
 		}
 		
 	}
-	
+	//getter ensuring, list is not null, and subList is not null;
 	protected String getString(String tagName, Element element) {
         NodeList list = element.getElementsByTagName(tagName);
         if (list != null && list.getLength() > 0) {
