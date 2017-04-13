@@ -18,8 +18,9 @@ import edu.stanford.nlp.ling.TaggedWord;
 public class Decision {
 	HashSet<String> hs;
 	Interact i = new Interact();
-	private String actionCommand; // parameter = command
-
+	private boolean actionCommand; // parameter = command
+	private String actionObject;
+	
 	private String toTTS = "";
 	private String originalTranscript = "";
 	private AnswerAPI ans;
@@ -29,15 +30,23 @@ public class Decision {
 
 	public Decision() {
 		hs = new HashSet<String>(Arrays.asList("team", "robocup", "at home", "time", "date", "bring", "give", "hello",
-				"greetings", "hi", "howdy", "hey", "bonjour", "hallo", "go", "name", "joke", "follow"));
+				"greetings", "hi", "howdy", "hey", "bonjour", "hallo", "go", "name", "joke", "follow", "where"));
 
 	}
 
-	public int getActionCommand() {
-		return scenario;
+	public String getActionObject() {
+		return actionObject;
 	}
 
-	public void setActionCommand(int actionCommand) {
+	public void setActionObject(String actionObject) {
+		this.actionObject = actionObject;
+	}
+	
+	public boolean getActionCommand() {
+		return actionCommand;
+	}
+
+	public void setActionCommand(boolean actionCommand) {
 		this.actionCommand = actionCommand;
 	}
 
@@ -68,7 +77,10 @@ public class Decision {
 	public void decide(ArrayList<TaggedWord> parsedString) {
 		boolean match = false;
 		
-		if()
+		if(scenario==1){
+			
+			
+		}
 		// match dictionary keywords with TaggedWord values,
 		// return action value/command/call next function else look for answer
 		if (getOriginalTranscript().contains("how are you")) {
@@ -93,19 +105,6 @@ public class Decision {
 
 					match = true;
 
-					// looks for "how are you"
-					// if(taggedWord.value().toLowerCase().equals("how")){
-					// for (int j = 0; j < parsedString.size(); j++)
-					// {
-					// if (parsedString.get(j).value().equals("how") &&
-					// parsedString.get(j+1).value().equals("are")&&
-					// parsedString.get(j+2).value().equals("you") )
-					// {
-					// i.interaction(1);
-					// setToTTS(i.getReplyInteract());
-					// }
-					// }
-					// }
 
 					String strReturn = matchdecide(taggedWord, parsedString);
 					if (!strReturn.isEmpty()) {
@@ -113,7 +112,7 @@ public class Decision {
 					} else {
 						setToTTS("");
 					}
-
+					
 					break;
 				}
 			}
@@ -122,6 +121,7 @@ public class Decision {
 			setToTTS("");
 
 		}
+		
 	}
 
 	private String matchdecide(TaggedWord match, ArrayList<TaggedWord> parsedString) {
@@ -206,6 +206,22 @@ public class Decision {
 		case ("robocup"): {
 			return ("Robocup at home is founded in the year 2006");
 		}
+		
+		case("where"): {
+			System.out.println(parsedString);
+			String object="";
+			for (int i = 0; i < parsedString.size(); i++) {
+				if(parsedString.get(i).tag().equals("NN")){
+					object=parsedString.get(i).value();
+				}
+				
+			}
+			actionObject=object;
+			actionCommand=true;
+			return ("locate");
+			
+			
+		}
 
 		case ("at home"): {
 			return ("Robocup at home is founded in the year 2006");
@@ -224,7 +240,7 @@ public class Decision {
 		}
 
 		case ("follow"): {
-			action.followPerson();
+			//action.followPerson();
 			return ("I will follow you.");
 		}
 		}
@@ -250,7 +266,12 @@ public class Decision {
 	//
 	public void reset() {
 		AnswerAPI ans = new AnswerAPI();
-		setToTTS(ans.answerQuestion(getOriginalTranscript()));
+		try {
+			setToTTS(ans.answerQuestion(getOriginalTranscript()));
+		} catch (UnsupportedEncodingException | MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

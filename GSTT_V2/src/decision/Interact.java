@@ -92,10 +92,10 @@ public class Interact
 
 	private void tellJokes()
 	{
-		HashSet<String> jokesHS = new HashSet<String>(Arrays.asList("{Person}If you do not pay your exorcist you get repossessed.3",
-				"{Person}I was not originally going to get a brain transplant, but then I changed my mind.3",
-				"{Person}I would tell you a chemistry joke but I know I wouldn't get a reaction.", "{Person}Why don't programmers like nature? It has too many bugs.3",
-				"{Person}Why don't some couples go to the gym? Because some relationships don't work out.3"));
+		HashSet<String> jokesHS = new HashSet<String>(Arrays.asList("{Person}If you do not pay your exorcist you get repossessed.[3]",
+				"{Person}I was not originally going to get a brain transplant, but then I changed my mind.[3]",
+				"{Person}I would tell you a chemistry joke but I know I wouldn't get a reaction.", "{Person}Why don't programmers like nature? It has too many bugs.[3]",
+				"{Person}Why don't some couples go to the gym? Because some relationships don't work out.[3]"));
 
 		int joke;
 		joke = generateRand(jokesHS.size());
