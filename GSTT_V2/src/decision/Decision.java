@@ -18,9 +18,11 @@ import edu.stanford.nlp.ling.TaggedWord;
 public class Decision {
 	HashSet<String> hs;
 	Interact i = new Interact();
-	private boolean actionCommand; // parameter = command
+
+	// only action scenarios set this boolean to true.
+	private boolean actionCommand; // true = actionCommand
 	private String actionObject;
-	
+
 	private String toTTS = "";
 	private String originalTranscript = "";
 	private AnswerAPI ans;
@@ -29,8 +31,9 @@ public class Decision {
 	private int scenario;
 
 	public Decision() {
-		hs = new HashSet<String>(Arrays.asList("team", "robocup", "at home", "time", "date", "bring", "give", "hello",
-				"greetings", "hi", "howdy", "hey", "bonjour", "hallo", "go", "name", "joke", "follow", "where"));
+		hs = new HashSet<String>(Arrays.asList("team", "robocup", "robocop", "at home", "time", "date", "bring", "give",
+				"hello", "greetings", "hi", "howdy", "hey", "bonjour", "hallo", "go", "name", "joke", "follow", "where",
+				"open","many","much"));
 
 	}
 
@@ -41,7 +44,7 @@ public class Decision {
 	public void setActionObject(String actionObject) {
 		this.actionObject = actionObject;
 	}
-	
+
 	public boolean getActionCommand() {
 		return actionCommand;
 	}
@@ -76,10 +79,9 @@ public class Decision {
 
 	public void decide(ArrayList<TaggedWord> parsedString) {
 		boolean match = false;
-		
-		if(scenario==1){
-			
-			
+
+		if (scenario == 1) {
+
 		}
 		// match dictionary keywords with TaggedWord values,
 		// return action value/command/call next function else look for answer
@@ -105,14 +107,13 @@ public class Decision {
 
 					match = true;
 
-
 					String strReturn = matchdecide(taggedWord, parsedString);
 					if (!strReturn.isEmpty()) {
 						setToTTS(strReturn);
 					} else {
 						setToTTS("");
 					}
-					
+
 					break;
 				}
 			}
@@ -121,7 +122,7 @@ public class Decision {
 			setToTTS("");
 
 		}
-		
+
 	}
 
 	private String matchdecide(TaggedWord match, ArrayList<TaggedWord> parsedString) {
@@ -138,27 +139,36 @@ public class Decision {
 		// case to bring something
 		// extendable with adjective e.g. 'the' 'blue' 'book'
 		case ("bring"): {
-			String DT = "";
+
 			String object = "";
 			for (int i = 0; i < parsedString.size(); i++) {
 
 				if (parsedString.get(i).tag().equals("NN")) {
 					object = parsedString.get(i).value();
-					if (parsedString.get(i - 1).tag().equals("DT")) {
-						DT = parsedString.get(i - 1).value();
-					}
+
 					break;
 				}
 			}
-			System.out.println("OK - I will bring " + DT + " " + object + "." + " ... beep boop");
-			return ("OK - I will bring " + DT + " " + object + "." + " ... beep boop");
+			actionObject = object;
+			actionCommand = true;
+			return ("bring");
 			// call or return important parameters to the function or the
 			// function calling
 		}
 
 		case ("give"): {
-			System.out.println("I would give you something if i could.");
-			return ("I would give you something if i could.");
+			String object = "";
+			for (int i = 0; i < parsedString.size(); i++) {
+
+				if (parsedString.get(i).tag().equals("NN")) {
+					object = parsedString.get(i).value();
+
+					break;
+				}
+			}
+			actionObject = object;
+			actionCommand = true;
+			return ("bring");
 
 		}
 
@@ -201,34 +211,64 @@ public class Decision {
 		case ("teams"): {
 			i.questionAboutTeam(getOriginalTranscript());
 			return (i.getReplyInteract());
-		}
 
+		}
+		// fall-through
+		case ("robocop"): {
+
+		}
 		case ("robocup"): {
 			return ("Robocup at home is founded in the year 2006");
 		}
-		
-		case("where"): {
-			System.out.println(parsedString);
-			String object="";
+
+		case ("where"): {
+			String object = "";
 			for (int i = 0; i < parsedString.size(); i++) {
-				if(parsedString.get(i).tag().equals("NN")){
-					object=parsedString.get(i).value();
+				if (parsedString.get(i).tag().equals("NN")) {
+					object = parsedString.get(i).value();
 				}
-				
+
 			}
-			actionObject=object;
-			actionCommand=true;
-			return ("locate");
-			
-			
+			actionObject = object;
+			actionCommand = true;
+			return ("surrounding");
+
+		}
+		case ("open"): {
+
+			String object = "";
+			for (int i = 0; i < parsedString.size(); i++) {
+				if (parsedString.get(i).tag().equals("NN")) {
+					object = parsedString.get(i).value();
+				}
+			}
+			actionObject = object;
+			actionCommand = true;
+			return ("open");
+		}
+		// fall-through
+		case ("much"): {
+
+		}
+		case ("many"): {
+			System.out.println(parsedString);
+//			String object = "";
+//			for (int i = 0; i < parsedString.size(); i++) {
+//				if (parsedString.get(i).tag().equals("NN")) {
+//					object = parsedString.get(i).value();
+//				}
+//			}
+//			actionObject = object;
+//			actionCommand = true;
+			return ("");
 		}
 
 		case ("at home"): {
 			return ("Robocup at home is founded in the year 2006");
 		}
 
-			// alternative way to get date and time, can get it from Wolfram
-			// Alpha
+		// alternative way to get date and time, can get it from Wolfram
+		// Alpha
 		case ("date"): {
 			String date = new SimpleDateFormat("EEEEE, MMMM dd, yyyy", Locale.US).format(new Date());
 			return ("Today is " + date);
@@ -240,10 +280,11 @@ public class Decision {
 		}
 
 		case ("follow"): {
-			//action.followPerson();
+			// action.followPerson();
 			return ("I will follow you.");
 		}
 		}
+
 		return ("");
 
 	}
@@ -258,11 +299,13 @@ public class Decision {
 
 		return match.toLowerCase();
 	}
-//calls AnswerAPI to get Answer
+
+	// calls AnswerAPI to get Answer
 	public void lookforAnswer() throws IOException, Exception {
 		AnswerAPI ans = new AnswerAPI();
 		setToTTS(ans.answerQuestion(getOriginalTranscript()));
 	}
+
 	//
 	public void reset() {
 		AnswerAPI ans = new AnswerAPI();
