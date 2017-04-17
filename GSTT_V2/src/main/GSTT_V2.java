@@ -102,7 +102,7 @@ public class GSTT_V2 {
 						scenario = 1;
 						// set to yes.no scenario
 					} else if ("#STT#2#".equals(message)) {
-						
+
 						scenario = 2;
 						// set to receiving name scenario.
 					} else if ("#STT#3#".equals(message)) {
@@ -315,20 +315,20 @@ public class GSTT_V2 {
 								}
 
 								System.out.println("I can't hear what you said. Please repeat.\n");
-
-								gstt.udpCom.sendSocket(randOut, gstt.targetIP, gstt.targetPort);
+								reply = randOut;
+								gstt.udpCom.sendSocket("#STT#RETRY#" + reply + "#", gstt.targetIP, gstt.targetPort);
 
 							} else {
 								// reply = "#BRAIN##TEXT#" + reply ;
 								System.out.println("Reply sent to TTS: " + reply + "\n");
-								if(d.getActionCommand()){
-									gstt.udpCom.sendSocket("#STT#ACTION#" + reply + ";"+d.getActionObject()+"#", gstt.targetIP, gstt.targetPort);
-								}else{
-									gstt.udpCom.sendSocket("#STT#TEXT#" + reply + "#", gstt.targetIP, gstt.targetPort);	
+								if (d.getActionCommand()) {
+									gstt.udpCom.sendSocket("#STT#ACTION#" + reply + ";" + d.getActionObject() + "#",
+											gstt.targetIP, gstt.targetPort);
+								} else {
+									gstt.udpCom.sendSocket("#STT#TEXT#" + reply + "#", gstt.targetIP, gstt.targetPort);
 								}
-								//resetting ActionCommand Boolean
+								// resetting ActionCommand Boolean
 								d.setActionCommand(false);
-								
 
 							}
 						} catch (Exception e) {

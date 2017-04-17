@@ -26,6 +26,7 @@ public class Decision {
 	private String toTTS = "";
 	private String originalTranscript = "";
 	private AnswerAPI ans;
+	private String[] officialObjects = { "plant", "plants", "table", "tables" };
 
 	// get's set by GSTT_V2 before .decide
 	private int scenario;
@@ -33,7 +34,7 @@ public class Decision {
 	public Decision() {
 		hs = new HashSet<String>(Arrays.asList("team", "robocup", "robocop", "at home", "time", "date", "bring", "give",
 				"hello", "greetings", "hi", "howdy", "hey", "bonjour", "hallo", "go", "name", "joke", "follow", "where",
-				"open","many","much"));
+				"open", "many", "much"));
 
 	}
 
@@ -75,6 +76,14 @@ public class Decision {
 
 	public void setOriginalTranscript(String originalTranscript) {
 		this.originalTranscript = originalTranscript;
+	}
+
+	public String[] getOfficialObjects() {
+		return officialObjects;
+	}
+
+	public void setOfficialObjects(String[] officialObjects) {
+		this.officialObjects = officialObjects;
 	}
 
 	public void decide(ArrayList<TaggedWord> parsedString) {
@@ -252,17 +261,32 @@ public class Decision {
 		}
 		case ("many"): {
 			System.out.println(parsedString);
-//			String object = "";
-//			for (int i = 0; i < parsedString.size(); i++) {
-//				if (parsedString.get(i).tag().equals("NN")) {
-//					object = parsedString.get(i).value();
-//				}
-//			}
-//			actionObject = object;
-//			actionCommand = true;
+			for (int i = 0; i < officialObjects.length; i++) {
+				System.out.println(officialObjects[i]);
+			}
+
+			for (int i = 0; i < officialObjects.length; i++) {
+				if (getOriginalTranscript().contains(officialObjects[i])) {
+
+					actionObject = officialObjects[i];
+					actionCommand = true;
+					return ("surrounding");
+				}
+
+			}
 			return ("");
 		}
-
+		case ("go"): {
+			String object = "";
+			for (int i = 0; i < parsedString.size(); i++) {
+				if (parsedString.get(i).tag().equals("NN")) {
+					object = parsedString.get(i).value();
+				}
+			}
+			actionObject = object;
+			actionCommand = true;
+			return ("goto");
+		}
 		case ("at home"): {
 			return ("Robocup at home is founded in the year 2006");
 		}
