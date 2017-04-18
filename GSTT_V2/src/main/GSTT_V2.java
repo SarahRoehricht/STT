@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
+import java.net.SocketException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.file.Files;
@@ -91,7 +92,11 @@ public class GSTT_V2 {
 					System.out.println("GSTT");
 
 					do {
-						gstt.udpCom.receiveSocket(gstt.myIP, gstt.myPort, false);
+						try {
+							gstt.udpCom.receiveSocket(gstt.myIP, gstt.myPort, false, false);
+						} catch (SocketException e) {
+							e.printStackTrace();
+						}
 						message = gstt.udpCom.getMessage();
 						System.out.println(message);
 					} while (!("#STT#1#".equals(message) | "#STT#2#".equals(message) | "#STT#3#".equals(message)));
@@ -133,14 +138,17 @@ public class GSTT_V2 {
 						try {
 							System.out.println("Recording...");
 							mic.captureAudioToFile(file); // starts recording
-
-							Thread.sleep(1000);// Records for 10s needs to be
-												// implemented
-
+							
+							// waits for #STT#0# package or waits for 10s
 							do {
-								gstt.udpCom.receiveSocket(gstt.myIP, gstt.myPort, false);
+								
+								gstt.udpCom.receiveSocket(gstt.myIP, gstt.myPort, false,true);
 								message = gstt.udpCom.getMessage();
 								System.out.println(message);
+								if(message.contains("timeout")){
+									break;
+								}
+								
 							} while (!"#STT#0#".equals(message));
 
 							mic.close();

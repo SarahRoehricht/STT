@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
+import java.net.SocketException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.file.Files;
@@ -80,7 +81,12 @@ public class GSTT {
 					System.out.println("GSTT");
 
 					do {
-						gstt.udpCom.receiveSocket(gstt.myIP, gstt.myPort, false);
+						try {
+							gstt.udpCom.receiveSocket(gstt.myIP, gstt.myPort, false,false);
+						} catch (SocketException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						message = gstt.udpCom.getMessage();
 						System.out.println(message);
 					} while (!("#STT#1#".equals(message)));
@@ -169,7 +175,7 @@ public class GSTT {
 																// recording
 								// Thread.sleep(10000);// Records for 10s
 								do {
-									gstt.udpCom.receiveSocket(gstt.myIP, gstt.myPort, false);
+									gstt.udpCom.receiveSocket(gstt.myIP, gstt.myPort, false,false);
 									message = gstt.udpCom.getMessage();
 									System.out.println(message);
 								} while (!"#STT#0#".equals(message));

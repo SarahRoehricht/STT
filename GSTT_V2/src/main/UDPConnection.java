@@ -5,6 +5,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 public class UDPConnection
@@ -35,19 +36,23 @@ public class UDPConnection
 	 * @param myPort
 	 *            the Port I want to listen to
 	 * @return the received message
+	 * @throws SocketException 
 	 */
-	public void receiveSocket(InetAddress myAdress, int myPort, boolean useThread)
+	public void receiveSocket(InetAddress myAdress, int myPort, boolean useThread, boolean timeout) throws SocketException
 	{
 		if (!useThread)
 		{
 			DatagramPacket request = null;
+			DatagramSocket socket = new DatagramSocket(myPort, myAdress);
 			try
 			{
-				DatagramSocket socket = new DatagramSocket(myPort, myAdress);
+				
 
 				byte[] receiveData = new byte[1024];
 				request = new DatagramPacket(receiveData, receiveData.length);
-
+				if(timeout){
+				socket.setSoTimeout(10000);
+				}
 				socket.receive(request);
 
 				message = new String(request.getData(), request.getOffset(), request.getLength());
@@ -61,11 +66,16 @@ public class UDPConnection
 			{
 				System.err.println("Socket creation error!");
 				e.printStackTrace();
-			} catch (IOException e)
+			}catch(SocketTimeoutException e){
+				message=new String("timeout");
+				socket.close();
+				
+			}
+			catch (IOException e)
 			{
 				System.err.println("Error on receiving package!");
 				e.printStackTrace();
-			}
+			} 
 
 		} else
 		{

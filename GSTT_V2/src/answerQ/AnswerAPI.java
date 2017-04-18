@@ -93,7 +93,9 @@ public class AnswerAPI {
 			    requestPlaintext.replace("}", "");
 			    requestPlaintext.replace("[", "");
 			    requestPlaintext.replace("]", "");
-			    
+			    if(requestPlaintext.length()>=200){
+			    	requestPlaintext=requestPlaintext.substring(0, 199);
+			    }
 			    return "I think the answer is " + requestPlaintext;
 			    
 	
