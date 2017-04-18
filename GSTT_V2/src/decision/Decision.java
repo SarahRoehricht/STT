@@ -27,6 +27,8 @@ public class Decision {
 	private String originalTranscript = "";
 	private AnswerAPI ans;
 	private String[] officialObjects = { "plant", "plants", "table", "tables" };
+	private String[] crowdList = { "male", "female", "males", "females", "children", "laying", "lay", "sit", "sitting",
+			"standing", "stand" };
 
 	// get's set by GSTT_V2 before .decide
 	private int scenario;
@@ -148,37 +150,60 @@ public class Decision {
 		// case to bring something
 		// extendable with adjective e.g. 'the' 'blue' 'book'
 		case ("bring"): {
-
+			boolean found = false;
 			String object = "";
 			for (int i = 0; i < parsedString.size(); i++) {
 
 				if (parsedString.get(i).tag().equals("NN")) {
 					object = parsedString.get(i).value();
-
+					found = true;
 					break;
 				}
 			}
-			actionObject = object;
-			actionCommand = true;
-			return ("bring");
+			if (found) {
+				actionObject = object;
+				actionCommand = true;
+				found = false;
+				return ("bring");
+			} else {
+				try {
+					lookforAnswer();
+				} catch (IOException e) {
+					e.printStackTrace();
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 			// call or return important parameters to the function or the
 			// function calling
 		}
-
+//give scenario
 		case ("give"): {
 			String object = "";
+			boolean found = false;
 			for (int i = 0; i < parsedString.size(); i++) {
 
 				if (parsedString.get(i).tag().equals("NN")) {
 					object = parsedString.get(i).value();
-
+					found = true;
 					break;
 				}
 			}
-			actionObject = object;
-			actionCommand = true;
-			return ("bring");
-
+			if (found) {
+				actionObject = object;
+				actionCommand = true;
+				found = false;
+				return ("bring");
+			} else {
+				try {
+					lookforAnswer();
+				} catch (IOException e) {
+					return ("");
+				} catch (Exception e) {
+					return ("");
+				}
+			}
 		}
 
 		case ("hello"): {
@@ -232,16 +257,29 @@ public class Decision {
 
 		case ("where"): {
 			String object = "";
+			boolean found = false;
 			for (int i = 0; i < parsedString.size(); i++) {
 				if (parsedString.get(i).tag().equals("NN")) {
 					object = parsedString.get(i).value();
+					found = true;
 				}
 
 			}
-			actionObject = object;
-			actionCommand = true;
-			return ("surrounding");
+			if (found) {
 
+				actionObject = object;
+				actionCommand = true;
+				found = false;
+				return ("surrounding");
+			} else {
+				try {
+					lookforAnswer();
+				} catch (IOException e) {
+					return ("");
+				} catch (Exception e) {
+					return ("");
+				}
+			}
 		}
 		case ("open"): {
 
@@ -260,6 +298,7 @@ public class Decision {
 
 		}
 		case ("many"): {
+			boolean found = false;
 			System.out.println(parsedString);
 			for (int i = 0; i < officialObjects.length; i++) {
 				System.out.println(officialObjects[i]);
@@ -267,25 +306,104 @@ public class Decision {
 
 			for (int i = 0; i < officialObjects.length; i++) {
 				if (getOriginalTranscript().contains(officialObjects[i])) {
-
+					found = true;
 					actionObject = officialObjects[i];
 					actionCommand = true;
-					return ("surrounding");
+
 				}
 
+			}
+
+			// if parts of the sentence weren't in the official objects list
+			if (!found) {
+				boolean foundCrowd = false;
+				// if male and not female are in sentence
+				if (getOriginalTranscript().contains("male")
+						|| getOriginalTranscript().contains("males") && !(getOriginalTranscript().contains("female")
+								|| getOriginalTranscript().contains("females"))) {
+					foundCrowd = true;
+					actionObject = "countMale";
+					actionCommand = true;
+					// if female and not male are in sentence
+				} else if (getOriginalTranscript().contains("female") || getOriginalTranscript().contains("females")
+						&& !(getOriginalTranscript().contains("male") || getOriginalTranscript().contains("males"))) {
+					foundCrowd = true;
+					actionObject = "countFemale";
+					actionCommand = true;
+					// if male and female are in sentence
+				} else if (getOriginalTranscript().contains("female") || getOriginalTranscript().contains("females")
+						&& (getOriginalTranscript().contains("male") || getOriginalTranscript().contains("males"))) {
+					foundCrowd = true;
+					actionObject = "countAll";
+					actionCommand = true;
+					// if sit/sitting is in sentence
+				} else if (getOriginalTranscript().contains("sit") || getOriginalTranscript().contains("sitting")) {
+					foundCrowd = true;
+					actionObject = "countSitting";
+					actionCommand = true;
+					// if lay/laying is in sentence
+				} else if (getOriginalTranscript().contains("lay") || getOriginalTranscript().contains("sitting")) {
+					foundCrowd = true;
+					actionObject = "countLaying";
+					actionCommand = true;
+					// if stand/standing is in sentence
+				} else if (getOriginalTranscript().contains("stands") || getOriginalTranscript().contains("standing")
+						|| getOriginalTranscript().contains("stand")) {
+					foundCrowd = true;
+					actionObject = "countStanding";
+					actionCommand = true;
+					// if wave/waves/waving is in sentence
+				} else if (getOriginalTranscript().contains("wave") || getOriginalTranscript().contains("waves")
+						|| getOriginalTranscript().contains("waving")) {
+					foundCrowd = true;
+					actionObject = "countHandSign";
+					actionCommand = true;
+					// if old is in sentence
+				} else if (getOriginalTranscript().contains("old")) {
+					foundCrowd = true;
+					actionObject = "countOld";
+					actionCommand = true;
+					// if young is in sentence
+				} else if (getOriginalTranscript().contains("young")) {
+					foundCrowd = true;
+					actionObject = "countYoung";
+					actionCommand = true;
+				}
+				// if one of the above was found
+				if (foundCrowd) {
+					foundCrowd = false;
+					return ("crowd");
+				}
+
+			}
+			if (found) {
+				found = false;
+				return ("surrounding");
 			}
 			return ("");
 		}
 		case ("go"): {
 			String object = "";
+			boolean found = false;
 			for (int i = 0; i < parsedString.size(); i++) {
 				if (parsedString.get(i).tag().equals("NN")) {
 					object = parsedString.get(i).value();
 				}
 			}
-			actionObject = object;
-			actionCommand = true;
-			return ("goto");
+			if (found) {
+				actionObject = object;
+				actionCommand = true;
+				found = false;
+				return ("goto");
+			} else {
+				try {
+					lookforAnswer();
+				} catch (IOException e) {
+					return ("");
+				} catch (Exception e) {
+					return ("");
+				}
+			}
 		}
 		case ("at home"): {
 			return ("Robocup at home is founded in the year 2006");
@@ -302,10 +420,14 @@ public class Decision {
 			String time = new SimpleDateFormat("h:mm a, zzzz", Locale.US).format(new Date());
 			return ("The current time is " + time);
 		}
-
+		// sends follow action back if sentence shorter than 5 Words
 		case ("follow"): {
-			// action.followPerson();
-			return ("I will follow you.");
+			if (getOriginalTranscript().length() < 5) {
+
+				actionCommand = true;
+				actionObject = "";
+				return ("follow");
+			}
 		}
 		}
 
@@ -336,7 +458,6 @@ public class Decision {
 		try {
 			setToTTS(ans.answerQuestion(getOriginalTranscript()));
 		} catch (UnsupportedEncodingException | MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

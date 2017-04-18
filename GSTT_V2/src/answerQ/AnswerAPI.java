@@ -86,7 +86,7 @@ public class AnswerAPI {
 			System.out.println(requestPlaintext);
 			//check if parsed request answer is null
 			    if(requestPlaintext==null){
-			    	return "Sorry, I can't find an answer";
+			    	return "";
 			    }
 			    //replaces {,},[,] with empty char, to ensure emotionparser working correctly.
 			    requestPlaintext.replace("{", "");
