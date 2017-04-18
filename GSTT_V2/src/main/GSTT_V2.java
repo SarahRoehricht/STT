@@ -179,7 +179,6 @@ public class GSTT_V2 {
 							try {
 								gstt.logCalls.writeData();
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 

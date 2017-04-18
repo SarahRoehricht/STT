@@ -27,8 +27,6 @@ public class Decision {
 	private String originalTranscript = "";
 	private AnswerAPI ans;
 	private String[] officialObjects = { "plant", "plants", "table", "tables" };
-	private String[] crowdList = { "male", "female", "males", "females", "children", "laying", "lay", "sit", "sitting",
-			"standing", "stand" };
 
 	// get's set by GSTT_V2 before .decide
 	private int scenario;
@@ -40,100 +38,50 @@ public class Decision {
 
 	}
 
-	public String getActionObject() {
-		return actionObject;
-	}
-
-	public void setActionObject(String actionObject) {
-		this.actionObject = actionObject;
-	}
-
-	public boolean getActionCommand() {
-		return actionCommand;
-	}
-
-	public void setActionCommand(boolean actionCommand) {
-		this.actionCommand = actionCommand;
-	}
-
-	public int getScenario() {
-		return scenario;
-	}
-
-	public void setScenario(int scenario) {
-		this.scenario = scenario;
-	}
-
-	public String getToTTS() {
-		return toTTS;
-	}
-
-	public void setToTTS(String toTTS) {
-		this.toTTS = toTTS;
-	}
-
-	public String getOriginalTranscript() {
-		return originalTranscript;
-	}
-
-	public void setOriginalTranscript(String originalTranscript) {
-		this.originalTranscript = originalTranscript;
-	}
-
-	public String[] getOfficialObjects() {
-		return officialObjects;
-	}
-
-	public void setOfficialObjects(String[] officialObjects) {
-		this.officialObjects = officialObjects;
-	}
-
 	public void decide(ArrayList<TaggedWord> parsedString) {
 		boolean match = false;
 
 		if (scenario == 1) {
 
-		}
-		// match dictionary keywords with TaggedWord values,
-		// return action value/command/call next function else look for answer
-		if (getOriginalTranscript().contains("how are you")) {
-			i.interaction(1);
-			setToTTS(i.getReplyInteract());
-			match = true;
-		}
-		// else if (getOriginalTranscript().contains("last question") |
-		// getOriginalTranscript().contains("previous question"))
-		// {
-		// //get previous question
-		// setToTTS("The previous question is " + );
-		// }
-		else {
-			for (TaggedWord taggedWord : parsedString) {
+			// match dictionary keywords with TaggedWord values,
+			// return action value/command/call next function else look for
+			// answer
+			if (getOriginalTranscript().contains("how are you")) {
+				i.interaction(1);
+				setToTTS(i.getReplyInteract());
+				match = true;
+			} else {
+				for (TaggedWord taggedWord : parsedString) {
 
-				if (hs.contains(taggedWord.value().toLowerCase())) {
-					// call the dictionary parser method with the matched Word,
-					// and
-					// the parsedString
-					System.out.println(taggedWord + " is in here.");
+					if (hs.contains(taggedWord.value().toLowerCase())) {
+						// call the dictionary parser method with the matched
+						// Word,
+						// and
+						// the parsedString
+						System.out.println(taggedWord + " is in here.");
 
-					match = true;
+						match = true;
 
-					String strReturn = matchdecide(taggedWord, parsedString);
-					if (!strReturn.isEmpty()) {
-						setToTTS(strReturn);
-					} else {
-						setToTTS("");
+						String strReturn = matchdecide(taggedWord, parsedString);
+						if (!strReturn.isEmpty()) {
+							setToTTS(strReturn);
+						} else {
+							setToTTS("");
+						}
+
+						break;
 					}
-
-					break;
 				}
 			}
-		}
-		if (!match) {
-			setToTTS("");
+			if (!match) {
+				setToTTS("");
 
-		}
+			}
 
+		}else if(scenario==3){
+			i.retrieveName(parsedString);
+			
+		}
 	}
 
 	private String matchdecide(TaggedWord match, ArrayList<TaggedWord> parsedString) {
@@ -178,7 +126,7 @@ public class Decision {
 			// call or return important parameters to the function or the
 			// function calling
 		}
-//give scenario
+		// give scenario
 		case ("give"): {
 			String object = "";
 			boolean found = false;
@@ -429,6 +377,7 @@ public class Decision {
 				return ("follow");
 			}
 		}
+
 		}
 
 		return ("");
@@ -460,6 +409,54 @@ public class Decision {
 		} catch (UnsupportedEncodingException | MalformedURLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public String getActionObject() {
+		return actionObject;
+	}
+
+	public void setActionObject(String actionObject) {
+		this.actionObject = actionObject;
+	}
+
+	public boolean getActionCommand() {
+		return actionCommand;
+	}
+
+	public void setActionCommand(boolean actionCommand) {
+		this.actionCommand = actionCommand;
+	}
+
+	public int getScenario() {
+		return scenario;
+	}
+
+	public void setScenario(int scenario) {
+		this.scenario = scenario;
+	}
+
+	public String getToTTS() {
+		return toTTS;
+	}
+
+	public void setToTTS(String toTTS) {
+		this.toTTS = toTTS;
+	}
+
+	public String getOriginalTranscript() {
+		return originalTranscript;
+	}
+
+	public void setOriginalTranscript(String originalTranscript) {
+		this.originalTranscript = originalTranscript;
+	}
+
+	public String[] getOfficialObjects() {
+		return officialObjects;
+	}
+
+	public void setOfficialObjects(String[] officialObjects) {
+		this.officialObjects = officialObjects;
 	}
 
 }
