@@ -329,10 +329,13 @@ public class GSTT_V2 {
 								case 6:
 									randOut = "Do you know in Season 7 of Game of Thrones, Cersei is pregnant?";
 									break;
+								case 7:
+									randOut = "I will just pretend i didn't hear that.";
+									break;
 								default:
 									randOut = "Hello human.";
 								}
-
+								randOut+="[:-)]";
 								System.out.println("I can't hear what you said. Please repeat.\n");
 								reply = randOut;
 								gstt.udpCom.sendSocket("#STT#RETRY#" + reply + "#", gstt.targetIP, gstt.targetPort);
