@@ -138,17 +138,17 @@ public class GSTT_V2 {
 						try {
 							System.out.println("Recording...");
 							mic.captureAudioToFile(file); // starts recording
-							
+
 							// waits for #STT#0# package or waits for 10s
 							do {
-								
-								gstt.udpCom.receiveSocket(gstt.myIP, gstt.myPort, false,true);
+
+								gstt.udpCom.receiveSocket(gstt.myIP, gstt.myPort, false, true);
 								message = gstt.udpCom.getMessage();
 								System.out.println(message);
-								if(message.contains("timeout")){
+								if (message.contains("timeout")) {
 									break;
 								}
-								
+
 							} while (!"#STT#0#".equals(message));
 
 							mic.close();
@@ -258,17 +258,29 @@ public class GSTT_V2 {
 							{
 								if (logData.getFirstResponse() != null) {
 									transcript = logData.getFirstResponse();
-									Boolean found;
-									String[] janein = { "yes", "Yes", "jep", "Jep", "yup", "Yup", "Yep", "yep", "ja",
-											"Ja", "no", "No", "nope", "Nope", "nah", "Nah" };
+									Boolean found = false;
+									String[] yes = { "yes", "Yes", "jep", "Jep", "yup", "Yup", "Yep", "yep", "ja",
+											"Ja" };
+									String[] no = { "no", "No", "nope", "Nope", "nah", "Nah" };
 									System.out.println(transcript);
-									for (int i = 0; i < janein.length; i++) {
-										found = transcript.contains(janein[i]);
+									for (int i = 0; i < yes.length; i++) {
+										found = transcript.contains(yes[i]);
 										if (found) {
-											reply = janein[i];
+											reply = "yes";
 											break;
 										} else {
 											reply = "";
+										}
+									}
+									if (!found) {
+										for (int i = 0; i < no.length; i++) {
+											found = transcript.contains(no[i]);
+											if (found) {
+												reply = "no";
+												break;
+											} else {
+												reply = "";
+											}
 										}
 									}
 								} else {
