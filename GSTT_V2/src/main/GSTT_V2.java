@@ -11,7 +11,6 @@ import java.net.SocketException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.file.Files;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 //import java.nio.file.Path;
 //import java.nio.file.Paths;
@@ -26,7 +25,6 @@ import javaFlacEncoder.FLACFileWriter;
 import log.LogCount;
 import log.LogSTT;
 import log.LogReply;
-import tcp.TCPServer;
 
 import decision.Decision;
 import edu.stanford.nlp.ling.TaggedWord;
@@ -310,7 +308,7 @@ public class GSTT_V2 {
 
 								switch (randNum) {
 								case 0:
-									randOut = "I think someone stole your car.";
+									randOut = "I can't hear what you said. Please repeat.";
 									break;
 								case 1:
 									randOut = "What did you say?";
