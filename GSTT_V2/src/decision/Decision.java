@@ -25,7 +25,6 @@ public class Decision {
 
 	private String toTTS = "";
 	private String originalTranscript = "";
-	private AnswerAPI ans;
 	private String[] officialObjects = { "plant", "plants", "table", "tables" };
 
 	// get's set by GSTT_V2 before .decide
