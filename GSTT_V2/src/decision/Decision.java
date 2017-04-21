@@ -33,7 +33,7 @@ public class Decision {
 
 	public Decision() {
 		hs = new HashSet<String>(Arrays.asList("team", "robocup", "robocop", "at home", "time", "date", "bring", "give",
-				"hello", "greetings", "hi", "howdy", "hey", "bonjour", "hallo", "go", "name", "joke", "follow", "where",
+				"hello", "greetings", "hi", "howdy", "hey", "bonjour", "hallo", "go", "name", "joke", "follow","following", "where",
 				"open", "many", "much"));
 	}
 
@@ -78,7 +78,7 @@ public class Decision {
 			}
 
 		} else if (scenario == 3) {
-			
+
 			i.retrieveName(parsedString);
 			setToTTS(i.getName());
 
@@ -369,15 +369,25 @@ public class Decision {
 			String time = new SimpleDateFormat("h:mm a, zzzz", Locale.US).format(new Date());
 			return ("The current time is " + time);
 		}
-			// sends follow action back if sentence shorter than 5 Words
+			//fall throgh
+		case ("following"):{
+			
+		}//sends follow action back if sentence shorter than 5 Words
 		case ("follow"): {
-			if (getOriginalTranscript().length() < 5) {
+
+			if (getOriginalTranscript().contains("stop")) {
 
 				actionCommand = true;
-				actionObject = "";
-				return ("follow");
+				actionObject = "stop";
+				return ("followme");
+
 			}
+			actionCommand = true;
+			actionObject = "start";
+			return ("followme");
+
 		}
+
 			// needs strong checking
 		case ("what"): {
 			if (getOriginalTranscript().contains("size") || getOriginalTranscript().contains("crowd")) {

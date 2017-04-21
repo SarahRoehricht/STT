@@ -30,7 +30,6 @@ import decision.Decision;
 import edu.stanford.nlp.ling.TaggedWord;
 import parser.Parser;
 
-
 /*GSTT with TCP and Sender #STT#(String)#*/
 
 public class GSTT_V2 {
@@ -156,58 +155,64 @@ public class GSTT_V2 {
 							byte[] data = Files.readAllBytes(mic.getAudioFile().toPath());
 
 							// mic.getAudioFile().delete();
-
-							String request = "https://www.google.com/speech-api/v2/recognize?client=chromium&lang=en-us&key="
-									+ APIKEY;
-
-							URL url = new URL(request);
-							HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-							connection.setDoOutput(true);
-							connection.setDoInput(true);
-							connection.setInstanceFollowRedirects(false);
-							connection.setRequestMethod("POST");
-							connection.setRequestProperty("Content-Type", "audio/x-flac; rate=8000"); // 8000
-																										// (from
-																										// Mic),
-																										// 44100,
-																										// 16000
-							connection.setRequestProperty("User-Agent", "speech2text");
-							connection.setConnectTimeout(60000);
-							connection.setUseCaches(false);
-
-							DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-							wr.write(data);
-							wr.flush();
-							wr.close();
-							connection.disconnect();
-
-							System.out.println("Retrieving results...");
-
 							try {
-								gstt.logCalls.writeData();
-							} catch (IOException e) {
-								e.printStackTrace();
+
+								String request = "https://www.google.com/speech-api/v2/recognize?client=chromium&lang=en-us&key="
+										+ APIKEY;
+
+								URL url = new URL(request);
+								HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+								connection.setDoOutput(true);
+								connection.setDoInput(true);
+								connection.setInstanceFollowRedirects(false);
+								connection.setRequestMethod("POST");
+								connection.setRequestProperty("Content-Type", "audio/x-flac; rate=8000"); // 8000
+																											// (from
+																											// Mic),
+																											// 44100,
+																											// 16000
+								connection.setRequestProperty("User-Agent", "speech2text");
+								connection.setConnectTimeout(10000);
+								connection.setUseCaches(false);
+
+								DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+								wr.write(data);
+								wr.flush();
+								wr.close();
+								connection.disconnect();
+
+								System.out.println("Retrieving results...");
+
+								try {
+									gstt.logCalls.writeData();
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+
+								BufferedReader in = new BufferedReader(
+										new InputStreamReader(connection.getInputStream()));
+
+								String decodedString;
+								List<String> ls = new ArrayList<String>();
+
+								while ((decodedString = in.readLine()) != null) {
+									ls.add(decodedString);
+									System.out.println(decodedString);
+								}
+
+								try {
+									logData.readData(); // get previous question
+														// before being
+														// overwritten
+									logData.writeData(ls);
+								} catch (IOException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+							} catch (Exception e) {
+								
 							}
-
-							BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
-							String decodedString;
-							List<String> ls = new ArrayList<String>();
-
-							while ((decodedString = in.readLine()) != null) {
-								ls.add(decodedString);
-								System.out.println(decodedString);
-							}
-
-							try {
-								logData.readData(); // get previous question
-													// before being overwritten
-								logData.writeData(ls);
-							} catch (IOException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-
+							gstt.udpCom.sendSocket("#STT#TEXT#" + logData.getFirstResponse() + "#", gstt.targetIP, gstt.targetPort);
 							// case 0,1: Get first response, parse and answer
 							switch (scenario) {
 
@@ -304,7 +309,7 @@ public class GSTT_V2 {
 								String randOut = "";
 
 								Random random = new Random();
-								randNum = random.nextInt(6);
+								randNum = random.nextInt(3);
 
 								switch (randNum) {
 								case 0:
@@ -314,27 +319,15 @@ public class GSTT_V2 {
 									randOut = "What did you say?";
 									break;
 								case 2:
-									randOut = "Does your partner know that you are pregnant in the third month?";
+									randOut = "Could you repeat that?.";
 									break;
 								case 3:
-									randOut = "By the way, your car is just being towed away!";
-									break;
-								case 4:
-									randOut = "By the way, you look great!";
-									break;
-								case 5:
-									randOut = "Do you know in Season 7 of Game of Thrones, both Sansa and Arya will survive?";
-									break;
-								case 6:
-									randOut = "Do you know in Season 7 of Game of Thrones, Cersei is pregnant?";
-									break;
-								case 7:
-									randOut = "I will just pretend i didn't hear that.";
+									randOut = "Do you mind saying that again?";
 									break;
 								default:
 									randOut = "Hello human.";
 								}
-								randOut+="[:-)]";
+								randOut += "[:-)]";
 								System.out.println("I can't hear what you said. Please repeat.\n");
 								reply = randOut;
 								gstt.udpCom.sendSocket("#STT#RETRY#" + reply + "#", gstt.targetIP, gstt.targetPort);
@@ -346,7 +339,7 @@ public class GSTT_V2 {
 									gstt.udpCom.sendSocket("#STT#ACTION#" + reply + ";" + d.getActionObject() + "#",
 											gstt.targetIP, gstt.targetPort);
 								} else {
-									gstt.udpCom.sendSocket("#STT#TEXT#" + reply + "#", gstt.targetIP, gstt.targetPort);
+									gstt.udpCom.sendSocket("#STT#ANSWER#" + reply + "#", gstt.targetIP, gstt.targetPort);
 								}
 								// resetting ActionCommand Boolean
 								d.setActionCommand(false);
