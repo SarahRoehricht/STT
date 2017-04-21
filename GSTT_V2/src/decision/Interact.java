@@ -184,6 +184,9 @@ public class Interact
 				}
 			}
 		}
+	if(name.isEmpty()&& parsedString.size()<2 &&!parsedString.isEmpty()){
+		setName(parsedString.get(0).value());
+	}
 	}
 	
 	public void questionAboutTeam(String originalText)

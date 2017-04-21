@@ -24,7 +24,6 @@ public class AnswerAPI {
 		
 	}
 	
-	
 	//get's utterance and asks wolframAlphaAPI for answer
 	public String answerQuestion(String question) throws UnsupportedEncodingException, MalformedURLException{
 		//APIKey for Wolfram Alpha API

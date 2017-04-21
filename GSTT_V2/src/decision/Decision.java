@@ -32,9 +32,8 @@ public class Decision {
 
 	public Decision() {
 		hs = new HashSet<String>(Arrays.asList("team", "robocup", "robocop", "at home", "time", "date", "bring", "give",
-				"hello", "greetings", "hi", "howdy", "hey", "bonjour", "hallo", "go", "name", "joke", "follow", "where",
+				"hello", "greetings", "hi", "howdy", "hey", "bonjour", "hallo", "go", "name", "joke", "follow","following", "where",
 				"open", "many", "much"));
-
 	}
 
 	public void decide(ArrayList<TaggedWord> parsedString) {
@@ -77,9 +76,11 @@ public class Decision {
 
 			}
 
-		}else if(scenario==3){
+		} else if (scenario == 3) {
+
 			i.retrieveName(parsedString);
-			
+			setToTTS(i.getName());
+
 		}
 	}
 
@@ -125,7 +126,7 @@ public class Decision {
 			// call or return important parameters to the function or the
 			// function calling
 		}
-		// give scenario
+			// give scenario
 		case ("give"): {
 			String object = "";
 			boolean found = false;
@@ -194,7 +195,7 @@ public class Decision {
 			return (i.getReplyInteract());
 
 		}
-		// fall-through
+			// fall-through
 		case ("robocop"): {
 
 		}
@@ -240,16 +241,12 @@ public class Decision {
 			actionCommand = true;
 			return ("open");
 		}
-		// fall-through
+			// fall-through
 		case ("much"): {
 
 		}
 		case ("many"): {
 			boolean found = false;
-			System.out.println(parsedString);
-			for (int i = 0; i < officialObjects.length; i++) {
-				System.out.println(officialObjects[i]);
-			}
 
 			for (int i = 0; i < officialObjects.length; i++) {
 				if (getOriginalTranscript().contains(officialObjects[i])) {
@@ -289,7 +286,7 @@ public class Decision {
 					actionObject = "countSitting";
 					actionCommand = true;
 					// if lay/laying is in sentence
-				} else if (getOriginalTranscript().contains("lay") || getOriginalTranscript().contains("sitting")) {
+				} else if (getOriginalTranscript().contains("lay") || getOriginalTranscript().contains("laying")) {
 					foundCrowd = true;
 					actionObject = "countLaying";
 					actionCommand = true;
@@ -314,6 +311,10 @@ public class Decision {
 				} else if (getOriginalTranscript().contains("young")) {
 					foundCrowd = true;
 					actionObject = "countYoung";
+					actionCommand = true;
+				} else if (getOriginalTranscript().contains("crowd") || getOriginalTranscript().contains("people")) {
+					foundCrowd = true;
+					actionObject = "countAll";
 					actionCommand = true;
 				}
 				// if one of the above was found
@@ -356,8 +357,8 @@ public class Decision {
 			return ("Robocup at home is founded in the year 2006");
 		}
 
-		// alternative way to get date and time, can get it from Wolfram
-		// Alpha
+			// alternative way to get date and time, can get it from Wolfram
+			// Alpha
 		case ("date"): {
 			String date = new SimpleDateFormat("EEEEE, MMMM dd, yyyy", Locale.US).format(new Date());
 			return ("Today is " + date);
@@ -367,16 +368,45 @@ public class Decision {
 			String time = new SimpleDateFormat("h:mm a, zzzz", Locale.US).format(new Date());
 			return ("The current time is " + time);
 		}
-		// sends follow action back if sentence shorter than 5 Words
+			//fall throgh
+		case ("following"):{
+			
+		}//sends follow action back if sentence shorter than 5 Words
 		case ("follow"): {
-			if (getOriginalTranscript().length() < 5) {
+
+			if (getOriginalTranscript().contains("stop")) {
 
 				actionCommand = true;
-				actionObject = "";
-				return ("follow");
+				actionObject = "stop";
+				return ("followme");
+
 			}
+			actionCommand = true;
+			actionObject = "start";
+			return ("followme");
+
 		}
 
+			// needs strong checking
+		case ("what"): {
+			if (getOriginalTranscript().contains("size") || getOriginalTranscript().contains("crowd")) {
+
+				actionCommand = true;
+				actionObject = "countAll";
+
+				return ("crowd");
+
+			} else if (getOriginalTranscript().contains("people") || getOriginalTranscript().contains("number")) {
+
+				actionCommand = true;
+				actionObject = "countAll";
+
+				return ("crowd");
+
+			}
+
+			return ("");
+		}
 		}
 
 		return ("");
