@@ -95,6 +95,8 @@ public class AnswerAPI {
 			    if(requestPlaintext.contains("data not available")){
 			    	return "Sorry, i don't have any data on this. [:-(]";
 			    }
+			   // requestPlaintext=requestPlaintext.replaceAll("\\(.*\\)", "");
+			    requestPlaintext=requestPlaintext.trim();
 			    
 			    if(requestPlaintext.length()>=200){
 			    	requestPlaintext=requestPlaintext.substring(0, 199);
