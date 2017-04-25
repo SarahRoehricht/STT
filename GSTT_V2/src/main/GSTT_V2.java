@@ -212,7 +212,12 @@ public class GSTT_V2 {
 							} catch (Exception e) {
 								
 							}
-							gstt.udpCom.sendSocket("#STT#TEXT#" + logData.getFirstResponse() + "#", gstt.targetIP, gstt.targetPort);
+							if(logData.getFirstResponse()!=null){
+								gstt.udpCom.sendSocket("#STT#TEXT#" + logData.getFirstResponse() + "#", gstt.targetIP, gstt.targetPort);
+							}else{
+								gstt.udpCom.sendSocket("#STT#RETRY#" + "#", gstt.targetIP, gstt.targetPort);
+							}
+							
 							// case 0,1: Get first response, parse and answer
 							switch (scenario) {
 
