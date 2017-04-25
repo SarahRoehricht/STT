@@ -300,13 +300,14 @@ public class GSTT_V2 {
 								break;
 							}
 							case 3: // name
-							{
+							{if (logData.getFirstResponse() != null) {
+								transcript = logData.getFirstResponse();
 								d.setOriginalTranscript(transcript);
 								parsedString = p.parse(transcript);
 								d.setScenario(scenario);
 								d.decide(parsedString);
 								reply = d.getToTTS();
-							}
+							}}
 							}
 							if (reply.isEmpty()) {
 								/// Just for fun, generate random output
