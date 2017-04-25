@@ -88,10 +88,14 @@ public class AnswerAPI {
 			    	return "";
 			    }
 			    //replaces {,},[,] with empty char, to ensure emotionparser working correctly.
-			    requestPlaintext.replace("{", "");
-			    requestPlaintext.replace("}", "");
-			    requestPlaintext.replace("[", "");
-			    requestPlaintext.replace("]", "");
+			    requestPlaintext=requestPlaintext.replace("{", "");
+			    requestPlaintext=requestPlaintext.replace("}", "");
+			    requestPlaintext=requestPlaintext.replace("[", "");
+			    requestPlaintext=requestPlaintext.replace("]", "");
+			    if(requestPlaintext.contains("data not available")){
+			    	return "Sorry, i don't have any data on this. [:-(]";
+			    }
+			    
 			    if(requestPlaintext.length()>=200){
 			    	requestPlaintext=requestPlaintext.substring(0, 199);
 			    }
