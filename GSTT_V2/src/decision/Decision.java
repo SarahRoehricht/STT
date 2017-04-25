@@ -305,7 +305,7 @@ public class Decision {
 			String object = "";
 			boolean found = false;
 			for (int i = 0; i < parsedString.size(); i++) {
-				if (parsedString.get(i).tag().equals("NN")) {
+				if (parsedString.get(i).tag().equals("NN")||parsedString.get(i).tag().equals("NNP")) {
 					object = parsedString.get(i).value();
 				}
 			}
@@ -315,13 +315,7 @@ public class Decision {
 				found = false;
 				return ("goto");
 			} else {
-				try {
-					lookforAnswer();
-				} catch (IOException e) {
-					return ("");
-				} catch (Exception e) {
-					return ("");
-				}
+				return("");
 			}
 		}
 		case ("at home"): {
