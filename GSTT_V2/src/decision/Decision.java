@@ -77,10 +77,10 @@ public class Decision {
 			}
 
 		} else if (scenario == 3) {
-
+{
 			i.retrieveName(parsedString);
 			setToTTS(i.getName());
-
+}
 		}
 	}
 
