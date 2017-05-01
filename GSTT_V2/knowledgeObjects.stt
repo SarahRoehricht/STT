@@ -1,0 +1,4 @@
+##this is the config file for all the known objects and it's properties
+##The syntax is name|color|location|size|weight
+melon|yellow|shelf|20cm|500g
+lemon|yellow|drawer|2cm|50g
