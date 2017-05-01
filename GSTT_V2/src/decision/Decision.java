@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
+import knowledge.Object;
 
 import answerQ.AnswerAPI;
 import commands.ActionCommand;
@@ -25,15 +27,27 @@ public class Decision {
 
 	private String toTTS = "";
 	private String originalTranscript = "";
-	private String[] officialObjects = { "plant", "plants", "table", "tables", "apple" };
+	private List<String> officialObjectsNames= new ArrayList<String>();
 
+	private ArrayList<Object> officialObjects;
 	// get's set by GSTT_V2 before .decide
 	private int scenario;
 
 	public Decision() {
+
 		hs = new HashSet<String>(Arrays.asList("team", "robocup", "robocop", "at home", "time", "date", "bring", "give",
-				"hello", "greetings", "hi", "howdy", "hey", "bonjour", "hallo", "go", "name", "joke", "follow","following", "where",
-				"open", "many", "much"));
+				"take", "hello", "greetings", "hi", "howdy", "hey", "bonjour", "hallo", "go", "name", "joke", "follow",
+				"following", "where", "open", "many", "much"));
+	}
+
+	public void setOfficialObjects(ArrayList<Object> officialObjects) {
+
+		for (Object object : officialObjects) {
+			System.out.println(object.getName());
+			officialObjectsNames.add(object.getName());
+
+		}
+		this.officialObjects = officialObjects;
 	}
 
 	public void decide(ArrayList<TaggedWord> parsedString) {
@@ -77,17 +91,17 @@ public class Decision {
 			}
 
 		} else if (scenario == 3) {
-{
-			i.retrieveName(parsedString);
-			setToTTS(i.getName());
-}
+			{
+				i.retrieveName(parsedString);
+				setToTTS(i.getName());
+			}
 		}
 	}
 
 	private String matchdecide(TaggedWord match, ArrayList<TaggedWord> parsedString) {
 
 		// System.out.println(match);
-		 System.out.println(parsedString);
+		System.out.println(parsedString);
 
 		// simplify match String and bring match into lowercase
 		String simpleMatch = simplifyMatch(match.value());
@@ -97,16 +111,18 @@ public class Decision {
 
 		// case to bring something
 		// extendable with adjective e.g. 'the' 'blue' 'book'
-		//fall-through
+		// fall-through
 		// give & take scenario
-		case ("take"): {}
-		case ("give"): {}
+		case ("take"): {
+		}
+		case ("give"): {
+		}
 		case ("bring"): {
 			boolean found = false;
 			String object = "";
 			for (int i = 0; i < parsedString.size(); i++) {
 
-				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP") ) {
+				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
 					object = parsedString.get(i).value();
 					found = true;
 					break;
@@ -123,8 +139,6 @@ public class Decision {
 			// call or return important parameters to the function or the
 			// function calling
 		}
-			
-		
 
 		case ("hello"): {
 			i.interaction(0);
@@ -167,7 +181,7 @@ public class Decision {
 			return (i.getReplyInteract());
 
 		}
-			// fall-through
+		// fall-through
 		case ("robocop"): {
 
 		}
@@ -213,17 +227,17 @@ public class Decision {
 			actionCommand = true;
 			return ("open");
 		}
-			// fall-through
+		// fall-through
 		case ("much"): {
 
 		}
 		case ("many"): {
 			boolean found = false;
 
-			for (int i = 0; i < officialObjects.length; i++) {
-				if (getOriginalTranscript().contains(officialObjects[i])) {
+			for (int i = 0; i < officialObjectsNames.size(); i++) {
+				if (getOriginalTranscript().contains(officialObjectsNames.get(i))) {
 					found = true;
-					actionObject = officialObjects[i];
+					actionObject = officialObjectsNames.get(i);
 					actionCommand = true;
 
 				}
@@ -258,13 +272,12 @@ public class Decision {
 					actionObject = "countBoys";
 					actionCommand = true;
 					// if girls is in sentence
-				}else if (getOriginalTranscript().contains("girls")) {
+				} else if (getOriginalTranscript().contains("girls")) {
 					foundCrowd = true;
 					actionObject = "countGirls";
 					actionCommand = true;
 					// if sit/sitting is in sentence
-				}
-				else if (getOriginalTranscript().contains("sit") || getOriginalTranscript().contains("sitting")) {
+				} else if (getOriginalTranscript().contains("sit") || getOriginalTranscript().contains("sitting")) {
 					foundCrowd = true;
 					actionObject = "countSitting";
 					actionCommand = true;
@@ -291,11 +304,12 @@ public class Decision {
 					actionObject = "countOld";
 					actionCommand = true;
 					// if young is in sentence
-				} else if (getOriginalTranscript().contains("young") ||getOriginalTranscript().contains("children")){
+				} else if (getOriginalTranscript().contains("young") || getOriginalTranscript().contains("children")) {
 					foundCrowd = true;
 					actionObject = "countYoung";
 					actionCommand = true;
-				} else if (getOriginalTranscript().contains("crowd") || (getOriginalTranscript().contains("people") && getOriginalTranscript().contains("here") )){
+				} else if (getOriginalTranscript().contains("crowd")
+						|| (getOriginalTranscript().contains("people") && getOriginalTranscript().contains("here"))) {
 					foundCrowd = true;
 					actionObject = "countAll";
 					actionCommand = true;
@@ -317,9 +331,9 @@ public class Decision {
 			String object = "";
 			boolean found = false;
 			for (int i = 0; i < parsedString.size(); i++) {
-				if (parsedString.get(i).tag().equals("NN")||parsedString.get(i).tag().equals("NNP")) {
+				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
 					object = parsedString.get(i).value();
-					found=true;
+					found = true;
 				}
 			}
 			if (found) {
@@ -328,15 +342,15 @@ public class Decision {
 				found = false;
 				return ("goto");
 			} else {
-				return("");
+				return ("");
 			}
 		}
 		case ("at home"): {
 			return ("Robocup at home is founded in the year 2006");
 		}
 
-			// alternative way to get date and time, can get it from Wolfram
-			// Alpha
+		// alternative way to get date and time, can get it from Wolfram
+		// Alpha
 		case ("date"): {
 			String date = new SimpleDateFormat("EEEEE, MMMM dd, yyyy", Locale.US).format(new Date());
 			return ("Today is " + date);
@@ -346,10 +360,10 @@ public class Decision {
 			String time = new SimpleDateFormat("h:mm a, zzzz", Locale.US).format(new Date());
 			return ("The current time is " + time);
 		}
-			//fall throgh
-		case ("following"):{
-			
-		}//sends follow action back if sentence shorter than 5 Words
+		// fall throgh
+		case ("following"): {
+
+		} // sends follow action back if sentence shorter than 5 Words
 		case ("follow"): {
 
 			if (getOriginalTranscript().contains("stop")) {
@@ -365,7 +379,7 @@ public class Decision {
 
 		}
 
-			// needs strong checking
+		// needs strong checking
 		case ("what"): {
 			if (getOriginalTranscript().contains("size") || getOriginalTranscript().contains("crowd")) {
 
@@ -458,12 +472,12 @@ public class Decision {
 		this.originalTranscript = originalTranscript;
 	}
 
-	public String[] getOfficialObjects() {
-		return officialObjects;
+	public List<String> getOfficialObjectsNames() {
+		return officialObjectsNames;
 	}
 
-	public void setOfficialObjects(String[] officialObjects) {
-		this.officialObjects = officialObjects;
+	public void setOfficialObjectsNames(List<String> officialObjectsNames) {
+		this.officialObjectsNames = officialObjectsNames;
 	}
 
 }

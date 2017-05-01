@@ -1,5 +1,17 @@
+/lib/
+/answerQ/
 /commands/
 /decision/
 /log/
+/logCount.log
+/logPrevQ.log
+/logReply.log
+/logSTT.log
 /main/
+/parser/
+/parserexamples/
+/tcp/
 /udp/
+/knowledge/
+/Untitled 1
+/knowledgeObjects.stt

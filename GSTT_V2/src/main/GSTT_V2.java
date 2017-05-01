@@ -3,6 +3,8 @@ package main;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import knowledge.Object;
 
 import com.darkprograms.speech.microphone.Microphone;
 import javaFlacEncoder.FLACFileWriter;
@@ -72,6 +75,38 @@ public class GSTT_V2 {
 		if (args.length == 4) {
 			GSTT_V2 gstt = new GSTT_V2();
 			String message;
+			
+			File objectFile=new File("knowledgeObjects.stt");
+			ArrayList<String> str=new ArrayList<String>();
+			BufferedReader br = null;
+			try {
+				br = new BufferedReader(new FileReader(objectFile));
+			} catch (FileNotFoundException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			
+			try {
+			String line;
+			ArrayList<Object> knObjects = new ArrayList<Object>(2);
+			
+				while((line=br.readLine()) !=null){
+					if(!line.contains("#")){
+						String[] split=line.split("\\|");
+						knowledge.Object abc=new knowledge.Object(split[0],split[1],split[2],split[3],split[4]);
+						System.out.println(line);
+						System.out.println(abc.getColor());
+						knObjects.add(abc);
+						
+						
+					}
+				}
+				d.setOfficialObjects(knObjects);
+				br.close();
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
 
 			try {
 				gstt.myIP = InetAddress.getByName(args[0]);
