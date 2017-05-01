@@ -307,6 +307,7 @@ public class Decision {
 			for (int i = 0; i < parsedString.size(); i++) {
 				if (parsedString.get(i).tag().equals("NN")||parsedString.get(i).tag().equals("NNP")) {
 					object = parsedString.get(i).value();
+					found=true;
 				}
 			}
 			if (found) {

@@ -325,7 +325,7 @@ public class GSTT_V2 {
 									randOut = "What did you say?";
 									break;
 								case 2:
-									randOut = "Could you repeat that?.";
+									randOut = "Could you repeat that?";
 									break;
 								case 3:
 									randOut = "Do you mind saying that again?";
