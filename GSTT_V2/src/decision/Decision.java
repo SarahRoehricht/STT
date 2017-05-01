@@ -251,8 +251,19 @@ public class Decision {
 					foundCrowd = true;
 					actionObject = "countAll";
 					actionCommand = true;
+					// if boys is in sentence
+				} else if (getOriginalTranscript().contains("boys")) {
+					foundCrowd = true;
+					actionObject = "countBoys";
+					actionCommand = true;
+					// if girls is in sentence
+				}else if (getOriginalTranscript().contains("girls")) {
+					foundCrowd = true;
+					actionObject = "countGirls";
+					actionCommand = true;
 					// if sit/sitting is in sentence
-				} else if (getOriginalTranscript().contains("sit") || getOriginalTranscript().contains("sitting")) {
+				}
+				else if (getOriginalTranscript().contains("sit") || getOriginalTranscript().contains("sitting")) {
 					foundCrowd = true;
 					actionObject = "countSitting";
 					actionCommand = true;
