@@ -98,7 +98,7 @@ public class Decision {
 		// case to bring something
 		// extendable with adjective e.g. 'the' 'blue' 'book'
 		//fall-through
-		// give scenario
+		// give & take scenario
 		case ("take"): {}
 		case ("give"): {}
 		case ("bring"): {
@@ -291,7 +291,7 @@ public class Decision {
 					actionObject = "countOld";
 					actionCommand = true;
 					// if young is in sentence
-				} else if (getOriginalTranscript().contains("young")) {
+				} else if (getOriginalTranscript().contains("young") ||getOriginalTranscript().contains("children")){
 					foundCrowd = true;
 					actionObject = "countYoung";
 					actionCommand = true;
