@@ -99,7 +99,7 @@ public class Decision {
 		// extendable with adjective e.g. 'the' 'blue' 'book'
 		//fall-through
 		// give scenario
-		case ("tale"): {}
+		case ("take"): {}
 		case ("give"): {}
 		case ("bring"): {
 			boolean found = false;
