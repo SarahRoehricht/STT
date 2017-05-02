@@ -255,16 +255,25 @@ public class GSTT_V2 {
 							
 							// case 0,1: Get first response, parse and answer
 							switch (scenario) {
-
+						
 							case 1: // default Smalltalk
 							{
+								
+								//STRING TO TEST WITHOUT GOOGLE
+								logData.setFirstResponse("what's the color of a lemon?");
+								logData.setSecondResponse("what's the color of a lemon?");
+								
+								
+								
 								if (logData.getFirstResponse() != null) {
 									transcript = logData.getFirstResponse();
 									if (transcript.contains("previous question") | transcript.contains("last question")
 											| transcript.contains("previous questions")
 											| transcript.contains("last questions")) {
 										reply = "The previous question is, " + logData.getPreviousResponse();
-									} else {
+									} else 
+								{
+										
 										d.setOriginalTranscript(transcript);
 										parsedString = p.parse(transcript);
 										d.setScenario(scenario);

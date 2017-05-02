@@ -37,7 +37,7 @@ public class Decision {
 
 		hs = new HashSet<String>(Arrays.asList("team", "robocup", "robocop", "at home", "time", "date", "bring", "give",
 				"take", "hello", "greetings", "hi", "howdy", "hey", "bonjour", "hallo", "go", "name", "joke", "follow",
-				"following", "where", "open", "many", "much"));
+				"following", "where", "open", "many", "much", "what"));
 	}
 
 	public void setOfficialObjects(ArrayList<Object> officialObjects) {
@@ -381,21 +381,31 @@ public class Decision {
 
 		// needs strong checking
 		case ("what"): {
-			if (getOriginalTranscript().contains("size") || getOriginalTranscript().contains("crowd")) {
+			if (getOriginalTranscript().contains("size") && getOriginalTranscript().contains("crowd")) {
 
 				actionCommand = true;
 				actionObject = "countAll";
 
 				return ("crowd");
 
-			} else if (getOriginalTranscript().contains("people") || getOriginalTranscript().contains("number")) {
+			} else if (getOriginalTranscript().contains("people") && getOriginalTranscript().contains("number")) {
 
 				actionCommand = true;
 				actionObject = "countAll";
 
 				return ("crowd");
 
-			}
+			} else if(getOriginalTranscript().contains("color") || getOriginalTranscript().contains("colour") ){
+				for (int i = 0; i < parsedString.size(); i++) {
+					if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
+						for (int j = 0; j < officialObjects.size(); j++) {
+							if(parsedString.get(i).value().equals(officialObjects.get(j).getName())){
+								return("The color of the "+officialObjects.get(j).getName()+" is "+ officialObjects.get(j).getColor());
+							}
+						}
+					}
+				}
+			} 
 
 			return ("");
 		}
