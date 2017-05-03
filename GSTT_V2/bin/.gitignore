@@ -1,17 +1,106 @@
+/knowledgeObjects.stt
 /lib/
-/answerQ/
-/commands/
-/decision/
-/log/
 /logCount.log
 /logPrevQ.log
 /logReply.log
 /logSTT.log
+/answerQ/
+/commands/
+/decision/
+/knowledge/
+/log/
 /main/
 /parser/
 /parserexamples/
 /tcp/
 /udp/
-/knowledge/
-/Untitled 1
-/knowledgeObjects.stt
+/RT-Lions_MicrophoneRecording_2017-05-02 15-20-32.wav
+/RT-Lions_MicrophoneRecording_2017-05-02 15-20-50.wav
+/RT-Lions_MicrophoneRecording_2017-05-02 15-21-12.wav
+/RT-Lions_MicrophoneRecording_2017-05-02 15-22-17.wav
+/RT-Lions_MicrophoneRecording_2017-05-02 15-23-41.wav
+/RT-Lions_MicrophoneRecording_2017-05-02 15-24-14.wav
+/RT-Lions_MicrophoneRecording_2017-05-02 15-25-57.wav
+/RT-Lions_MicrophoneRecording_2017-05-02 15-27-56.wav
+/RT-Lions_MicrophoneRecording_2017-05-02 15-29-14.wav
+/RT-Lions_MicrophoneRecording_2017-05-02 15-32-31.wav
+/RT-Lions_MicrophoneRecording_2017-05-02 15-36-18.wav
+/RT-Lions_MicrophoneRecording_2017-05-02 15-39-54.wav
+/RT-Lions_MicrophoneRecording_2017-05-02 15-40-42.wav
+/RT-Lions_MicrophoneRecording_2017-05-02 15-41-31.wav
+/RT-Lions_MicrophoneRecording_2017-05-02 15-42-56.wav
+/RT-Lions_MicrophoneRecording_2017-05-02 15-52-34.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 09-18-54.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 09-19-24.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 09-21-01.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 09-22-15.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 09-22-59.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 09-26-36.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 09-31-17.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 09-32-11.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 09-35-14.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 09-45-09.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 09-45-49.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 09-46-35.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 14-48-33.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 14-49-02.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-07-06.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-09-06.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-24-40.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-26-02.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-26-21.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-27-29.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-28-29.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-47-30.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-49-06.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-51-26.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-51-58.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-52-43.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-53-07.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-53-33.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-54-04.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-55-53.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-56-39.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-58-56.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 16-00-06.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 16-01-27.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 16-01-58.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 16-03-29.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 16-06-15.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 16-07-02.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 16-11-34.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 16-13-19.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 16-15-20.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 16-15-39.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 16-16-44.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 16-28-42.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 16-29-26.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 13-54-59.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 13-55-23.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 14-07-21.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 14-07-39.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 14-19-59.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 14-24-18.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 14-26-08.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 14-32-34.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 14-41-02.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 14-44-39.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 14-49-25.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 14-49-48.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 14-50-15.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 14-57-32.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-01-52.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-02-30.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-02-50.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-03-09.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-03-43.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-04-14.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-15-46.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-20-57.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-22-56.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-23-16.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-23-38.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-23-59.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-24-20.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-24-39.wav
+/RT-Lions_MicrophoneRecording_2017-05-03 15-24-58.wav
