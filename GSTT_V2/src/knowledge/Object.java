@@ -10,13 +10,15 @@ private String location;
 private int size;
 private int weight;
 private int count;
-public Object(String name, String color,String location, int size, int weight, int count){
+private String category;
+public Object(String name, String color,String location, int size, int weight, int count, String category){
 	this.name=name;
 	this.color=color;
 	this.location=location;
 	this.size=size;
 	this.weight=weight;
 	this.count=count;
+	this.category=category;
 }
 
 
@@ -39,15 +41,18 @@ public int getWeight() {
 public int getCount() {
 	return count;
 }	
+public String getCategory() {
+	return category;
+}	
 @Override
 	public String toString() {
 		
 	if(this.count==1){
-		String rtn="a "+this.color + " "+this.name+" which is " + this.location+ ". " + this.getSize() + " centimetres tall, weighs " + this.getWeight()+" grams, and there is "+ this.getCount() +" of it.";
+		String rtn="a "+this.color + " "+this.name+" which is " + this.location+ ". " + this.getSize() + " centimetres tall, weighs " + this.getWeight()+" grams, belongs to the category "+this.getCategory()+ " and there is "+ this.getCount() +" of it.";
 		return rtn;
 		
 	}else{
-		String rtn="a "+this.color + " "+this.name+" which is " + this.location+ "." + this.getSize() + " tall, weighs " + this.getWeight()+", and there are "+ this.getCount() +" of them.";
+		String rtn="the "+this.color + " "+this.name+" which is " + this.location+ ". " + this.getSize() + " centimetres tall, weighs " + this.getWeight()+" grams , belongs to the category "+this.getCategory()+", and there are "+ this.getCount() +" of them.";
 		return rtn;
 	}
 	

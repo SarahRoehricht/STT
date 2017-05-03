@@ -82,7 +82,7 @@ public class Decision {
 				setToTTS("Pepper and HSR.[:-)]");
 				match = true;
 			} else if (getOriginalTranscript().contains("store") && getOriginalTranscript().contains("memories")) {
-				setToTTS("My Random Access Memory located under my skirt.[blush:true]");
+				setToTTS("In my Random Access Memory and my Solid State Drive located under my skirt.[blush:true]");
 				match = true;
 
 			} else {
