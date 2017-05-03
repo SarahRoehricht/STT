@@ -93,7 +93,7 @@ public class GSTT_V2 {
 				while((line=br.readLine()) !=null){
 					if(!line.contains("#")){
 						String[] split=line.split("\\|");
-						knowledge.Object abc=new knowledge.Object(split[0],split[1],split[2],Integer.parseInt(split[3]),Integer.parseInt(split[4]),Integer.parseInt(split[5]), split[6]);
+						knowledge.Object abc=new knowledge.Object(split[0],split[1],split[2],split[3],Integer.parseInt(split[4]),Integer.parseInt(split[5]),Integer.parseInt(split[6]), split[7]);
 						System.out.println(abc);
 						
 						knObjects.add(abc);
@@ -261,8 +261,8 @@ public class GSTT_V2 {
 							{
 								
 								//STRING TO TEST WITHOUT GOOGLE
-//								logData.setFirstResponse("");
-//								logData.setSecondResponse("");
+								logData.setFirstResponse("bring me the apple.");
+								logData.setSecondResponse("bring me the apples.");
 								
 								
 								

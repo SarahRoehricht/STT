@@ -5,13 +5,15 @@ package knowledge;
 public class Object {
 
 private String name;
+private String pluralName;
+
 private String color;
 private String location;
 private int size;
 private int weight;
 private int count;
 private String category;
-public Object(String name, String color,String location, int size, int weight, int count, String category){
+public Object(String name,String pluralName, String color,String location, int size, int weight, int count, String category){
 	this.name=name;
 	this.color=color;
 	this.location=location;
@@ -19,6 +21,7 @@ public Object(String name, String color,String location, int size, int weight, i
 	this.weight=weight;
 	this.count=count;
 	this.category=category;
+	this.pluralName=pluralName;
 }
 
 
@@ -44,6 +47,9 @@ public int getCount() {
 public String getCategory() {
 	return category;
 }	
+public String getPluralName() {
+	return pluralName;
+}
 @Override
 	public String toString() {
 		

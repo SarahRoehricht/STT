@@ -1,11 +1,11 @@
 ##this is the config file for all the known objects and it's properties
-##The syntax is name|color|location|size in cm|weight in g|count|category
-plant|brown|in the living room|100|800|1|plants
-water|transperant|on the shelf|20|400|1|drinks
-spoon|silver|in the cabinet|10|20|15|cutlery
-knives|silver|in the cabinet|10|20|15|cutlery
-coke|red|on the kitchencounter|10|333|2|drinks
-crisps|yellow|on the couch table|5|150|100|snacks
-chips|yellow|on the couch table|5|150|100|snacks
-apple|red|on the desk|5|200|4|fruits
-lemon|yellow|on the desk|5|150|4|fruits
+##The syntax is name|pluralName|color|location|size in cm|weight in g|count|category
+plant|plants|brown|in the living room|100|800|1|plants
+water|water|transperant|on the shelf|20|400|1|drinks
+spoon|spoons|silver|in the cabinet|10|20|15|cutlery
+knife|knives|silver|in the cabinet|10|20|15|cutlery
+coke|coke|red|on the kitchencounter|10|333|2|drinks
+crisp|crisps|yellow|on the couch table|5|150|100|snacks
+chips|chips|yellow|on the couch table|5|150|100|snacks
+apple|apples|red|on the desk|5|200|4|fruits
+lemon|lemons|yellow|on the desk|5|150|4|fruits

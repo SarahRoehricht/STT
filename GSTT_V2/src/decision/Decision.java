@@ -162,24 +162,23 @@ public class Decision {
 			boolean found = false;
 			String object = "";
 			for (int i = 0; i < parsedString.size(); i++) {
-
 				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
-					object = parsedString.get(i).value();
-					found = true;
-					break;
+					for (int j = 0; j < officialObjects.size(); j++) {
+						if (parsedString.get(i).value().equals(officialObjects.get(j).getName())|| parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
+							actionObject = officialObjects.get(j).getName();
+							actionCommand = true;
+							found = false;
+							return ("bring");
+						}
+					}
 				}
 			}
-			if (found) {
-				actionObject = object;
-				actionCommand = true;
-				found = false;
-				return ("bring");
-			} else {
+			
 				return ("");
 			}
 			// call or return important parameters to the function or the
 			// function calling
-		}
+		
 
 		case ("hello"): {
 			i.interaction(0);
@@ -236,7 +235,7 @@ public class Decision {
 			for (int i = 0; i < parsedString.size(); i++) {
 				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
 					for (int j = 0; j < officialObjects.size(); j++) {
-						if (parsedString.get(i).value().equals(officialObjects.get(j).getName())) {
+						if (parsedString.get(i).value().equals(officialObjects.get(j).getName())|| parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
 							return ("The location of the " + officialObjects.get(j).getName() + " is "
 									+ officialObjects.get(j).getLocation());
 						}
@@ -265,17 +264,33 @@ public class Decision {
 		}
 		case ("many"): {
 			boolean found = false;
-
-			for (int i = 0; i < officialObjectsNames.size(); i++) {
-				if (getOriginalTranscript().contains(officialObjectsNames.get(i))) {
-					found = true;
-					actionObject = officialObjectsNames.get(i);
-					actionCommand = true;
-
-					return ("");
-
+			/*
+			 * In case for open challenge for (int i = 0; i <
+			 * officialObjectsNames.size(); i++) { if
+			 * (getOriginalTranscript().contains(officialObjectsNames.get(i))) {
+			 * found = true; actionObject = officialObjectsNames.get(i);
+			 * actionCommand = true;
+			 * 
+			 * return ("");
+			 * 
+			 * }
+			 * 
+			 * }
+			 */
+			for (int i = 0; i < parsedString.size(); i++) {
+				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
+					for (int j = 0; j < officialObjects.size(); j++) {
+						if (parsedString.get(i).value().equals(officialObjects.get(j).getName())||parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
+							if (officialObjects.get(j).getCount() == 1) {
+								return ("There is " + officialObjects.get(j).getCount() + " "
+										+ officialObjects.get(j).getName());
+							} else {
+								return ("There are " + officialObjects.get(j).getCount() + " "
+										+ officialObjects.get(j).getPluralName());
+							}
+						}
+					}
 				}
-
 			}
 
 			// if parts of the sentence weren't in the official objects list
@@ -415,20 +430,19 @@ public class Decision {
 				actionCommand = true;
 				found = false;
 				return ("goto");
-			}else if (getOriginalTranscript().toLowerCase().contains("dining")
+			} else if (getOriginalTranscript().toLowerCase().contains("dining")
 					&& getOriginalTranscript().toLowerCase().contains("room")) {
 				actionObject = "diningRoom";
 				actionCommand = true;
 				found = false;
 				return ("goto");
-			}else if (getOriginalTranscript().toLowerCase().contains("living")
+			} else if (getOriginalTranscript().toLowerCase().contains("living")
 					&& getOriginalTranscript().toLowerCase().contains("room")) {
 				actionObject = "livingRoom";
 				actionCommand = true;
 				found = false;
 				return ("goto");
-			}
-			else if (getOriginalTranscript().toLowerCase().contains("stove")) {
+			} else if (getOriginalTranscript().toLowerCase().contains("stove")) {
 				actionObject = "stove";
 				actionCommand = true;
 				found = false;
@@ -509,8 +523,8 @@ public class Decision {
 			for (int i = 0; i < parsedString.size(); i++) {
 				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
 					for (int j = 0; j < officialObjects.size(); j++) {
-						if (parsedString.get(i).value().equals(officialObjects.get(j).getName())) {
-							return ("The size of the " + officialObjects.get(j).getName() + " is "
+						if (parsedString.get(i).value().equals(officialObjects.get(j).getName()) ||parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
+							return ("The size of the " + officialObjects.get(j).getName() + " is about "
 									+ officialObjects.get(j).getSize() + " centimetres.");
 						}
 					}
@@ -542,7 +556,7 @@ public class Decision {
 				for (int i = 0; i < parsedString.size(); i++) {
 					if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
 						for (int j = 0; j < officialObjects.size(); j++) {
-							if (parsedString.get(i).value().equals(officialObjects.get(j).getName())) {
+							if (parsedString.get(i).value().equals(officialObjects.get(j).getName())||parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
 								return ("The color of the " + officialObjects.get(j).getName() + " is "
 										+ officialObjects.get(j).getColor());
 							}
@@ -553,8 +567,8 @@ public class Decision {
 				for (int i = 0; i < parsedString.size(); i++) {
 					if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
 						for (int j = 0; j < officialObjects.size(); j++) {
-							if (parsedString.get(i).value().equals(officialObjects.get(j).getName())) {
-								return ("The size of the " + officialObjects.get(j).getName() + " is "
+							if (parsedString.get(i).value().equals(officialObjects.get(j).getName())||parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
+								return ("The size of the " + officialObjects.get(j).getName() + " is about "
 										+ officialObjects.get(j).getSize() + " centimetres.");
 							}
 						}
