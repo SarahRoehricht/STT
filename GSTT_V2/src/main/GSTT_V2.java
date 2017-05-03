@@ -261,8 +261,8 @@ public class GSTT_V2 {
 							{
 								
 								//STRING TO TEST WITHOUT GOOGLE
-								logData.setFirstResponse("Where is your team located?");
-								logData.setSecondResponse("what's your name?");
+//								logData.setFirstResponse("Where is your team located?");
+//								logData.setSecondResponse("what's your name?");
 								
 								
 								
