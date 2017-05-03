@@ -93,9 +93,8 @@ public class GSTT_V2 {
 				while((line=br.readLine()) !=null){
 					if(!line.contains("#")){
 						String[] split=line.split("\\|");
-						knowledge.Object abc=new knowledge.Object(split[0],split[1],split[2],split[3],split[4]);
-						System.out.println(line);
-						System.out.println(abc.getColor());
+						knowledge.Object abc=new knowledge.Object(split[0],split[1],split[2],Integer.parseInt(split[3]),Integer.parseInt(split[4]),Integer.parseInt(split[5]));
+						System.out.println(abc);
 						knObjects.add(abc);
 						
 						

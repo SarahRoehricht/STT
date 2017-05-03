@@ -253,6 +253,8 @@ public class Decision {
 					found = true;
 					actionObject = officialObjectsNames.get(i);
 					actionCommand = true;
+					
+					return("");
 
 				}
 
@@ -507,5 +509,10 @@ public class Decision {
 	public void setOfficialObjectsNames(List<String> officialObjectsNames) {
 		this.officialObjectsNames = officialObjectsNames;
 	}
-
+	public boolean compareObject (Object o1, Object o2) {
+		
+		return true;
+	
+	}
+	
 }
