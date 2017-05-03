@@ -259,9 +259,9 @@ public class GSTT_V2 {
 							{
 								
 								//STRING TO TEST WITHOUT GOOGLE
-								logData.setFirstResponse("where's the eiffel tower?");
-								logData.setSecondResponse("where's the eiffel tower?");
-								
+//								logData.setFirstResponse("where's the eiffel tower?");
+//								logData.setSecondResponse("where's the eiffel tower?");
+//								
 								
 								
 								if (logData.getFirstResponse() != null) {
