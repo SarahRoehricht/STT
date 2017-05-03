@@ -95,6 +95,7 @@ public class GSTT_V2 {
 						String[] split=line.split("\\|");
 						knowledge.Object abc=new knowledge.Object(split[0],split[1],split[2],Integer.parseInt(split[3]),Integer.parseInt(split[4]),Integer.parseInt(split[5]));
 						System.out.println(abc);
+						
 						knObjects.add(abc);
 						
 						
@@ -187,7 +188,7 @@ public class GSTT_V2 {
 							System.out.println("Closed mic...");
 
 							byte[] data = Files.readAllBytes(mic.getAudioFile().toPath());
-
+///*for disabling google
 							// mic.getAudioFile().delete();
 							try {
 
@@ -246,6 +247,7 @@ public class GSTT_V2 {
 							} catch (Exception e) {
 								
 							}
+							//*/for disabling google
 							if(logData.getFirstResponse()!=null){
 								gstt.udpCom.sendSocket("#STT#TEXT#" + logData.getFirstResponse() + "#", gstt.targetIP, gstt.targetPort);
 							}else{
@@ -259,9 +261,9 @@ public class GSTT_V2 {
 							{
 								
 								//STRING TO TEST WITHOUT GOOGLE
-//								logData.setFirstResponse("where's the eiffel tower?");
-//								logData.setSecondResponse("where's the eiffel tower?");
-//								
+								logData.setFirstResponse("Where is your team located?");
+								logData.setSecondResponse("what's your name?");
+								
 								
 								
 								if (logData.getFirstResponse() != null) {

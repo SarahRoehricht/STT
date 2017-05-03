@@ -77,7 +77,7 @@ public class Decision {
 			} else if (getOriginalTranscript().contains("main") && getOriginalTranscript().toLowerCase().contains("matrix")) {
 				setToTTS("Neo.[:-)]");
 				match = true;
-			} else if (((getOriginalTranscript().contains("robocop") || getOriginalTranscript().contains("robocup")||getOriginalTranscript().contains("home"))
+			} else if (((getOriginalTranscript().contains("robocop") || getOriginalTranscript().contains("robocup")||getOriginalTranscript().contains("home") ||getOriginalTranscript().contains("rubber"))
 					)&& (getOriginalTranscript().contains("platforms")||getOriginalTranscript().contains("platforms") ||getOriginalTranscript().contains("standard")||getOriginalTranscript().contains("headphones"))) {
 				setToTTS("Pepper and HSR.[:-)]");
 				match = true;
