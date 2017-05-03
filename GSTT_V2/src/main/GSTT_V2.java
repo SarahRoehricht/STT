@@ -364,16 +364,16 @@ public class GSTT_V2 {
 
 								switch (randNum) {
 								case 0:
-									randOut = "I can't hear what you said. Please repeat.";
+									randOut = "I can't hear what you said.";
 									break;
 								case 1:
-									randOut = "What did you say?";
+									randOut = "I couldn't understand what you said.";
 									break;
 								case 2:
-									randOut = "Could you repeat that?";
+									randOut = "I can't hear what you said.";
 									break;
 								case 3:
-									randOut = "Do you mind saying that again?";
+									randOut = "Sorry, i didn't get that.";
 									break;
 								default:
 									randOut = "Hello human.";
