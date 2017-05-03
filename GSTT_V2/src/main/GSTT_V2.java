@@ -260,8 +260,8 @@ public class GSTT_V2 {
 							{
 								
 								//STRING TO TEST WITHOUT GOOGLE
-								logData.setFirstResponse("what's the color of a lemon?");
-								logData.setSecondResponse("what's the color of a lemon?");
+								logData.setFirstResponse("where's the eiffel tower?");
+								logData.setSecondResponse("where's the eiffel tower?");
 								
 								
 								

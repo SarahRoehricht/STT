@@ -190,31 +190,21 @@ public class Decision {
 		}
 
 		case ("where"): {
-			String object = "";
-			boolean found = false;
-			for (int i = 0; i < parsedString.size(); i++) {
-				if (parsedString.get(i).tag().equals("NN")) {
-					object = parsedString.get(i).value();
-					found = true;
+			
+				for (int i = 0; i < parsedString.size(); i++) {
+					if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
+						for (int j = 0; j < officialObjects.size(); j++) {
+							if(parsedString.get(i).value().equals(officialObjects.get(j).getName())){
+								return("The location of the "+officialObjects.get(j).getName()+" is "+ officialObjects.get(j).getLocation());
+							}
+						}
+					}
 				}
-
+			 
+			
+				return("");
 			}
-			if (found) {
-
-				actionObject = object;
-				actionCommand = true;
-				found = false;
-				return ("surrounding");
-			} else {
-				try {
-					lookforAnswer();
-				} catch (IOException e) {
-					return ("");
-				} catch (Exception e) {
-					return ("");
-				}
-			}
-		}
+		
 		case ("open"): {
 
 			String object = "";

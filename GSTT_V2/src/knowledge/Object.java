@@ -33,5 +33,4 @@ public String getWeight() {
 	return weight;
 }
 	
-	
 }
