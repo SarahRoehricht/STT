@@ -202,3 +202,11 @@ ResponseID 0503_01:24:49.107:
 ResponseID 0503_04:55:49.630: I think the answer is groups and mL are not compatible
 ResponseID 0503_04:58:19.008: I think the answer is groups and mL are not compatible
 ResponseID 0503_05:02:20.821: goto
+ResponseID 0503_06:19:22.687: The location of the apple is on the desk
+ResponseID 0503_06:20:40.168: The location of the apple is on the desk
+ResponseID 0503_06:21:10.141: The color of the apple is red
+ResponseID 0503_06:22:02.805: The color of the apple is red
+ResponseID 0503_06:22:16.161: Sorry, i don't have any data on this. [:-(]
+ResponseID 0503_06:26:41.760: The size of the apple is 5
+ResponseID 0503_06:29:05.920: The size of the apple is 5 centimetres.
+ResponseID 0503_06:29:42.504: goto

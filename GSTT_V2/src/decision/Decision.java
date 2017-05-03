@@ -34,7 +34,7 @@ public class Decision {
 	private int scenario;
 	private String[] hs = new String[] { "team", "robocup", "robocop", "at home", "time", "date", "bring", "give",
 			"take", "hello", "greetings", "hi", "howdy", "hey", "bonjour", "hallo", "go", "name", "joke", "follow",
-			"following", "where", "open", "many", "much", "what" };
+			"following", "where", "open", "many", "much", "what", "big" };
 
 	public Decision() {
 
@@ -66,23 +66,28 @@ public class Decision {
 					&& getOriginalTranscript().contains("robotics")) {
 				setToTTS("Isaac Asimov.[:-)]");
 				match = true;
-			} else if ((getOriginalTranscript().toLowerCase().contains("rosie") || getOriginalTranscript().contains("series"))
-					&& getOriginalTranscript().contains("robot")) {
+			} else if ((getOriginalTranscript().toLowerCase().contains("rosie")
+					|| getOriginalTranscript().contains("series")) && getOriginalTranscript().contains("robot")) {
 				setToTTS("The Jetsons.[:-)]");
 				match = true;
 			} else if ((getOriginalTranscript().contains("baby") && getOriginalTranscript().contains("series"))
 					|| getOriginalTranscript().toLowerCase().contains("bambam")) {
 				setToTTS("The Flintstones.[:-)]");
 				match = true;
-			} else if (getOriginalTranscript().contains("main") && getOriginalTranscript().toLowerCase().contains("matrix")) {
+			} else if (getOriginalTranscript().contains("main")
+					&& getOriginalTranscript().toLowerCase().contains("matrix")) {
 				setToTTS("Neo.[:-)]");
 				match = true;
-			} else if (((getOriginalTranscript().contains("robocop") || getOriginalTranscript().contains("robocup")||getOriginalTranscript().contains("home") ||getOriginalTranscript().contains("rubber"))
-					)&& (getOriginalTranscript().contains("platforms")||getOriginalTranscript().contains("platforms") ||getOriginalTranscript().contains("standard")||getOriginalTranscript().contains("headphones"))) {
+			} else if (((getOriginalTranscript().contains("robocop") || getOriginalTranscript().contains("robocup")
+					|| getOriginalTranscript().contains("home") || getOriginalTranscript().contains("rubber")))
+					&& (getOriginalTranscript().contains("platforms") || getOriginalTranscript().contains("platforms")
+							|| getOriginalTranscript().contains("standard")
+							|| getOriginalTranscript().contains("headphones"))) {
 				setToTTS("Pepper and HSR.[:-)]");
 				match = true;
 			} else if (getOriginalTranscript().contains("store") && getOriginalTranscript().contains("memories")) {
-				setToTTS("In my Random Access Memory and my Solid State Drive located under my skirt.[blush:true]");
+				setToTTS(
+						"[blush:false]In my Random Access Memory and my Solid State Drive located under my skirt.[blush:false]");
 				match = true;
 
 			} else {
@@ -114,7 +119,7 @@ public class Decision {
 					// setToTTS(strReturn);
 					// } else {
 					//
-					
+
 					// }
 
 					// break;
@@ -197,9 +202,9 @@ public class Decision {
 			else if (getOriginalTranscript().contains("your")) {
 				return ("My name is Leonie.[:-)]");
 			} else {
-				//i.retrieveName(parsedString);
-				//return ("Your name is " + i.getName());
-				return("");
+				// i.retrieveName(parsedString);
+				// return ("Your name is " + i.getName());
+				return ("");
 			}
 		}
 
@@ -359,75 +364,97 @@ public class Decision {
 		case ("go"): {
 			String object = "";
 			boolean found = false;
-			
-			//For Magdeburg 
-			if(getOriginalTranscript().toLowerCase().contains("dinner")&&getOriginalTranscript().toLowerCase().contains("table")){
+
+			// For Magdeburg
+			if (getOriginalTranscript().toLowerCase().contains("dinner")
+					&& getOriginalTranscript().toLowerCase().contains("table")) {
 				actionObject = "dinnerTable";
 				actionCommand = true;
 				found = false;
 				return ("goto");
-			}else if(getOriginalTranscript().toLowerCase().contains("cabinet")){
+			} else if (getOriginalTranscript().toLowerCase().contains("cabinet")) {
 				actionObject = "cabinet";
 				actionCommand = true;
 				found = false;
 				return ("goto");
-			} else if(getOriginalTranscript().toLowerCase().contains("bookshelf")||getOriginalTranscript().toLowerCase().contains("bookshelves")){
+			} else if (getOriginalTranscript().toLowerCase().contains("bookshelf")
+					|| getOriginalTranscript().toLowerCase().contains("bookshelves")) {
 				actionObject = "bookshelf";
 				actionCommand = true;
 				found = false;
 				return ("goto");
-			}else if((getOriginalTranscript().toLowerCase().contains("kitchen")&&(!getOriginalTranscript().toLowerCase().contains("counter")))){
+			} else if ((getOriginalTranscript().toLowerCase().contains("kitchen")
+					&& (!getOriginalTranscript().toLowerCase().contains("counter")))) {
 				actionObject = "kitchen";
 				actionCommand = true;
 				found = false;
 				return ("goto");
-			}else if((getOriginalTranscript().toLowerCase().contains("kitchen")&&getOriginalTranscript().toLowerCase().contains("counter"))||getOriginalTranscript().toLowerCase().contains("kitchencounter")){
+			} else if ((getOriginalTranscript().toLowerCase().contains("kitchen")
+					&& getOriginalTranscript().toLowerCase().contains("counter"))
+					|| getOriginalTranscript().toLowerCase().contains("kitchencounter")) {
 				actionObject = "kitchencounter";
 				actionCommand = true;
 				found = false;
 				return ("goto");
-			}else if((getOriginalTranscript().toLowerCase().contains("sofa")||getOriginalTranscript().toLowerCase().contains("couch"))&&!(getOriginalTranscript().toLowerCase().contains("table"))){
+			} else if ((getOriginalTranscript().toLowerCase().contains("sofa")
+					|| getOriginalTranscript().toLowerCase().contains("couch"))
+					&& !(getOriginalTranscript().toLowerCase().contains("table"))) {
 				actionObject = "sofa";
 				actionCommand = true;
 				found = false;
 				return ("goto");
-			}else if(getOriginalTranscript().toLowerCase().contains("couch")&&getOriginalTranscript().toLowerCase().contains("table")){
+			} else if (getOriginalTranscript().toLowerCase().contains("couch")
+					&& getOriginalTranscript().toLowerCase().contains("table")) {
 				actionObject = "couchTable";
 				actionCommand = true;
 				found = false;
 				return ("goto");
-			}else if(getOriginalTranscript().toLowerCase().contains("side")&&getOriginalTranscript().toLowerCase().contains("table")){
+			} else if (getOriginalTranscript().toLowerCase().contains("side")
+					&& getOriginalTranscript().toLowerCase().contains("table")) {
 				actionObject = "sideTable";
 				actionCommand = true;
 				found = false;
 				return ("goto");
-			}else if(getOriginalTranscript().toLowerCase().contains("stove")){
+			}else if (getOriginalTranscript().toLowerCase().contains("dining")
+					&& getOriginalTranscript().toLowerCase().contains("room")) {
+				actionObject = "diningRoom";
+				actionCommand = true;
+				found = false;
+				return ("goto");
+			}else if (getOriginalTranscript().toLowerCase().contains("living")
+					&& getOriginalTranscript().toLowerCase().contains("room")) {
+				actionObject = "livingRoom";
+				actionCommand = true;
+				found = false;
+				return ("goto");
+			}
+			else if (getOriginalTranscript().toLowerCase().contains("stove")) {
 				actionObject = "stove";
 				actionCommand = true;
 				found = false;
 				return ("goto");
-			}else if(getOriginalTranscript().toLowerCase().contains("bed")){
+			} else if (getOriginalTranscript().toLowerCase().contains("bed")) {
 				actionObject = "bed";
 				actionCommand = true;
 				found = false;
 				return ("goto");
-			}else if(getOriginalTranscript().toLowerCase().contains("closet")){
+			} else if (getOriginalTranscript().toLowerCase().contains("closet")) {
 				actionObject = "closet";
 				actionCommand = true;
 				found = false;
 				return ("goto");
-			}else if(getOriginalTranscript().toLowerCase().contains("desk")){
+			} else if (getOriginalTranscript().toLowerCase().contains("desk")) {
 				actionObject = "desk";
 				actionCommand = true;
 				found = false;
 				return ("goto");
-			}else if(getOriginalTranscript().toLowerCase().contains("bar")){
+			} else if (getOriginalTranscript().toLowerCase().contains("bar")) {
 				actionObject = "bar";
 				actionCommand = true;
 				found = false;
 				return ("goto");
 			}
-			
+
 			for (int i = 0; i < parsedString.size(); i++) {
 				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
 					object = parsedString.get(i).value();
@@ -476,6 +503,21 @@ public class Decision {
 			return ("followme");
 
 		}
+			// how big is something?
+		case ("big"): {
+
+			for (int i = 0; i < parsedString.size(); i++) {
+				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
+					for (int j = 0; j < officialObjects.size(); j++) {
+						if (parsedString.get(i).value().equals(officialObjects.get(j).getName())) {
+							return ("The size of the " + officialObjects.get(j).getName() + " is "
+									+ officialObjects.get(j).getSize() + " centimetres.");
+						}
+					}
+				}
+			}
+
+		}
 
 			// needs strong checking
 		case ("what"): {
@@ -503,6 +545,17 @@ public class Decision {
 							if (parsedString.get(i).value().equals(officialObjects.get(j).getName())) {
 								return ("The color of the " + officialObjects.get(j).getName() + " is "
 										+ officialObjects.get(j).getColor());
+							}
+						}
+					}
+				}
+			} else if (getOriginalTranscript().contains("size")) {
+				for (int i = 0; i < parsedString.size(); i++) {
+					if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
+						for (int j = 0; j < officialObjects.size(); j++) {
+							if (parsedString.get(i).value().equals(officialObjects.get(j).getName())) {
+								return ("The size of the " + officialObjects.get(j).getName() + " is "
+										+ officialObjects.get(j).getSize() + " centimetres.");
 							}
 						}
 					}

@@ -261,8 +261,8 @@ public class GSTT_V2 {
 							{
 								
 								//STRING TO TEST WITHOUT GOOGLE
-//								logData.setFirstResponse("go to the kitchen table");
-//								logData.setSecondResponse("go to the kitchen table");
+//								logData.setFirstResponse("");
+//								logData.setSecondResponse("");
 								
 								
 								
