@@ -59,26 +59,26 @@ public class Decision {
 			// return action value/command/call next function else look for
 			// answer
 			if (getOriginalTranscript().contains("big") && getOriginalTranscript().contains("hairy")
-					&& ((getOriginalTranscript().contains("star") || getOriginalTranscript().contains("Star")))) {
+					&& ((getOriginalTranscript().toLowerCase().contains("star")))) {
 				setToTTS("Chewbacca.[:-)]");
 				match = true;
 			} else if ((getOriginalTranscript().contains("law") || getOriginalTranscript().contains("laws"))
 					&& getOriginalTranscript().contains("robotics")) {
 				setToTTS("Isaac Asimov.[:-)]");
 				match = true;
-			} else if ((getOriginalTranscript().contains("Rosie") || getOriginalTranscript().contains("series"))
+			} else if ((getOriginalTranscript().toLowerCase().contains("rosie") || getOriginalTranscript().contains("series"))
 					&& getOriginalTranscript().contains("robot")) {
 				setToTTS("The Jetsons.[:-)]");
 				match = true;
 			} else if ((getOriginalTranscript().contains("baby") && getOriginalTranscript().contains("series"))
-					|| getOriginalTranscript().contains("bambam")) {
+					|| getOriginalTranscript().toLowerCase().contains("bambam")) {
 				setToTTS("The Flintstones.[:-)]");
 				match = true;
-			} else if (getOriginalTranscript().contains("main") && getOriginalTranscript().contains("matrix")) {
+			} else if (getOriginalTranscript().contains("main") && getOriginalTranscript().toLowerCase().contains("matrix")) {
 				setToTTS("Neo.[:-)]");
 				match = true;
-			} else if ((getOriginalTranscript().contains("robocop") || getOriginalTranscript().contains("robocup"))
-					&& getOriginalTranscript().contains("platform")) {
+			} else if (((getOriginalTranscript().contains("robocop") || getOriginalTranscript().contains("robocup")||getOriginalTranscript().contains("home"))
+					)&& (getOriginalTranscript().contains("platforms")||getOriginalTranscript().contains("platforms") ||getOriginalTranscript().contains("standard")||getOriginalTranscript().contains("headphones"))) {
 				setToTTS("Pepper and HSR.[:-)]");
 				match = true;
 			} else if (getOriginalTranscript().contains("store") && getOriginalTranscript().contains("memories")) {
@@ -197,8 +197,9 @@ public class Decision {
 			else if (getOriginalTranscript().contains("your")) {
 				return ("My name is Leonie.[:-)]");
 			} else {
-				i.retrieveName(parsedString);
-				return ("Your name is " + i.getName());
+				//i.retrieveName(parsedString);
+				//return ("Your name is " + i.getName());
+				return("");
 			}
 		}
 
@@ -208,12 +209,12 @@ public class Decision {
 		}
 
 		case ("team"): {
-			i.questionAboutTeam(getOriginalTranscript());
+			i.questionAboutTeam(getOriginalTranscript().toLowerCase());
 			return (i.getReplyInteract());
 		}
 
 		case ("teams"): {
-			i.questionAboutTeam(getOriginalTranscript());
+			i.questionAboutTeam(getOriginalTranscript().toLowerCase());
 			return (i.getReplyInteract());
 
 		}
