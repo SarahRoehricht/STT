@@ -18,7 +18,7 @@ import commands.ActionCommand;
 import edu.stanford.nlp.ling.TaggedWord;
 
 public class Decision {
-	HashSet<String> hs;
+
 	Interact i = new Interact();
 
 	// only action scenarios set this boolean to true.
@@ -27,17 +27,17 @@ public class Decision {
 
 	private String toTTS = "";
 	private String originalTranscript = "";
-	private List<String> officialObjectsNames= new ArrayList<String>();
+	private List<String> officialObjectsNames = new ArrayList<String>();
 
 	private ArrayList<Object> officialObjects;
 	// get's set by GSTT_V2 before .decide
 	private int scenario;
+	private String[] hs = new String[] { "team", "robocup", "robocop", "at home", "time", "date", "bring", "give",
+			"take", "hello", "greetings", "hi", "howdy", "hey", "bonjour", "hallo", "go", "name", "joke", "follow",
+			"following", "where", "open", "many", "much", "what" };
 
 	public Decision() {
 
-		hs = new HashSet<String>(Arrays.asList("team", "robocup", "robocop", "at home", "time", "date", "bring", "give",
-				"take", "hello", "greetings", "hi", "howdy", "hey", "bonjour", "hallo", "go", "name", "joke", "follow",
-				"following", "where", "open", "many", "much", "what"));
 	}
 
 	public void setOfficialObjects(ArrayList<Object> officialObjects) {
@@ -58,55 +58,67 @@ public class Decision {
 			// match dictionary keywords with TaggedWord values,
 			// return action value/command/call next function else look for
 			// answer
-			if (getOriginalTranscript().contains("big")&& getOriginalTranscript().contains("hairy")&& ((getOriginalTranscript().contains("star")||getOriginalTranscript().contains("Star")))) {
+			if (getOriginalTranscript().contains("big") && getOriginalTranscript().contains("hairy")
+					&& ((getOriginalTranscript().toLowerCase().contains("star")))) {
 				setToTTS("Chewbacca.[:-)]");
-				match=true;
-			}else if((getOriginalTranscript().contains("law")||getOriginalTranscript().contains("laws"))&& getOriginalTranscript().contains("robotics")){
+				match = true;
+			} else if ((getOriginalTranscript().contains("law") || getOriginalTranscript().contains("laws"))
+					&& getOriginalTranscript().contains("robotics")) {
 				setToTTS("Isaac Asimov.[:-)]");
-				match=true;
-			}
-			else if((getOriginalTranscript().contains("Rosie")||getOriginalTranscript().contains("series"))&&getOriginalTranscript().contains("robot")){
+				match = true;
+			} else if ((getOriginalTranscript().toLowerCase().contains("rosie") || getOriginalTranscript().contains("series"))
+					&& getOriginalTranscript().contains("robot")) {
 				setToTTS("The Jetsons.[:-)]");
-				match=true;
-			}
-			else if((getOriginalTranscript().contains("baby")&& getOriginalTranscript().contains("series"))||getOriginalTranscript().contains("bambam")){
+				match = true;
+			} else if ((getOriginalTranscript().contains("baby") && getOriginalTranscript().contains("series"))
+					|| getOriginalTranscript().toLowerCase().contains("bambam")) {
 				setToTTS("The Flintstones.[:-)]");
-				match=true;
-			}
-			else if(getOriginalTranscript().contains("main")&&getOriginalTranscript().contains("matrix")){
+				match = true;
+			} else if (getOriginalTranscript().contains("main") && getOriginalTranscript().toLowerCase().contains("matrix")) {
 				setToTTS("Neo.[:-)]");
-				match=true;
-			}
-			else if((getOriginalTranscript().contains("robocop")||getOriginalTranscript().contains("robocup"))&&getOriginalTranscript().contains("platform")){
+				match = true;
+			} else if (((getOriginalTranscript().contains("robocop") || getOriginalTranscript().contains("robocup")||getOriginalTranscript().contains("home"))
+					)&& (getOriginalTranscript().contains("platforms")||getOriginalTranscript().contains("platforms") ||getOriginalTranscript().contains("standard")||getOriginalTranscript().contains("headphones"))) {
 				setToTTS("Pepper and HSR.[:-)]");
-				match=true;
-			}
-			else if(getOriginalTranscript().contains("store")&&getOriginalTranscript().contains("memories")){
+				match = true;
+			} else if (getOriginalTranscript().contains("store") && getOriginalTranscript().contains("memories")) {
 				setToTTS("My Random Access Memory located under my skirt.[blush:true]");
-				match=true;
-				
-			}
-			else{
+				match = true;
+
+			} else {
 				for (TaggedWord taggedWord : parsedString) {
+					for (int i = 0; i < hs.length; i++) {
+						if (hs[i].toLowerCase().equals(taggedWord.value().toLowerCase())) {
+							System.out.println(taggedWord + " is in here.");
+							match = true;
 
-					if (hs.contains(taggedWord.value().toLowerCase())) {
-						// call the dictionary parser method with the matched
-						// Word,
-						// and
-						// the parsedString
-						System.out.println(taggedWord + " is in here.");
+							String strReturn = matchdecide(taggedWord, parsedString);
+							if (!strReturn.isEmpty()) {
+								setToTTS(strReturn);
+								break;
+							}
 
-						match = true;
-
-						String strReturn = matchdecide(taggedWord, parsedString);
-						if (!strReturn.isEmpty()) {
-							setToTTS(strReturn);
-						} else {
-							setToTTS("");
 						}
-
-						break;
 					}
+					// if (hs.contains(taggedWord.value().toLowerCase())) {
+					// // call the dictionary parser method with the matched
+					// // Word,
+					// // and
+					// // the parsedString
+					// System.out.println(taggedWord + " is in here.");
+					//
+					// match = true;
+					//
+					// String strReturn = matchdecide(taggedWord, parsedString);
+					// if (!strReturn.isEmpty()) {
+					// setToTTS(strReturn);
+					// } else {
+					//
+					
+					// }
+
+					// break;
+					// }
 				}
 			}
 			if (!match) {
@@ -185,8 +197,9 @@ public class Decision {
 			else if (getOriginalTranscript().contains("your")) {
 				return ("My name is Leonie.[:-)]");
 			} else {
-				i.retrieveName(parsedString);
-				return ("Your name is " + i.getName());
+				//i.retrieveName(parsedString);
+				//return ("Your name is " + i.getName());
+				return("");
 			}
 		}
 
@@ -196,16 +209,16 @@ public class Decision {
 		}
 
 		case ("team"): {
-			i.questionAboutTeam(getOriginalTranscript());
+			i.questionAboutTeam(getOriginalTranscript().toLowerCase());
 			return (i.getReplyInteract());
 		}
 
 		case ("teams"): {
-			i.questionAboutTeam(getOriginalTranscript());
+			i.questionAboutTeam(getOriginalTranscript().toLowerCase());
 			return (i.getReplyInteract());
 
 		}
-		// fall-through
+			// fall-through
 		case ("robocop"): {
 
 		}
@@ -214,21 +227,21 @@ public class Decision {
 		}
 
 		case ("where"): {
-			
-				for (int i = 0; i < parsedString.size(); i++) {
-					if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
-						for (int j = 0; j < officialObjects.size(); j++) {
-							if(parsedString.get(i).value().equals(officialObjects.get(j).getName())){
-								return("The location of the "+officialObjects.get(j).getName()+" is "+ officialObjects.get(j).getLocation());
-							}
+
+			for (int i = 0; i < parsedString.size(); i++) {
+				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
+					for (int j = 0; j < officialObjects.size(); j++) {
+						if (parsedString.get(i).value().equals(officialObjects.get(j).getName())) {
+							return ("The location of the " + officialObjects.get(j).getName() + " is "
+									+ officialObjects.get(j).getLocation());
 						}
 					}
 				}
-			 
-			
-				return("");
 			}
-		
+
+			return ("");
+		}
+
 		case ("open"): {
 
 			String object = "";
@@ -241,7 +254,7 @@ public class Decision {
 			actionCommand = true;
 			return ("open");
 		}
-		// fall-through
+			// fall-through
 		case ("much"): {
 
 		}
@@ -253,8 +266,8 @@ public class Decision {
 					found = true;
 					actionObject = officialObjectsNames.get(i);
 					actionCommand = true;
-					
-					return("");
+
+					return ("");
 
 				}
 
@@ -365,8 +378,8 @@ public class Decision {
 			return ("Robocup at home is founded in the year 2006");
 		}
 
-		// alternative way to get date and time, can get it from Wolfram
-		// Alpha
+			// alternative way to get date and time, can get it from Wolfram
+			// Alpha
 		case ("date"): {
 			String date = new SimpleDateFormat("EEEEE, MMMM dd, yyyy", Locale.US).format(new Date());
 			return ("Today is " + date);
@@ -376,7 +389,7 @@ public class Decision {
 			String time = new SimpleDateFormat("h:mm a, zzzz", Locale.US).format(new Date());
 			return ("The current time is " + time);
 		}
-		// fall throgh
+			// fall throgh
 		case ("following"): {
 
 		} // sends follow action back if sentence shorter than 5 Words
@@ -395,13 +408,12 @@ public class Decision {
 
 		}
 
-		// needs strong checking
+			// needs strong checking
 		case ("what"): {
-			//What city are we in, for Magdeburg
-			if(getOriginalTranscript().contains("city") && getOriginalTranscript().contains("in")){
-				return("Magdeburg");
-			}
-			else if (getOriginalTranscript().contains("size") && getOriginalTranscript().contains("crowd")) {
+			// What city are we in, for Magdeburg
+			if (getOriginalTranscript().contains("city") && getOriginalTranscript().contains("in")) {
+				return ("Magdeburg");
+			} else if (getOriginalTranscript().contains("size") && getOriginalTranscript().contains("crowd")) {
 
 				actionCommand = true;
 				actionObject = "countAll";
@@ -415,17 +427,18 @@ public class Decision {
 
 				return ("crowd");
 
-			} else if(getOriginalTranscript().contains("color") || getOriginalTranscript().contains("colour") ){
+			} else if (getOriginalTranscript().contains("color") || getOriginalTranscript().contains("colour")) {
 				for (int i = 0; i < parsedString.size(); i++) {
 					if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
 						for (int j = 0; j < officialObjects.size(); j++) {
-							if(parsedString.get(i).value().equals(officialObjects.get(j).getName())){
-								return("The color of the "+officialObjects.get(j).getName()+" is "+ officialObjects.get(j).getColor());
+							if (parsedString.get(i).value().equals(officialObjects.get(j).getName())) {
+								return ("The color of the " + officialObjects.get(j).getName() + " is "
+										+ officialObjects.get(j).getColor());
 							}
 						}
 					}
 				}
-			} 
+			}
 
 			return ("");
 		}
@@ -509,10 +522,11 @@ public class Decision {
 	public void setOfficialObjectsNames(List<String> officialObjectsNames) {
 		this.officialObjectsNames = officialObjectsNames;
 	}
-	public boolean compareObject (Object o1, Object o2) {
-		
+
+	public boolean compareObject(Object o1, Object o2) {
+
 		return true;
-	
+
 	}
-	
+
 }
