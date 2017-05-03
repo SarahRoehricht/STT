@@ -359,6 +359,75 @@ public class Decision {
 		case ("go"): {
 			String object = "";
 			boolean found = false;
+			
+			//For Magdeburg 
+			if(getOriginalTranscript().toLowerCase().contains("dinner")&&getOriginalTranscript().toLowerCase().contains("table")){
+				actionObject = "dinnerTable";
+				actionCommand = true;
+				found = false;
+				return ("goto");
+			}else if(getOriginalTranscript().toLowerCase().contains("cabinet")){
+				actionObject = "cabinet";
+				actionCommand = true;
+				found = false;
+				return ("goto");
+			} else if(getOriginalTranscript().toLowerCase().contains("bookshelf")||getOriginalTranscript().toLowerCase().contains("bookshelves")){
+				actionObject = "bookshelf";
+				actionCommand = true;
+				found = false;
+				return ("goto");
+			}else if((getOriginalTranscript().toLowerCase().contains("kitchen")&&(!getOriginalTranscript().toLowerCase().contains("counter")))){
+				actionObject = "kitchen";
+				actionCommand = true;
+				found = false;
+				return ("goto");
+			}else if((getOriginalTranscript().toLowerCase().contains("kitchen")&&getOriginalTranscript().toLowerCase().contains("counter"))||getOriginalTranscript().toLowerCase().contains("kitchencounter")){
+				actionObject = "kitchencounter";
+				actionCommand = true;
+				found = false;
+				return ("goto");
+			}else if((getOriginalTranscript().toLowerCase().contains("sofa")||getOriginalTranscript().toLowerCase().contains("couch"))&&!(getOriginalTranscript().toLowerCase().contains("table"))){
+				actionObject = "sofa";
+				actionCommand = true;
+				found = false;
+				return ("goto");
+			}else if(getOriginalTranscript().toLowerCase().contains("couch")&&getOriginalTranscript().toLowerCase().contains("table")){
+				actionObject = "couchTable";
+				actionCommand = true;
+				found = false;
+				return ("goto");
+			}else if(getOriginalTranscript().toLowerCase().contains("side")&&getOriginalTranscript().toLowerCase().contains("table")){
+				actionObject = "sideTable";
+				actionCommand = true;
+				found = false;
+				return ("goto");
+			}else if(getOriginalTranscript().toLowerCase().contains("stove")){
+				actionObject = "stove";
+				actionCommand = true;
+				found = false;
+				return ("goto");
+			}else if(getOriginalTranscript().toLowerCase().contains("bed")){
+				actionObject = "bed";
+				actionCommand = true;
+				found = false;
+				return ("goto");
+			}else if(getOriginalTranscript().toLowerCase().contains("closet")){
+				actionObject = "closet";
+				actionCommand = true;
+				found = false;
+				return ("goto");
+			}else if(getOriginalTranscript().toLowerCase().contains("desk")){
+				actionObject = "desk";
+				actionCommand = true;
+				found = false;
+				return ("goto");
+			}else if(getOriginalTranscript().toLowerCase().contains("bar")){
+				actionObject = "bar";
+				actionCommand = true;
+				found = false;
+				return ("goto");
+			}
+			
 			for (int i = 0; i < parsedString.size(); i++) {
 				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
 					object = parsedString.get(i).value();
