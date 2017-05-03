@@ -213,7 +213,7 @@ public class Interact
 		}
 		else
 		{
-			setReplyInteract("{Person}Currently I have insufficient knowledge to answer your question[:-(]. Feel free to ask one of my teammates.[:-)]");
+			setReplyInteract("");
 		}
 	}
 

@@ -58,11 +58,35 @@ public class Decision {
 			// match dictionary keywords with TaggedWord values,
 			// return action value/command/call next function else look for
 			// answer
-			if (getOriginalTranscript().contains("how are you")) {
-				i.interaction(1);
-				setToTTS(i.getReplyInteract());
-				match = true;
-			} else {
+			if (getOriginalTranscript().contains("big")&& getOriginalTranscript().contains("hairy")&& ((getOriginalTranscript().contains("star")||getOriginalTranscript().contains("Star")))) {
+				setToTTS("Chewbacca.[:-)]");
+				match=true;
+			}else if((getOriginalTranscript().contains("law")||getOriginalTranscript().contains("laws"))&& getOriginalTranscript().contains("robotics")){
+				setToTTS("Isaac Asimov.[:-)]");
+				match=true;
+			}
+			else if((getOriginalTranscript().contains("Rosie")||getOriginalTranscript().contains("series"))&&getOriginalTranscript().contains("robot")){
+				setToTTS("The Jetsons.[:-)]");
+				match=true;
+			}
+			else if((getOriginalTranscript().contains("baby")&& getOriginalTranscript().contains("series"))||getOriginalTranscript().contains("bambam")){
+				setToTTS("The Flintstones.[:-)]");
+				match=true;
+			}
+			else if(getOriginalTranscript().contains("main")&&getOriginalTranscript().contains("matrix")){
+				setToTTS("Neo.[:-)]");
+				match=true;
+			}
+			else if((getOriginalTranscript().contains("robocop")||getOriginalTranscript().contains("robocup"))&&getOriginalTranscript().contains("platform")){
+				setToTTS("Pepper and HSR.[:-)]");
+				match=true;
+			}
+			else if(getOriginalTranscript().contains("store")&&getOriginalTranscript().contains("memories")){
+				setToTTS("My Random Access Memory located under my skirt.[blush:true]");
+				match=true;
+				
+			}
+			else{
 				for (TaggedWord taggedWord : parsedString) {
 
 					if (hs.contains(taggedWord.value().toLowerCase())) {
@@ -371,7 +395,11 @@ public class Decision {
 
 		// needs strong checking
 		case ("what"): {
-			if (getOriginalTranscript().contains("size") && getOriginalTranscript().contains("crowd")) {
+			//What city are we in, for Magdeburg
+			if(getOriginalTranscript().contains("city") && getOriginalTranscript().contains("in")){
+				return("Magdeburg");
+			}
+			else if (getOriginalTranscript().contains("size") && getOriginalTranscript().contains("crowd")) {
 
 				actionCommand = true;
 				actionObject = "countAll";
