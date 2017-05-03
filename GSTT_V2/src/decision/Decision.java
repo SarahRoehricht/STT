@@ -160,7 +160,6 @@ public class Decision {
 		}
 		case ("bring"): {
 			boolean found = false;
-			String object = "";
 			for (int i = 0; i < parsedString.size(); i++) {
 				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
 					for (int j = 0; j < officialObjects.size(); j++) {

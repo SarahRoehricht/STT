@@ -261,7 +261,7 @@ public class GSTT_V2 {
 							{
 								
 								//STRING TO TEST WITHOUT GOOGLE
-								logData.setFirstResponse("bring me the apple.");
+								logData.setFirstResponse("how many chips are in the closet?");
 								logData.setSecondResponse("bring me the apples.");
 								
 								
