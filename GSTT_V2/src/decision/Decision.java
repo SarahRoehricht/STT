@@ -42,14 +42,15 @@ public class Decision {
 	private String[] locationList = new String[] { "living room", "shelf", "cabinet", "couch table", "desk", "shelf",
 			"house", "table", "kitchen", "dining room", "closet", "bedroom" };
 	private List<String> categoryList = new ArrayList<String>();
-	private Object heaviestObject=null;
-	private Object lightestObject=null;
-	private Object largestObject=null; 
-	private Object smallestObject=null;
-	private Map<String,Object> heavyCat;
-	private Map<String,Object> smallCat;
-	private Map<String,Object> largeCat;
-	private Map<String,Object> lightCat;
+	private Object heaviestObject = null;
+	private Object lightestObject = null;
+	private Object largestObject = null;
+	private Object smallestObject = null;
+	private Map<String, Object> heavyCat;
+	private Map<String, Object> smallCat;
+	private Map<String, Object> largeCat;
+	private Map<String, Object> lightCat;
+
 	public Decision() {
 
 	}
@@ -61,7 +62,7 @@ public class Decision {
 			officialObjectsNames.add(object.getName());
 			if (!categoryList.contains(object.getCategory())) {
 				categoryList.add(object.getCategory());
-				
+
 			}
 
 		}
@@ -77,118 +78,121 @@ public class Decision {
 		setLightestCategory();
 		setHeaviestObject();
 		setHeaviestCategory();
-		
+
 	}
 
 	private void setHeaviestObject() {
-		
-		int heaviest=0;
-		
+
+		int heaviest = 0;
+
 		for (Object object : officialObjects) {
-			if(object.getWeight()>heaviest){
-				this.heaviestObject=object;
+			if (object.getWeight() > heaviest) {
+				this.heaviestObject = object;
 			}
 		}
-	}
-	private void setHeaviestCategory() {
-		heavyCat=new HashMap<String, Object>();
-		int heaviest=0;
-		int index=0;
-	for (int i = 0; i < categoryList.size(); i++) {
-		for (int j = 0; j < officialObjects.size(); j++) {
-			if(categoryList.get(i).contains(officialObjects.get(j).getCategory())){
-				if(officialObjects.get(j).getWeight()>heaviest){
-					index=j;
-				}
-			}
-		}
-		
-		heavyCat.put(officialObjects.get(index).getCategory(),officialObjects.get(index));
-	}
-	
 	}
 
-	
+	private void setHeaviestCategory() {
+		heavyCat = new HashMap<String, Object>();
+		int heaviest = 0;
+		int index = 0;
+		for (int i = 0; i < categoryList.size(); i++) {
+			for (int j = 0; j < officialObjects.size(); j++) {
+				if (categoryList.get(i).contains(officialObjects.get(j).getCategory())) {
+					if (officialObjects.get(j).getWeight() > heaviest) {
+						index = j;
+						heaviest = officialObjects.get(j).getWeight();
+					}
+				}
+			}
+			heaviest = 0;
+			heavyCat.put(officialObjects.get(index).getCategory(), officialObjects.get(index));
+		}
+
+	}
 
 	private void setLightestCategory() {
-		heavyCat=new HashMap<String, Object>();
-		int lightest=1000;
-		int index=0;
-	for (int i = 0; i < categoryList.size(); i++) {
-		for (int j = 0; j < officialObjects.size(); j++) {
-			if(categoryList.get(i).contains(officialObjects.get(j).getCategory())){
-				if(officialObjects.get(j).getWeight()<lightest){
-					index=j;
+		lightCat = new HashMap<String, Object>();
+		int lightest = 10000;
+		int index = 0;
+		for (int i = 0; i < categoryList.size(); i++) {
+			for (int j = 0; j < officialObjects.size(); j++) {
+				if (categoryList.get(i).contains(officialObjects.get(j).getCategory())) {
+					if (officialObjects.get(j).getWeight() < lightest) {
+						index = j;
+						lightest = officialObjects.get(j).getWeight();
+					}
 				}
 			}
+			lightest = 10000;
+			lightCat.put(officialObjects.get(index).getCategory(), officialObjects.get(index));
 		}
-		
-		lightCat.put(officialObjects.get(index).getCategory(),officialObjects.get(index));
-	}		
 	}
 
 	private void setLightestObject() {
-		int lightest=0;
+		int lightest = 10000;
 		for (Object object : officialObjects) {
-			if(object.getWeight()<lightest){
-				lightest=object.getWeight();
-				this.lightestObject=object;
+			if (object.getWeight() < lightest) {
+				lightest = object.getWeight();
+				this.lightestObject = object;
 			}
-		}		
+		}
 	}
 
 	private void setSmallestCategory() {
-		smallCat=new HashMap<String, Object>();
-		int smallest=1000;
-		int index=0;
-	for (int i = 0; i < categoryList.size(); i++) {
-		for (int j = 0; j < officialObjects.size(); j++) {
-			if(categoryList.get(i).contains(officialObjects.get(j).getCategory())){
-				if(officialObjects.get(j).getWeight()<smallest){
-					index=j;
+		smallCat = new HashMap<String, Object>();
+		int smallest = 10000;
+		int index = 0;
+		for (int i = 0; i < categoryList.size(); i++) {
+			for (int j = 0; j < officialObjects.size(); j++) {
+				if (categoryList.get(i).contains(officialObjects.get(j).getCategory())) {
+					if (officialObjects.get(j).getSize() < smallest) {
+						index = j;
+						smallest = officialObjects.get(j).getSize();
+					}
 				}
 			}
+			smallest = 10000;
+			smallCat.put(officialObjects.get(index).getCategory(), officialObjects.get(index));
 		}
-		
-		smallCat.put(officialObjects.get(index).getCategory(),officialObjects.get(index));
-	}				
 	}
 
 	private void setSmallestObject() {
-		int smallest=1000;
+		int smallest = 10000;
 		for (Object object : officialObjects) {
-			if(object.getSize()<smallest){
-				smallest=object.getSize();
-				this.smallestObject=object;
+			if (object.getSize() < smallest) {
+				smallest = object.getSize();
+				this.smallestObject = object;
 			}
-		}		
+		}
 	}
 
 	private void setLargestCategory() {
-		largeCat=new HashMap<String, Object>();
-		int largest=0;
-		int index=0;
-	for (int i = 0; i < categoryList.size(); i++) {
-		for (int j = 0; j < officialObjects.size(); j++) {
-			if(categoryList.get(i).contains(officialObjects.get(j).getCategory())){
-				if(officialObjects.get(j).getWeight()>largest){
-					index=j;
+		largeCat = new HashMap<String, Object>();
+		int largest = 0;
+		int index = 0;
+		for (int i = 0; i < categoryList.size(); i++) {
+			for (int j = 0; j < officialObjects.size(); j++) {
+				if (categoryList.get(i).contains(officialObjects.get(j).getCategory())) {
+					if (officialObjects.get(j).getSize() > largest) {
+						index = j;
+						largest = officialObjects.get(j).getSize();
+					}
 				}
 			}
+			largest = 0;
+			largeCat.put(officialObjects.get(index).getCategory(), officialObjects.get(index));
 		}
-		
-		largeCat.put(officialObjects.get(index).getCategory(),officialObjects.get(index));
-	}				
 	}
 
 	private void setLargestObject() {
-		int largest=0;
+		int largest = 0;
 		for (Object object : officialObjects) {
-			if(object.getSize()>largest){
-				largest=object.getSize();
-				this.largestObject=object;
+			if (object.getSize() > largest) {
+				largest = object.getSize();
+				this.largestObject = object;
 			}
-		}	
+		}
 	}
 
 	public void decide(ArrayList<TaggedWord> parsedString) {
@@ -212,7 +216,8 @@ public class Decision {
 				setToTTS("The Jetsons.[:-)]");
 				match = true;
 			} else if ((getOriginalTranscript().contains("baby") && getOriginalTranscript().contains("series"))
-					|| getOriginalTranscript().toLowerCase().contains("bambam")||getOriginalTranscript().toLowerCase().contains("bum")) {
+					|| getOriginalTranscript().toLowerCase().contains("bambam")
+					|| getOriginalTranscript().toLowerCase().contains("bum")) {
 				setToTTS("The Flintstones.[:-)]");
 				match = true;
 			} else if (getOriginalTranscript().contains("main")
@@ -236,7 +241,6 @@ public class Decision {
 					for (int i = 0; i < hs.length; i++) {
 						if (hs[i].toLowerCase().equals(taggedWord.value().toLowerCase())) {
 							System.out.println(taggedWord + " is in here.");
-							
 
 							String strReturn = matchdecide(taggedWord, parsedString);
 							if (!strReturn.isEmpty()) {
@@ -429,10 +433,72 @@ public class Decision {
 
 		}
 		case ("biggest"): {
-			
-			
-			
+			for (int i = 0; i < parsedString.size(); i++) {
+				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")
+						|| parsedString.get(i).tag().equals("NNP")) {
+					for (int j = 0; j < categoryList.size(); j++) {
+						if (parsedString.get(i).value().equals(categoryList.get(j))) {
+
+							return ("The largest " + largeCat.get(parsedString.get(i).value()).getCategory()
+									+ " is the " + largeCat.get(parsedString.get(i).value()).getName()
+									+ ", which is about " + largeCat.get(parsedString.get(i).value()).getSize()
+									+ " centimetres tall");
+						}
+					}
+
+				}
+			}
 		}
+		case ("smallest"): {
+			for (int i = 0; i < parsedString.size(); i++) {
+				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")
+						|| parsedString.get(i).tag().equals("NNP")) {
+					for (int j = 0; j < categoryList.size(); j++) {
+						if (parsedString.get(i).value().equals(categoryList.get(j))) {
+							return ("The smallest " + smallCat.get(parsedString.get(i).value()).getCategory()
+									+ " is the " + smallCat.get(parsedString.get(i).value()).getName()
+									+ ", which is about " + smallCat.get(parsedString.get(i).value()).getSize()
+									+ " centimetres.");
+						}
+					}
+
+				}
+			}
+		}
+		case ("lightest"): {
+			for (int i = 0; i < parsedString.size(); i++) {
+				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")
+						|| parsedString.get(i).tag().equals("NNP")) {
+					for (int j = 0; j < categoryList.size(); j++) {
+						if (parsedString.get(i).value().equals(categoryList.get(j))) {
+							return ("The lightest" + lightCat.get(parsedString.get(i).value()).getCategory()
+									+ " is the " + lightCat.get(parsedString.get(i).value()).getName()
+									+ ", which weighs about " + lightCat.get(parsedString.get(i).value()).getWeight()
+									+ " grams.");
+						}
+					}
+
+				}
+			}
+		}
+		case ("heaviest"): {
+			for (int i = 0; i < parsedString.size(); i++) {
+				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")
+						|| parsedString.get(i).tag().equals("NNP")) {
+					for (int j = 0; j < categoryList.size(); j++) {
+						if (parsedString.get(i).value().equals(categoryList.get(j))) {
+							return ("The heaviest " + heavyCat.get(parsedString.get(i).value()).getCategory()
+									+ " is the " + heavyCat.get(parsedString.get(i).value()).getName()
+									+ ", which weighs about " + heavyCat.get(parsedString.get(i).value()).getWeight()
+									+ " grams.");
+						}
+					}
+
+				}
+			}
+
+		}
+
 			// fall-through
 		case ("much"): {
 
