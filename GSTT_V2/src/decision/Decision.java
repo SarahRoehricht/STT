@@ -82,7 +82,7 @@ public class Decision {
 				setToTTS("The Jetsons.[:-)]");
 				match = true;
 			} else if ((getOriginalTranscript().contains("baby") && getOriginalTranscript().contains("series"))
-					|| getOriginalTranscript().toLowerCase().contains("bambam")) {
+					|| getOriginalTranscript().toLowerCase().contains("bambam")||getOriginalTranscript().toLowerCase().contains("bum")) {
 				setToTTS("The Flintstones.[:-)]");
 				match = true;
 			} else if (getOriginalTranscript().contains("main")
