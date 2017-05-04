@@ -39,6 +39,7 @@ public class GSTT_V2 {
 	static String APIKEY = "";
 	static int stage = 0;
 	static int scenario = 0;
+	
 
 	static String transcript = "";
 	static List<String> logOtherResponse;
@@ -59,6 +60,7 @@ public class GSTT_V2 {
 	private int myPort;
 	private InetAddress targetIP;
 	private int targetPort;
+	
 
 	public GSTT_V2() {
 		udpCom = new UDPConnection();
@@ -262,6 +264,7 @@ public class GSTT_V2 {
 								}
 							} catch (Exception e) {
 								
+							}
 							}
 							*/
 							//for disabling google
