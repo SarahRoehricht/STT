@@ -188,7 +188,7 @@ public class GSTT_V2 {
 							System.out.println("Closed mic...");
 
 							byte[] data = Files.readAllBytes(mic.getAudioFile().toPath());
-///*for disabling google
+/*for disabling google
 							// mic.getAudioFile().delete();
 							try {
 
@@ -247,7 +247,8 @@ public class GSTT_V2 {
 							} catch (Exception e) {
 								
 							}
-							//*/for disabling google
+							*/
+							//for disabling google
 							if(logData.getFirstResponse()!=null){
 								gstt.udpCom.sendSocket("#STT#TEXT#" + logData.getFirstResponse() + "#", gstt.targetIP, gstt.targetPort);
 							}else{
@@ -261,8 +262,8 @@ public class GSTT_V2 {
 							{
 								
 								//STRING TO TEST WITHOUT GOOGLE
-								logData.setFirstResponse("how many chips are in the closet?");
-								logData.setSecondResponse("bring me the apples.");
+								logData.setFirstResponse("What’s the number of people in front of you?");
+								logData.setSecondResponse("how big is the apple?");
 								
 								
 								

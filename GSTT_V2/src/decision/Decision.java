@@ -35,6 +35,8 @@ public class Decision {
 	private String[] hs = new String[] { "team", "robocup", "robocop", "at home", "time", "date", "bring", "give",
 			"take", "hello", "greetings", "hi", "howdy", "hey", "bonjour", "hallo", "go", "name", "joke", "follow",
 			"following", "where", "open", "many", "much", "what", "big" };
+	private String[] locationList = new String[] { "living room", "shelf", "cabinet", "couch table", "desk", "shelf",
+			"house", "table", "kitchen", "dining room", "closet" };
 
 	public Decision() {
 
@@ -163,7 +165,8 @@ public class Decision {
 			for (int i = 0; i < parsedString.size(); i++) {
 				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
 					for (int j = 0; j < officialObjects.size(); j++) {
-						if (parsedString.get(i).value().equals(officialObjects.get(j).getName())|| parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
+						if (parsedString.get(i).value().equals(officialObjects.get(j).getName())
+								|| parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
 							actionObject = officialObjects.get(j).getName();
 							actionCommand = true;
 							found = false;
@@ -172,12 +175,11 @@ public class Decision {
 					}
 				}
 			}
-			
-				return ("");
-			}
+
+			return ("");
+		}
 			// call or return important parameters to the function or the
 			// function calling
-		
 
 		case ("hello"): {
 			i.interaction(0);
@@ -232,9 +234,11 @@ public class Decision {
 		case ("where"): {
 
 			for (int i = 0; i < parsedString.size(); i++) {
-				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
+				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")
+						|| parsedString.get(i).tag().equals("NNS")) {
 					for (int j = 0; j < officialObjects.size(); j++) {
-						if (parsedString.get(i).value().equals(officialObjects.get(j).getName())|| parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
+						if (parsedString.get(i).value().equals(officialObjects.get(j).getName())
+								|| parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
 							return ("The location of the " + officialObjects.get(j).getName() + " is "
 									+ officialObjects.get(j).getLocation());
 						}
@@ -279,7 +283,8 @@ public class Decision {
 			for (int i = 0; i < parsedString.size(); i++) {
 				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
 					for (int j = 0; j < officialObjects.size(); j++) {
-						if (parsedString.get(i).value().equals(officialObjects.get(j).getName())||parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
+						if (parsedString.get(i).value().equals(officialObjects.get(j).getName())
+								|| parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
 							if (officialObjects.get(j).getCount() == 1) {
 								return ("There is " + officialObjects.get(j).getCount() + " "
 										+ officialObjects.get(j).getName());
@@ -289,28 +294,59 @@ public class Decision {
 							}
 						}
 					}
+				} else if (parsedString.get(i).tag().equals("NNS")) {
+					for (int j = 0; j < locationList.length; j++) {
+
+						if (getOriginalTranscript().toLowerCase().contains(locationList[j])) {
+							for (int j2 = 0; j2 < officialObjects.size(); j2++) {
+								if (parsedString.get(i).value().equals(officialObjects.get(j2).getName())
+										|| parsedString.get(i).value()
+												.equals(officialObjects.get(j2).getPluralName())) {
+
+									if (officialObjects.get(j2).getLocation().contains(locationList[j])) {
+										if (officialObjects.get(j2).getCount() == 1) {
+											return ("There is " + officialObjects.get(j2).getCount() + " "
+													+ officialObjects.get(j2).getName() + " "
+													+ officialObjects.get(j2).getLocation());
+										} else {
+											return ("There are " + officialObjects.get(j2).getCount() + " "
+													+ officialObjects.get(j2).getPluralName() + " "
+													+ officialObjects.get(j2).getLocation());
+										}
+									} else {
+										return ("There are no " + officialObjects.get(j2).getPluralName());
+									}
+								}
+							}
+						}
+					}
 				}
 			}
 
 			// if parts of the sentence weren't in the official objects list
 			if (!found) {
 				boolean foundCrowd = false;
+				boolean foundMale=false;
+				boolean foundFemale=false;
+				for (int i = 0; i < parsedString.size(); i++) {
+					if(parsedString.get(i).value().toLowerCase().equals("male")||parsedString.get(i).value().toLowerCase().equals("males")||parsedString.get(i).value().toLowerCase().equals("men")||parsedString.get(i).value().toLowerCase().equals("man")){
+						foundMale=true;
+					}else if(parsedString.get(i).value().toLowerCase().equals("female")||parsedString.get(i).value().toLowerCase().equals("females")||parsedString.get(i).value().toLowerCase().equals("women")||parsedString.get(i).value().toLowerCase().equals("woman")){
+						foundFemale=true;
+					}
+				}
 				// if male and not female are in sentence
-				if (getOriginalTranscript().contains("male")
-						|| getOriginalTranscript().contains("males") && !(getOriginalTranscript().contains("female")
-								|| getOriginalTranscript().contains("females"))) {
+				if (foundMale &&!foundFemale) {
 					foundCrowd = true;
 					actionObject = "countMale";
 					actionCommand = true;
 					// if female and not male are in sentence
-				} else if (getOriginalTranscript().contains("female") || getOriginalTranscript().contains("females")
-						&& !(getOriginalTranscript().contains("male") || getOriginalTranscript().contains("males"))) {
+				} else if (!foundMale &&foundFemale) {
 					foundCrowd = true;
 					actionObject = "countFemale";
 					actionCommand = true;
 					// if male and female are in sentence
-				} else if (getOriginalTranscript().contains("female") || getOriginalTranscript().contains("females")
-						&& (getOriginalTranscript().contains("male") || getOriginalTranscript().contains("males"))) {
+				} else if (foundMale&&foundFemale) {
 					foundCrowd = true;
 					actionObject = "countAll";
 					actionCommand = true;
@@ -522,7 +558,8 @@ public class Decision {
 			for (int i = 0; i < parsedString.size(); i++) {
 				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
 					for (int j = 0; j < officialObjects.size(); j++) {
-						if (parsedString.get(i).value().equals(officialObjects.get(j).getName()) ||parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
+						if (parsedString.get(i).value().equals(officialObjects.get(j).getName())
+								|| parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
 							return ("The size of the " + officialObjects.get(j).getName() + " is about "
 									+ officialObjects.get(j).getSize() + " centimetres.");
 						}
@@ -555,7 +592,8 @@ public class Decision {
 				for (int i = 0; i < parsedString.size(); i++) {
 					if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
 						for (int j = 0; j < officialObjects.size(); j++) {
-							if (parsedString.get(i).value().equals(officialObjects.get(j).getName())||parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
+							if (parsedString.get(i).value().equals(officialObjects.get(j).getName())
+									|| parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
 								return ("The color of the " + officialObjects.get(j).getName() + " is "
 										+ officialObjects.get(j).getColor());
 							}
@@ -566,7 +604,8 @@ public class Decision {
 				for (int i = 0; i < parsedString.size(); i++) {
 					if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
 						for (int j = 0; j < officialObjects.size(); j++) {
-							if (parsedString.get(i).value().equals(officialObjects.get(j).getName())||parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
+							if (parsedString.get(i).value().equals(officialObjects.get(j).getName())
+									|| parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
 								return ("The size of the " + officialObjects.get(j).getName() + " is about "
 										+ officialObjects.get(j).getSize() + " centimetres.");
 							}
