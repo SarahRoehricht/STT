@@ -132,7 +132,7 @@ public class GSTT_V2 {
 						}
 						message = gstt.udpCom.getMessage();
 						System.out.println(message);
-					} while (!("#STT#1#".equals(message) | "#STT#2#".equals(message) | "#STT#3#".equals(message)));
+					} while (!("#STT#1#".equals(message) | "#STT#2#".equals(message) | "#STT#3#".equals(message) | message.contains("#STT#RecString#")));
 
 					// scenario 1 Small talk, 2 yes.no, 3 asking for name
 					// directly
@@ -145,6 +145,13 @@ public class GSTT_V2 {
 						// set to receiving name scenario.
 					} else if ("#STT#3#".equals(message)) {
 						scenario = 3;
+					} else if(message.contains("#STT#RecString#")){
+						String[] abc=message.split("#");
+						String TestText=abc[3];
+						System.out.println(TestText);
+						logData.setFirstResponse(TestText);
+						logData.setSecondResponse(TestText);
+						scenario=1;
 					}
 
 					System.out.println("started");
@@ -197,7 +204,7 @@ public class GSTT_V2 {
 							System.out.println("Closed mic...");
 
 							byte[] data = Files.readAllBytes(mic.getAudioFile().toPath());
-///*for disabling google
+/*for disabling google
 							// mic.getAudioFile().delete();
 							try {
 
@@ -256,7 +263,7 @@ public class GSTT_V2 {
 							} catch (Exception e) {
 								
 							}
-							//*/
+							*/
 							//for disabling google
 							if(logData.getFirstResponse()!=null){
 								gstt.udpCom.sendSocket("#STT#TEXT#" + logData.getFirstResponse() + "#", gstt.targetIP, gstt.targetPort);
@@ -271,7 +278,7 @@ public class GSTT_V2 {
 							{
 								
 								//STRING TO TEST WITHOUT GOOGLE
-							//	logData.setFirstResponse("Bring me the orange juice");
+//							logData.setFirstResponse("Bring me the orange juice");
 //								logData.setSecondResponse("how big is the apple?");
 								
 								

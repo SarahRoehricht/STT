@@ -106,10 +106,11 @@ public class Decision {
 					for (int i = 0; i < hs.length; i++) {
 						if (hs[i].toLowerCase().equals(taggedWord.value().toLowerCase())) {
 							System.out.println(taggedWord + " is in here.");
-							match = true;
+							
 
 							String strReturn = matchdecide(taggedWord, parsedString);
 							if (!strReturn.isEmpty()) {
+								match = true;
 								setToTTS(strReturn);
 								break;
 							}
