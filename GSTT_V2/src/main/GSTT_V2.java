@@ -122,6 +122,7 @@ public class GSTT_V2 {
 			}
 
 			while (true) {
+				boolean testBool=false;
 				switch (stage) {
 				case 0: {
 					System.out.println("GSTT");
@@ -154,6 +155,7 @@ public class GSTT_V2 {
 						logData.setFirstResponse(TestText);
 						logData.setSecondResponse(TestText);
 						scenario=1;
+						testBool=true;
 					}
 
 					System.out.println("started");
@@ -186,6 +188,7 @@ public class GSTT_V2 {
 					// folder missing
 
 					while (true) {
+						
 						try {
 							System.out.println("Recording...");
 							mic.captureAudioToFile(file); // starts recording
@@ -206,8 +209,9 @@ public class GSTT_V2 {
 							System.out.println("Closed mic...");
 
 							byte[] data = Files.readAllBytes(mic.getAudioFile().toPath());
-/*for disabling google
+///*for disabling google
 							// mic.getAudioFile().delete();
+							if(!testBool){
 							try {
 
 								String request = "https://www.google.com/speech-api/v2/recognize?client=chromium&lang=en-us&key="
@@ -266,7 +270,7 @@ public class GSTT_V2 {
 								
 							}
 							}
-							*/
+							//*/
 							//for disabling google
 							if(logData.getFirstResponse()!=null){
 								gstt.udpCom.sendSocket("#STT#TEXT#" + logData.getFirstResponse() + "#", gstt.targetIP, gstt.targetPort);
