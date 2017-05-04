@@ -188,7 +188,7 @@ public class GSTT_V2 {
 							System.out.println("Closed mic...");
 
 							byte[] data = Files.readAllBytes(mic.getAudioFile().toPath());
-/*for disabling google
+///*for disabling google
 							// mic.getAudioFile().delete();
 							try {
 
@@ -247,7 +247,7 @@ public class GSTT_V2 {
 							} catch (Exception e) {
 								
 							}
-							*/
+							//*/
 							//for disabling google
 							if(logData.getFirstResponse()!=null){
 								gstt.udpCom.sendSocket("#STT#TEXT#" + logData.getFirstResponse() + "#", gstt.targetIP, gstt.targetPort);

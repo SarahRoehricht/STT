@@ -34,9 +34,10 @@ public class Decision {
 	private int scenario;
 	private String[] hs = new String[] { "team", "robocup", "robocop", "at home", "time", "date", "bring", "give",
 			"take", "hello", "greetings", "hi", "howdy", "hey", "bonjour", "hallo", "go", "name", "joke", "follow",
-			"following", "where", "open", "many", "much", "what", "big" };
+			"following", "where", "open", "many", "much", "what", "big","biggest", "smallest", "lightest", "heaviest","largest" };
 	private String[] locationList = new String[] { "living room", "shelf", "cabinet", "couch table", "desk", "shelf",
 			"house", "table", "kitchen", "dining room", "closet","bedroom" };
+	private String[] categoryList = new String[] {"food","fruit","vegetable","drink"};
 
 	public Decision() {
 
