@@ -262,7 +262,7 @@ public class GSTT_V2 {
 							{
 								
 								//STRING TO TEST WITHOUT GOOGLE
-								logData.setFirstResponse("Where are the bell peppers?");
+								logData.setFirstResponse("Bring me the orange juice");
 								logData.setSecondResponse("how big is the apple?");
 								
 								

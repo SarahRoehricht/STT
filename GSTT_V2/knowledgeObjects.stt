@@ -3,20 +3,20 @@
 plant|brown|in the living room|100|800|1|plants|plants
 water|transparent|on the shelf|20|400|1|drinks|waters
 spoon|silver|in the cabinet|10|20|15|cutlery|spoons
-knive|silver|in the cabinet|10|20|15|cutlery|knives
+knife|silver|in the cabinet|10|20|15|cutlery|knives
 coke|red|on the kitchencounter|10|333|2|drinks|cokes
 crisps|yellow|on the couch table|5|150|100|snacks|crisps
 chips|yellow|on the couch table|5|150|100|snacks|chips
 apple|red|on the desk|5|200|4|fruits|apples
-lemon|yellow|on the desk|5|150|4|fruits|lemon
-bell pepper|red, yellow or green|on the shelf|15|300|4|vegetables|bell peppers
+lemon|yellow|on the desk|5|150|4|fruits|lemons
+pepper|red, yellow or green|on the shelf|15|300|4|vegetables|peppers
 chocolate egg|red and white|in the house|5|20|3|snacks|chocolate eggs
 potato|brown|on the table|5|50|20|vegetables|potatoes
 tomato paste|red green and white|in the kitchen|30|200|1|cooking|tomato pastes
 orange juice|blue|in the kitchen|30|200|10|drinks|orange juices
 peas|green|in the kitchen|15|200|5|vegetables|peas
-sponge|blue|in the kitchen|15|15|2|cleaning tools|sponges
-towel|white|in the kitchen|10|100|2|cleaning tools|towels
+sponge|blue|in the closet|15|15|2|cleaning tools|sponges
+towel|white|in the closet|10|100|2|cleaning tools|towels
 plate|white|in the kitchen|30|10|10|cutlery|plates
 coffee cup|white and brown|in the kitchen|15|5|10|cutlery|coffe cups
 cleaning tissue|red, green or blue|in the kitchen|30|40|6|cleaning tools|cleaning_tissues

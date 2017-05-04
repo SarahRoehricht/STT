@@ -164,7 +164,7 @@ public class Decision {
 		case ("bring"): {
 			boolean found = false;
 			for (int i = 0; i < parsedString.size(); i++) {
-				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
+				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")||parsedString.get(i).tag().equals("NNS")) {
 					for (int j = 0; j < officialObjects.size(); j++) {
 						if (parsedString.get(i).value().equals(officialObjects.get(j).getName())
 								|| parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
@@ -175,7 +175,22 @@ public class Decision {
 						}
 					}
 				}
+					for (int j = 0; j < officialObjects.size(); j++) {
+						if(getOriginalTranscript().contains(officialObjects.get(j).getPluralName())){
+							actionObject = officialObjects.get(j).getName();
+							actionCommand = true;
+							found = false;
+							return ("bring");
+						}else if(getOriginalTranscript().contains(officialObjects.get(j).getName())){
+							actionObject = officialObjects.get(j).getName();
+							actionCommand = true;
+							found = false;
+							return ("bring");
+						}
 			}
+			
+			}
+			
 
 			return ("");
 		}
@@ -236,7 +251,7 @@ public class Decision {
 
 			for (int i = 0; i < parsedString.size(); i++) {
 				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")
-						|| parsedString.get(i).tag().equals("NNS")) {
+						) {
 					for (int j = 0; j < officialObjects.size(); j++) {
 						if (parsedString.get(i).value().equals(officialObjects.get(j).getName())
 								|| parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
