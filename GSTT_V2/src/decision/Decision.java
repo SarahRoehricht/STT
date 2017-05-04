@@ -34,10 +34,11 @@ public class Decision {
 	private int scenario;
 	private String[] hs = new String[] { "team", "robocup", "robocop", "at home", "time", "date", "bring", "give",
 			"take", "hello", "greetings", "hi", "howdy", "hey", "bonjour", "hallo", "go", "name", "joke", "follow",
-			"following", "where", "open", "many", "much", "what", "big","biggest", "smallest", "lightest", "heaviest","largest" };
+			"following", "where", "open", "many", "much", "what", "big", "biggest", "smallest", "lightest", "heaviest",
+			"largest" };
 	private String[] locationList = new String[] { "living room", "shelf", "cabinet", "couch table", "desk", "shelf",
-			"house", "table", "kitchen", "dining room", "closet","bedroom" };
-	private String[] categoryList = new String[] {"food","fruit","vegetable","drink"};
+			"house", "table", "kitchen", "dining room", "closet", "bedroom" };
+	private List<String> categoryList = new ArrayList<String>();
 
 	public Decision() {
 
@@ -48,7 +49,14 @@ public class Decision {
 		for (Object object : officialObjects) {
 			System.out.println(object.getName());
 			officialObjectsNames.add(object.getName());
+			if (!categoryList.contains(object.getCategory())) {
+				categoryList.add(object.getCategory());
 
+			}
+
+		}
+		for (String category : categoryList) {
+			System.out.print(category + ", ");
 		}
 		this.officialObjects = officialObjects;
 	}
@@ -90,7 +98,7 @@ public class Decision {
 				match = true;
 			} else if (getOriginalTranscript().contains("store") && getOriginalTranscript().contains("memories")) {
 				setToTTS(
-						"[blush:false]In my Random Access Memory and my Solid State Drive located under my skirt.[blush:false]");
+						"[blush:true]In my Random Access Memory and my Solid State Drive located under my skirt.[blush:false]");
 				match = true;
 
 			} else {
@@ -164,7 +172,8 @@ public class Decision {
 		case ("bring"): {
 			boolean found = false;
 			for (int i = 0; i < parsedString.size(); i++) {
-				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")||parsedString.get(i).tag().equals("NNS")) {
+				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")
+						|| parsedString.get(i).tag().equals("NNS")) {
 					for (int j = 0; j < officialObjects.size(); j++) {
 						if (parsedString.get(i).value().equals(officialObjects.get(j).getName())
 								|| parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
@@ -175,22 +184,21 @@ public class Decision {
 						}
 					}
 				}
-					for (int j = 0; j < officialObjects.size(); j++) {
-						if(getOriginalTranscript().contains(officialObjects.get(j).getPluralName())){
-							actionObject = officialObjects.get(j).getName();
-							actionCommand = true;
-							found = false;
-							return ("bring");
-						}else if(getOriginalTranscript().contains(officialObjects.get(j).getName())){
-							actionObject = officialObjects.get(j).getName();
-							actionCommand = true;
-							found = false;
-							return ("bring");
-						}
+				for (int j = 0; j < officialObjects.size(); j++) {
+					if (getOriginalTranscript().contains(officialObjects.get(j).getPluralName())) {
+						actionObject = officialObjects.get(j).getName();
+						actionCommand = true;
+						found = false;
+						return ("bring");
+					} else if (getOriginalTranscript().contains(officialObjects.get(j).getName())) {
+						actionObject = officialObjects.get(j).getName();
+						actionCommand = true;
+						found = false;
+						return ("bring");
+					}
+				}
+
 			}
-			
-			}
-			
 
 			return ("");
 		}
@@ -250,8 +258,7 @@ public class Decision {
 		case ("where"): {
 
 			for (int i = 0; i < parsedString.size(); i++) {
-				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")
-						) {
+				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
 					for (int j = 0; j < officialObjects.size(); j++) {
 						if (parsedString.get(i).value().equals(officialObjects.get(j).getName())
 								|| parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
@@ -260,11 +267,12 @@ public class Decision {
 						}
 					}
 				}
-			}for (int i = 0; i < officialObjects.size(); i++) {
-				if(getOriginalTranscript().contains(officialObjects.get(i).getPluralName())){
+			}
+			for (int i = 0; i < officialObjects.size(); i++) {
+				if (getOriginalTranscript().contains(officialObjects.get(i).getPluralName())) {
 					return ("The location of the " + officialObjects.get(i).getPluralName() + " is "
 							+ officialObjects.get(i).getLocation());
-				}else if(getOriginalTranscript().contains(officialObjects.get(i).getName())){
+				} else if (getOriginalTranscript().contains(officialObjects.get(i).getName())) {
 					return ("The location of the " + officialObjects.get(i).getName() + " is "
 							+ officialObjects.get(i).getLocation());
 				}
@@ -284,6 +292,15 @@ public class Decision {
 			actionObject = object;
 			actionCommand = true;
 			return ("open");
+		}
+			// fall-through
+		case ("largest"): {
+
+		}
+		case ("biggest"): {
+			
+			
+			
 		}
 			// fall-through
 		case ("much"): {
@@ -350,27 +367,33 @@ public class Decision {
 			// if parts of the sentence weren't in the official objects list
 			if (!found) {
 				boolean foundCrowd = false;
-				boolean foundMale=false;
-				boolean foundFemale=false;
+				boolean foundMale = false;
+				boolean foundFemale = false;
 				for (int i = 0; i < parsedString.size(); i++) {
-					if(parsedString.get(i).value().toLowerCase().equals("male")||parsedString.get(i).value().toLowerCase().equals("males")||parsedString.get(i).value().toLowerCase().equals("men")||parsedString.get(i).value().toLowerCase().equals("man")){
-						foundMale=true;
-					}else if(parsedString.get(i).value().toLowerCase().equals("female")||parsedString.get(i).value().toLowerCase().equals("females")||parsedString.get(i).value().toLowerCase().equals("women")||parsedString.get(i).value().toLowerCase().equals("woman")){
-						foundFemale=true;
+					if (parsedString.get(i).value().toLowerCase().equals("male")
+							|| parsedString.get(i).value().toLowerCase().equals("males")
+							|| parsedString.get(i).value().toLowerCase().equals("men")
+							|| parsedString.get(i).value().toLowerCase().equals("man")) {
+						foundMale = true;
+					} else if (parsedString.get(i).value().toLowerCase().equals("female")
+							|| parsedString.get(i).value().toLowerCase().equals("females")
+							|| parsedString.get(i).value().toLowerCase().equals("women")
+							|| parsedString.get(i).value().toLowerCase().equals("woman")) {
+						foundFemale = true;
 					}
 				}
 				// if male and not female are in sentence
-				if (foundMale &&!foundFemale) {
+				if (foundMale && !foundFemale) {
 					foundCrowd = true;
 					actionObject = "countMale";
 					actionCommand = true;
 					// if female and not male are in sentence
-				} else if (!foundMale &&foundFemale) {
+				} else if (!foundMale && foundFemale) {
 					foundCrowd = true;
 					actionObject = "countFemale";
 					actionCommand = true;
 					// if male and female are in sentence
-				} else if (foundMale&&foundFemale) {
+				} else if (foundMale && foundFemale) {
 					foundCrowd = true;
 					actionObject = "countAll";
 					actionCommand = true;
@@ -616,7 +639,7 @@ public class Decision {
 				for (int i = 0; i < parsedString.size(); i++) {
 					if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")) {
 						for (int j = 0; j < officialObjects.size(); j++) {
-							if (parsedString.get(i).value().equals(officialObjects.get(j).getName())
+							if (parsedString.get(i).value().toLowerCase().equals(officialObjects.get(j).getName())
 									|| parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
 								return ("The color of the " + officialObjects.get(j).getName() + " is "
 										+ officialObjects.get(j).getColor());

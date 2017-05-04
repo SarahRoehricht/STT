@@ -150,14 +150,23 @@ public class GSTT_V2 {
 					System.out.println("started");
 
 					if (gstt.logCalls.counter < 50)
-						APIKEY = "AIzaSyAtphCcVON9OU-URwD6jjqStwYtBNxK4oY";
+						APIKEY = "AIzaSyCJZ1OZBxKSWxLSsU6jJXaoCKDKwO2J08M";
 					else if ((gstt.logCalls.counter >= 50) && (gstt.logCalls.counter < 100))
-						APIKEY = "AIzaSyB6yR8DR6onz9YEBKkHmrLAOQZth5Vv2gs";
+						APIKEY = "AIzaSyBdhjP4B0jSt17JXfE2YJFh3Dh3wuR79uM";
 					else if ((gstt.logCalls.counter >= 100) && (gstt.logCalls.counter < 150))
-						APIKEY = "AIzaSyCFhY2ogNV4iFX3Hg3EgGU5y9wGodmfLR8";
-					else
-						APIKEY = "AIzaSyDe2nR4mdQYL74iwkZx5pOBM_3MVHNZS8c";
-
+						APIKEY = "AIzaSyA9Ko0dEOnzcp5sW_EvpbiXrb1u9c6-vTg";
+					else  if ((gstt.logCalls.counter >= 150) && (gstt.logCalls.counter < 200))
+						APIKEY = "AIzaSyDtVo1ySUXu8vIA_eMJPvEPLpb-GAwVahM";
+					else if ((gstt.logCalls.counter >= 200) && (gstt.logCalls.counter < 250))
+						APIKEY= "AIzaSyAtphCcVON9OU-URwD6jjqStwYtBNxK4oY";
+					else if ((gstt.logCalls.counter >= 250) && (gstt.logCalls.counter < 300))
+						APIKEY= "AIzaSyB6yR8DR6onz9YEBKkHmrLAOQZth5Vv2gs";
+					else if ((gstt.logCalls.counter >= 300) && (gstt.logCalls.counter < 350))
+						APIKEY= "AIzaSyCFhY2ogNV4iFX3Hg3EgGU5y9wGodmfLR8";
+					else if ((gstt.logCalls.counter >= 350) && (gstt.logCalls.counter < 400))
+						APIKEY= "AIzaSyDe2nR4mdQYL74iwkZx5pOBM_3MVHNZS8c";
+					else if ((gstt.logCalls.counter >= 400) && (gstt.logCalls.counter < 450))
+						APIKEY="AIzaSyDU8gLnbimz6qg_0HkHu4q8oXx4aZilejs";
 					Microphone mic = new Microphone(FLACFileWriter.FLAC);
 					String fileName = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss").format(new Date());
 					File file = new File("RT-Lions_MicrophoneRecording_" + fileName + ".wav"); // direct
@@ -262,8 +271,8 @@ public class GSTT_V2 {
 							{
 								
 								//STRING TO TEST WITHOUT GOOGLE
-								logData.setFirstResponse("Bring me the orange juice");
-								logData.setSecondResponse("how big is the apple?");
+							//	logData.setFirstResponse("Bring me the orange juice");
+//								logData.setSecondResponse("how big is the apple?");
 								
 								
 								
