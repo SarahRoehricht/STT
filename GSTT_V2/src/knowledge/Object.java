@@ -13,7 +13,7 @@ private int size;
 private int weight;
 private int count;
 private String category;
-public Object(String name,String pluralName, String color,String location, int size, int weight, int count, String category){
+public Object(String name, String color,String location, int size, int weight, int count, String category,String pluralName){
 	this.name=name;
 	this.color=color;
 	this.location=location;

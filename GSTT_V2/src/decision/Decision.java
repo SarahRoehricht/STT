@@ -36,7 +36,7 @@ public class Decision {
 			"take", "hello", "greetings", "hi", "howdy", "hey", "bonjour", "hallo", "go", "name", "joke", "follow",
 			"following", "where", "open", "many", "much", "what", "big" };
 	private String[] locationList = new String[] { "living room", "shelf", "cabinet", "couch table", "desk", "shelf",
-			"house", "table", "kitchen", "dining room", "closet" };
+			"house", "table", "kitchen", "dining room", "closet","bedroom" };
 
 	public Decision() {
 
@@ -243,6 +243,14 @@ public class Decision {
 									+ officialObjects.get(j).getLocation());
 						}
 					}
+				}
+			}for (int i = 0; i < officialObjects.size(); i++) {
+				if(getOriginalTranscript().contains(officialObjects.get(i).getPluralName())){
+					return ("The location of the " + officialObjects.get(i).getPluralName() + " is "
+							+ officialObjects.get(i).getLocation());
+				}else if(getOriginalTranscript().contains(officialObjects.get(i).getName())){
+					return ("The location of the " + officialObjects.get(i).getName() + " is "
+							+ officialObjects.get(i).getLocation());
 				}
 			}
 
