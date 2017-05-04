@@ -8,9 +8,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+
 import knowledge.Object;
 
 import answerQ.AnswerAPI;
@@ -39,7 +42,14 @@ public class Decision {
 	private String[] locationList = new String[] { "living room", "shelf", "cabinet", "couch table", "desk", "shelf",
 			"house", "table", "kitchen", "dining room", "closet", "bedroom" };
 	private List<String> categoryList = new ArrayList<String>();
-
+	private Object heaviestObject=null;
+	private Object lightestObject=null;
+	private Object largestObject=null; 
+	private Object smallestObject=null;
+	private Map<String,Object> heavyCat;
+	private Map<String,Object> smallCat;
+	private Map<String,Object> largeCat;
+	private Map<String,Object> lightCat;
 	public Decision() {
 
 	}
@@ -51,7 +61,7 @@ public class Decision {
 			officialObjectsNames.add(object.getName());
 			if (!categoryList.contains(object.getCategory())) {
 				categoryList.add(object.getCategory());
-
+				
 			}
 
 		}
@@ -59,6 +69,126 @@ public class Decision {
 			System.out.print(category + ", ");
 		}
 		this.officialObjects = officialObjects;
+		setLargestObject();
+		setLargestCategory();
+		setSmallestObject();
+		setSmallestCategory();
+		setLightestObject();
+		setLightestCategory();
+		setHeaviestObject();
+		setHeaviestCategory();
+		
+	}
+
+	private void setHeaviestObject() {
+		
+		int heaviest=0;
+		
+		for (Object object : officialObjects) {
+			if(object.getWeight()>heaviest){
+				this.heaviestObject=object;
+			}
+		}
+	}
+	private void setHeaviestCategory() {
+		heavyCat=new HashMap<String, Object>();
+		int heaviest=0;
+		int index=0;
+	for (int i = 0; i < categoryList.size(); i++) {
+		for (int j = 0; j < officialObjects.size(); j++) {
+			if(categoryList.get(i).contains(officialObjects.get(j).getCategory())){
+				if(officialObjects.get(j).getWeight()>heaviest){
+					index=j;
+				}
+			}
+		}
+		
+		heavyCat.put(officialObjects.get(index).getCategory(),officialObjects.get(index));
+	}
+	
+	}
+
+	
+
+	private void setLightestCategory() {
+		heavyCat=new HashMap<String, Object>();
+		int lightest=1000;
+		int index=0;
+	for (int i = 0; i < categoryList.size(); i++) {
+		for (int j = 0; j < officialObjects.size(); j++) {
+			if(categoryList.get(i).contains(officialObjects.get(j).getCategory())){
+				if(officialObjects.get(j).getWeight()<lightest){
+					index=j;
+				}
+			}
+		}
+		
+		lightCat.put(officialObjects.get(index).getCategory(),officialObjects.get(index));
+	}		
+	}
+
+	private void setLightestObject() {
+		int lightest=0;
+		for (Object object : officialObjects) {
+			if(object.getWeight()<lightest){
+				lightest=object.getWeight();
+				this.lightestObject=object;
+			}
+		}		
+	}
+
+	private void setSmallestCategory() {
+		smallCat=new HashMap<String, Object>();
+		int smallest=1000;
+		int index=0;
+	for (int i = 0; i < categoryList.size(); i++) {
+		for (int j = 0; j < officialObjects.size(); j++) {
+			if(categoryList.get(i).contains(officialObjects.get(j).getCategory())){
+				if(officialObjects.get(j).getWeight()<smallest){
+					index=j;
+				}
+			}
+		}
+		
+		smallCat.put(officialObjects.get(index).getCategory(),officialObjects.get(index));
+	}				
+	}
+
+	private void setSmallestObject() {
+		int smallest=1000;
+		for (Object object : officialObjects) {
+			if(object.getSize()<smallest){
+				smallest=object.getSize();
+				this.smallestObject=object;
+			}
+		}		
+	}
+
+	private void setLargestCategory() {
+		largeCat=new HashMap<String, Object>();
+		int largest=0;
+		int index=0;
+	for (int i = 0; i < categoryList.size(); i++) {
+		for (int j = 0; j < officialObjects.size(); j++) {
+			if(categoryList.get(i).contains(officialObjects.get(j).getCategory())){
+				if(officialObjects.get(j).getWeight()>largest){
+					index=j;
+				}
+			}
+		}
+		
+		largeCat.put(officialObjects.get(index).getCategory(),officialObjects.get(index));
+	}				
+	}
+
+	private void setLargestObject() {
+		int largest=0;
+		for (Object object : officialObjects) {
+			if(object.getSize()>largest){
+				largest=object.getSize();
+				this.largestObject=object;
+			}
+		}	
 	}
 
 	public void decide(ArrayList<TaggedWord> parsedString) {
@@ -414,7 +544,7 @@ public class Decision {
 					actionObject = "countSitting";
 					actionCommand = true;
 					// if lay/laying is in sentence
-				} else if (getOriginalTranscript().contains("lay") || getOriginalTranscript().contains("laying")) {
+				} else if (getOriginalTranscript().contains("lay") || getOriginalTranscript().contains("lying")) {
 					foundCrowd = true;
 					actionObject = "countLaying";
 					actionCommand = true;

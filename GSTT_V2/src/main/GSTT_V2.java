@@ -163,7 +163,7 @@ public class GSTT_V2 {
 					if (gstt.logCalls.counter < 50)
 						APIKEY = "AIzaSyCJZ1OZBxKSWxLSsU6jJXaoCKDKwO2J08M";
 					else if ((gstt.logCalls.counter >= 50) && (gstt.logCalls.counter < 100))
-						APIKEY = "AIzaSyBdhjP4B0jSt17JXfE2YJFh3Dh3wuR79uM";
+						APIKEY = "AIzaSyD8zjCJ0KkAA_xjAEMN1KVNBIYjYXeZnEc";
 					else if ((gstt.logCalls.counter >= 100) && (gstt.logCalls.counter < 150))
 						APIKEY = "AIzaSyA9Ko0dEOnzcp5sW_EvpbiXrb1u9c6-vTg";
 					else  if ((gstt.logCalls.counter >= 150) && (gstt.logCalls.counter < 200))
@@ -177,7 +177,9 @@ public class GSTT_V2 {
 					else if ((gstt.logCalls.counter >= 350) && (gstt.logCalls.counter < 400))
 						APIKEY= "AIzaSyDe2nR4mdQYL74iwkZx5pOBM_3MVHNZS8c";
 					else if ((gstt.logCalls.counter >= 400) && (gstt.logCalls.counter < 450))
-						APIKEY="AIzaSyDU8gLnbimz6qg_0HkHu4q8oXx4aZilejs";
+						APIKEY="AIzaSyDU8gLnbimz6qg_0HkHu4q8oXx4aZiIejs";
+					else if ((gstt.logCalls.counter >= 450) && (gstt.logCalls.counter < 500))
+						APIKEY="AIzaSyDU8gLnbimz6qg_0HkHu4q8oXx4aZiIejs";
 					Microphone mic = new Microphone(FLACFileWriter.FLAC);
 					String fileName = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss").format(new Date());
 					File file = new File("RT-Lions_MicrophoneRecording_" + fileName + ".wav"); // direct
