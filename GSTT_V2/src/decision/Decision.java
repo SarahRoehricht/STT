@@ -38,7 +38,7 @@ public class Decision {
 	private String[] hs = new String[] { "team", "robocup", "robocop", "at home", "time", "date", "bring", "give",
 			"take", "hello", "greetings", "hi", "howdy", "hey", "bonjour", "hallo", "go", "name", "joke", "follow",
 			"following", "where", "open", "many", "much", "what", "big", "biggest", "smallest", "lightest", "heaviest",
-			"largest" };
+			"largest", "heavier", "smaller", "bigger", "larger", "lighter" };
 	private String[] locationList = new String[] { "living room", "shelf", "cabinet", "couch table", "desk", "shelf",
 			"house", "table", "kitchen", "dining room", "closet", "bedroom" };
 	private List<String> categoryList = new ArrayList<String>();
@@ -445,9 +445,14 @@ public class Decision {
 									+ " centimetres tall");
 						}
 					}
+					if (getOriginalTranscript().contains("object")) {
+						return ("The biggest object" + " is the " + smallestObject.getName() + ", which is about "
+								+ smallestObject.getSize() + " centimetres tall.");
+					}
 
 				}
 			}
+			return("");
 		}
 		case ("smallest"): {
 			for (int i = 0; i < parsedString.size(); i++) {
@@ -461,9 +466,14 @@ public class Decision {
 									+ " centimetres.");
 						}
 					}
+					if (getOriginalTranscript().contains("object")) {
+						return ("The smallest object" + " is the " + smallestObject.getName() + ", which is about "
+								+ smallestObject.getSize() + " centimetres.");
+					}
 
 				}
 			}
+			return("");
 		}
 		case ("lightest"): {
 			for (int i = 0; i < parsedString.size(); i++) {
@@ -477,9 +487,14 @@ public class Decision {
 									+ " grams.");
 						}
 					}
+					if (getOriginalTranscript().contains("object")) {
+						return ("The lightest object" + " is the " + lightestObject.getName() + ", which weighs about "
+								+ lightestObject.getWeight() + " grams.");
+					}
 
 				}
 			}
+			return("");
 		}
 		case ("heaviest"): {
 			for (int i = 0; i < parsedString.size(); i++) {
@@ -493,12 +508,160 @@ public class Decision {
 									+ " grams.");
 						}
 					}
+					if (getOriginalTranscript().contains("object")) {
+						return ("The heaviest object" + " is the " + heaviestObject.getName() + ", which weighs about "
+								+ heaviestObject.getWeight() + " grams.");
+					}
 
 				}
 			}
+			return("");
+		}
+		case ("lighter"): {
+			Object o1=null;
+			Object o2=null;
+			boolean o1Found = false;
+			boolean o2Found=false;
+			for (int i = 0; i < parsedString.size(); i++) {
+				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")
+						|| parsedString.get(i).tag().equals("NNP")) {
+					for (int j = 0; j < officialObjects.size(); j++) {
+
+						if (!o1Found) {
+							if (parsedString.get(i).value().equals(officialObjects.get(j).getName())
+									|| parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
+								o1 = officialObjects.get(j);
+								o1Found=true;
+							}
+						} else {
+							if (parsedString.get(i).value().equals(officialObjects.get(j).getName())
+									|| parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
+								o2 = officialObjects.get(j);
+								o2Found=true;
+							}
+						}
+					}
+				}
+			}
+			if(o1Found&&o2Found){
+				if(o1.getWeight()<o2.getWeight()){
+					return("the "+o1.getName()+" is lighter than the "+o2.getName());
+				}else{
+					return("the "+o2.getName()+" is lighter than the "+o1.getName());
+				}
+			}
+			return("");
+		}
+		case ("bigger"): {
 
 		}
+		case ("larger"): {
+			Object o1=null;
+			Object o2=null;
+			boolean o1Found = false;
+			boolean o2Found=false;
+			for (int i = 0; i < parsedString.size(); i++) {
+				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")
+						|| parsedString.get(i).tag().equals("NNP")) {
+					for (int j = 0; j < officialObjects.size(); j++) {
 
+						if (!o1Found) {
+							if (parsedString.get(i).value().equals(officialObjects.get(j).getName())
+									|| parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
+								o1 = officialObjects.get(j);
+								o1Found=true;
+							}
+						} else {
+							if (parsedString.get(i).value().equals(officialObjects.get(j).getName())
+									|| parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
+								o2 = officialObjects.get(j);
+								o2Found=true;
+							}
+						}
+					}
+				}
+			}
+			if(o1Found&&o2Found){
+				if(o1.getWeight()>o2.getSize()){
+					return("the "+o1.getName()+" is larger than the "+o2.getName());
+				}else{
+					return("the "+o2.getName()+" is larger than the "+o1.getName());
+				}
+			}
+			return("");
+		}
+		
+		case ("smaller"): {
+			Object o1=null;
+			Object o2=null;
+			boolean o1Found = false;
+			boolean o2Found=false;
+			for (int i = 0; i < parsedString.size(); i++) {
+				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")
+						|| parsedString.get(i).tag().equals("NNP")) {
+					for (int j = 0; j < officialObjects.size(); j++) {
+
+						if (!o1Found) {
+							if (parsedString.get(i).value().equals(officialObjects.get(j).getName())
+									|| parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
+								o1 = officialObjects.get(j);
+								o1Found=true;
+							}
+						} else {
+							if (parsedString.get(i).value().equals(officialObjects.get(j).getName())
+									|| parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
+								o2 = officialObjects.get(j);
+								o2Found=true;
+							}
+						}
+					}
+				}
+			}
+			if(o1Found&&o2Found){
+				if(o1.getWeight()<o2.getSize()){
+					return("the "+o1.getName()+" is smaller than the "+o2.getName());
+				}else{
+					return("the "+o2.getName()+" is smaller than the "+o1.getName());
+				}
+			}
+			return("");
+		}
+
+		case ("heavier"): {
+			Object o1=null;
+			Object o2=null;
+			boolean o1Found = false;
+			boolean o2Found=false;
+			for (int i = 0; i < parsedString.size(); i++) {
+				if (parsedString.get(i).tag().equals("NN") || parsedString.get(i).tag().equals("NNP")
+						|| parsedString.get(i).tag().equals("NNP")) {
+					for (int j = 0; j < officialObjects.size(); j++) {
+
+						if (!o1Found) {
+							if (parsedString.get(i).value().equals(officialObjects.get(j).getName())
+									|| parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
+								o1 = officialObjects.get(j);
+								o1Found=true;
+							}
+						} else {
+							if (parsedString.get(i).value().equals(officialObjects.get(j).getName())
+									|| parsedString.get(i).value().equals(officialObjects.get(j).getPluralName())) {
+								o2 = officialObjects.get(j);
+								o2Found=true;
+							}
+						}
+					}
+				}
+			}
+			if(o1Found&&o2Found){
+				if(o1.getWeight()>o2.getWeight()){
+					return("the "+o1.getName()+" is heavier than the "+o2.getName());
+				}else{
+					return("the "+o2.getName()+" is heavier than the "+o1.getName());
+				}
+			}
+			return("");
+		}
 			// fall-through
 		case ("much"): {
 
@@ -810,7 +973,7 @@ public class Decision {
 					}
 				}
 			}
-
+			return ("");
 		}
 
 			// needs strong checking
