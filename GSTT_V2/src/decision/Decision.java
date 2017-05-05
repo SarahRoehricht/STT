@@ -205,24 +205,24 @@ public class Decision {
 			// answer
 			if (getOriginalTranscript().contains("big") && getOriginalTranscript().contains("hairy")
 					&& ((getOriginalTranscript().toLowerCase().contains("star")))) {
-				setToTTS("Chewbacca.[:-)]");
+				setToTTS("The big hairy creature from Star Wars is Chewbacca.[:-)]");
 				match = true;
 			} else if ((getOriginalTranscript().contains("law") || getOriginalTranscript().contains("laws"))
 					&& getOriginalTranscript().contains("robotics")) {
-				setToTTS("Isaac Asimov.[:-)]");
+				setToTTS("Isaac Asimov wrote the three laws of robotics.[:-)]");
 				match = true;
 			} else if ((getOriginalTranscript().toLowerCase().contains("rosie")
 					|| getOriginalTranscript().contains("series")) && getOriginalTranscript().contains("robot")) {
-				setToTTS("The Jetsons.[:-)]");
+				setToTTS("We know her from the series The Jetsons.[:-)]");
 				match = true;
 			} else if ((getOriginalTranscript().contains("baby") && getOriginalTranscript().contains("series"))
 					|| getOriginalTranscript().toLowerCase().contains("bambam")
 					|| getOriginalTranscript().toLowerCase().contains("bum")) {
-				setToTTS("The Flintstones.[:-)]");
+				setToTTS("Baby bam bam is from the TV series The Flintstones.[:-)]");
 				match = true;
 			} else if (getOriginalTranscript().contains("main")
 					&& getOriginalTranscript().toLowerCase().contains("matrix")) {
-				setToTTS("Neo.[:-)]");
+				setToTTS("Neo is the main character from the matrix.[:-)]");
 				match = true;
 			} else if (((getOriginalTranscript().contains("robocop") || getOriginalTranscript().contains("robocup")
 					|| getOriginalTranscript().contains("home") || getOriginalTranscript().contains("rubber")))
@@ -980,7 +980,7 @@ public class Decision {
 		case ("what"): {
 			// What city are we in, for Magdeburg
 			if (getOriginalTranscript().contains("city") && getOriginalTranscript().contains("in")) {
-				return ("Magdeburg");
+				return ("Right now, we are in Magdeburg");
 			} else if (getOriginalTranscript().contains("size") && getOriginalTranscript().contains("crowd")) {
 
 				actionCommand = true;
