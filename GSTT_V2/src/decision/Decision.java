@@ -790,7 +790,7 @@ public class Decision {
 					actionObject = "countHandSign";
 					actionCommand = true;
 					// if old is in sentence
-				} else if (getOriginalTranscript().contains("old")) {
+				} else if (getOriginalTranscript().contains("old")||getOriginalTranscript().contains("elder")) {
 					foundCrowd = true;
 					actionObject = "countOld";
 					actionCommand = true;

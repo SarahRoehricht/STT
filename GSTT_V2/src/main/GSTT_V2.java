@@ -180,6 +180,8 @@ public class GSTT_V2 {
 						APIKEY="AIzaSyDU8gLnbimz6qg_0HkHu4q8oXx4aZiIejs";
 					else if ((gstt.logCalls.counter >= 450) && (gstt.logCalls.counter < 500))
 						APIKEY="AIzaSyDU8gLnbimz6qg_0HkHu4q8oXx4aZiIejs";
+					else if ((gstt.logCalls.counter >= 500) && (gstt.logCalls.counter < 550))
+						APIKEY="AIzaSyB8iAJsIZGIlFP4eilE1jL1p_ewrX9DAR0";
 					Microphone mic = new Microphone(FLACFileWriter.FLAC);
 					String fileName = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss").format(new Date());
 					File file = new File("RT-Lions_MicrophoneRecording_" + fileName + ".wav"); // direct

@@ -1,42 +1,42 @@
 ##this is the config file for all the known objects and it's properties
 ##The syntax is name|color|location|size in cm|weight in g|count|category|plural
-plant|brown|in the living room|100|800|1|plants|plants
-water|transparent|on the shelf|20|400|1|drinks|waters
-spoon|silver|in the cabinet|10|20|15|cutlery|spoons
-knife|silver|in the cabinet|10|20|15|cutlery|knives
-coke|red|on the kitchencounter|10|333|2|drinks|cokes
-crisps|yellow|on the couch table|5|150|100|snacks|crisps
-chips|yellow|on the couch table|5|150|100|snacks|chips
 apple|red|on the desk|8|200|4|fruit|apples
-lemon|yellow|on the desk|6|150|4|fruit|lemons
-pepper|red, yellow or green|on the shelf|15|300|4|vegetables|peppers
+basket|green|in the house|35|30|3|accecories|baskets
+bowl|white or red|kitchencounter|25|10|10|container|bowls
+chips|yellow|on the couch table|5|150|100|snacks|chips
 chocolate egg|red and white|in the house|5|20|3|snacks|chocolate eggs
-potato|brown|on the table|5|50|20|vegetables|potatoes
-tomato paste|red green and white|in the kitchen|30|200|1|cooking|tomato pastes
-orange juice|blue|in the kitchen|30|200|10|drinks|orange juices
-peas|green|in the kitchen|15|200|5|vegetables|peas
-sponge|blue|in the closet|15|15|2|cleaning tools|sponges
-towel|white|in the closet|10|100|2|cleaning tools|towels
-plate|white|in the kitchen|30|10|10|cutlery|plates
 coffee cup|white and brown|in the kitchen|15|5|10|cutlery|coffe cups
 cleaning tissue|red, green or blue|in the kitchen|30|40|6|cleaning tools|cleaning tissues
-basket|green|in the house|35|30|3|accecories|baskets
-bowl|white or red|kitchencounter|25|10|10|cutlery|bowls
-milk|blue and white|in the kitchen|30|200|10|drinks|milk
+coke|red|on the kitchencounter|10|333|2|drinks|cokes
+crisps|yellow|on the couch table|5|150|100|snacks|crisps
+cup soup|green|in the kitchen|20|48|10|cooking|cup soup
+knife|silver|in the cabinet|10|20|15|cutlery|knives
 kelloggs smacks|red and green|in the shelf|15|25|5|breakfast|kelloggs_smacks
 kelloggs cornflakes|white and green|in the shelf|15|25|5|breakfast|kellogs cornflakes
-salt|blue|in the kitchen|10|90|1|cooking|salt
-party cracker|red|in the kitchen|30|200|5|snacks|party crackers
-cup soup|green|in the kitchen|20|48|10|cooking|cup soup
-pear|green|in the kitchen|10|30|10|fruit|pears
-tissue|purple|in the kitchen|30|10|10|hygiene|tissues
-sandwich|brown|in the kitchen|25|30|10|snacks|sandwiches
+lemon|yellow|on the desk|6|150|4|fruit|lemons
+milk|blue and white|in the kitchen|30|200|10|drinks|milk
 noodles|in the kitchen|black|20|65|5|snacks|noodles
+orange juice|blue|in the kitchen|30|200|10|drinks|orange juices
+peas|green|in the kitchen|15|200|5|vegetables|peas
+party cracker|red|in the kitchen|30|200|5|snacks|party crackers
+pear|green|in the kitchen|10|30|10|fruit|pears
+pepper|red, yellow or green|on the shelf|15|300|4|vegetables|peppers
+plant|brown|in the living room|100|800|1|plants|plants
+plate|white|in the kitchen|30|10|10|cutlery|plates
+potato|brown|on the table|5|50|20|vegetables|potatoes
+sandwich|brown|in the kitchen|25|30|10|snacks|sandwiches
+salt|white|in the kitchen|10|90|1|cooking|salt
+sponge|blue|in the closet|15|15|2|cleaning tools|sponges
+spoon|silver|in the cabinet|10|20|15|cutlery|spoons
+tissue|purple|in the kitchen|30|10|10|hygiene|tissues
+tomato paste|red green and white|in the kitchen|30|200|1|cooking|tomato pastes
+towel|white|in the closet|10|100|2|cleaning tools|towels
+water|transparent|on the shelf|20|400|1|drinks|waters
 #additional objects, that are not inculuded in the object recognition task
 pot|silver|in the kitchen|25|400|2|cooking|pots
 egg|brown|in the kitchen|360|12|12|cooking|eggs
-cutlery holder|in the kitchen|silver|25|200|1|cooking|cutlery holders
-pan|silver|in the kitchen|35|500|1|cooking|pans
+cutlery holder|in the kitchen|silver|25|200|1|container|cutlery holders
+pan|silver|in the tchen|35|500|1|cooking|pans
 bird pictures|white|in the kitchen|30|100|2|decoration|bird pictures
 glass pot|transparent|in the kitchen|40|800|1|cooking|glass pots
 candlestick|transparent|in the kitchen|10|300|3|decoration|candlesticks
@@ -48,3 +48,18 @@ book|grey|in the shelf|25|300|10|decoration|books
 picture|golden|in the dining room|35|150|3|decoration|pictures
 beach lounger|white|in the bedroom|35|300|1|decoration|beach loungers
 lamp|white|in the bedroom|45|400|1|decoration|lamps
+#Ab hier Sarahs Gruscht: 
+bag|brown|on the kitchencounter|25|50|1|cooking|bags
+banana|yellow|on the kitchencounter|20|400|1|fruit|bananas
+bread|brown|on the kitchencounter|30|500|1|food|breads
+cappuccino|brown|on hte kitchencounter|18|100|1|drink|cappuccions
+cereals|brown|in the cupboard|35|250|1|food|cereals
+chocolate cookie|brown|in the cupboard|5|50|1|snacks|chocolate cookies
+cookie|brown|in the cupboard|1|12|1|snacks|chocolate cookies
+Cloth|white|on the table|35|40|1|decoration|cloths
+fork|red,blue or green|in the kitchen|15|15|3|cooking|forks
+paper|white|on the desk|30|1|1|stationery|papers
+paprika|red,yellow or green|on the kitchencounter|10|20|2|vegetable|paprikas
+potato soup|yellow|in the cupboard|15|10000|1|food|potato soups
+pringles|yellow or red|in the cupboard|32|180|1|snack|pringles
+stove|silver|in the kitchen|50|32000|1|cooking|stoves
